@@ -1,24 +1,47 @@
-# Compiled class file
+# =========================
+# Java
+# =========================
 *.class
 
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
+# Ignora JARs generados, pero permite los JARs de la carpeta lib
 *.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+!lib/*.jar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+*.war
+*.ear
+
+# =========================
+# Directorios de compilación
+# (en cualquier nivel)
+# =========================
+**/build/
+**/dist/
+**/out/
+**/target/
+
+# =========================
+# NetBeans
+# =========================
+**/nbproject/private/
+**/nbproject/configurations.xml
+**/nbproject/*-private.xml
+
+# =========================
+# IDEs
+# =========================
+**/.idea/
+**/.vscode/
+*.iml
+
+# =========================
+# Archivos del sistema
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs y temporales
+# =========================
+*.log
 hs_err_pid*
 replay_pid*

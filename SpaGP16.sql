@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-10-2025 a las 17:12:17
+-- Tiempo de generación: 18-10-2025 a las 13:06:14
 -- Versión del servidor: 10.11.11-MariaDB
 -- Versión de PHP: 8.4.13
 
@@ -74,7 +74,7 @@ CREATE TABLE `dia_de_spa` (
 --
 
 CREATE TABLE `instalacion` (
-  `codInst` int(10) NOT NULL,
+  `codInstal` int(10) NOT NULL,
   `nombre` varchar(80) NOT NULL,
   `detalle_uso` varchar(200) NOT NULL,
   `precio_30min` decimal(10,2) NOT NULL,
@@ -109,7 +109,8 @@ CREATE TABLE `sesion` (
   `nroConsultorio` int(10) DEFAULT NULL,
   `matricula` int(10) DEFAULT NULL,
   `codPack` int(10) DEFAULT NULL,
-  `estado` tinyint(1) DEFAULT 1
+  `estado` tinyint(1) DEFAULT 1,
+  `codInstal` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -155,7 +156,7 @@ ALTER TABLE `dia_de_spa`
 -- Indices de la tabla `instalacion`
 --
 ALTER TABLE `instalacion`
-  ADD PRIMARY KEY (`codInst`);
+  ADD PRIMARY KEY (`codInstal`);
 
 --
 -- Indices de la tabla `masajista`
@@ -171,7 +172,8 @@ ALTER TABLE `sesion`
   ADD KEY `fk_sesion_tratamiento` (`codTratamiento`),
   ADD KEY `fk_sesion_consultorio` (`nroConsultorio`),
   ADD KEY `fk_sesion_masajista` (`matricula`),
-  ADD KEY `fk_sesion_dia` (`codPack`);
+  ADD KEY `fk_sesion_dia` (`codPack`),
+  ADD KEY `fk_sesion_instalacion` (`codInstal`);
 
 --
 -- Indices de la tabla `tratamiento`
@@ -202,12 +204,6 @@ ALTER TABLE `dia_de_spa`
   MODIFY `codPack` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `instalacion`
---
-ALTER TABLE `instalacion`
-  MODIFY `codInst` int(10) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `sesion`
 --
 ALTER TABLE `sesion`
@@ -235,6 +231,7 @@ ALTER TABLE `dia_de_spa`
 ALTER TABLE `sesion`
   ADD CONSTRAINT `fk_sesion_consultorio` FOREIGN KEY (`nroConsultorio`) REFERENCES `consultorio` (`nroConsultorio`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_sesion_dia` FOREIGN KEY (`codPack`) REFERENCES `dia_de_spa` (`codPack`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_sesion_instalacion` FOREIGN KEY (`codInstal`) REFERENCES `instalacion` (`codInstal`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_sesion_masajista` FOREIGN KEY (`matricula`) REFERENCES `masajista` (`matricula`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_sesion_tratamiento` FOREIGN KEY (`codTratamiento`) REFERENCES `tratamiento` (`codTratam`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;

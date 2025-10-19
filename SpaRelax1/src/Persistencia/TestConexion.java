@@ -5,11 +5,17 @@
  */
 package Persistencia;
 
+import Modelo.Cliente;
 
 public class TestConexion {
-        public static void main(String[] args) {
+
+    public static void main(String[] args) {
         Conexion.getConexion();
+
+        /* Pruebo cargar cliente a la base de datos
+        Cliente cliente = new Cliente(38749542, "Martin Leiza", "0000393426", 30, "Nada", true);
+        ClienteData clienteD = new ClienteData();       
+        clienteD.insertarCliente(cliente); */
     }
 
-    
 }

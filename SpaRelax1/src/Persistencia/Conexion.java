@@ -10,27 +10,26 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-  
-    private static final String URL = "jdbc:mariadb://localhost:3306/spa_relax1"; 
+
+    private static final String URL = "jdbc:mariadb://localhost:3306/SpaGP16";
     private static final String USER = "root";
-    private static final String PASSWORD = ""; 
+    private static final String PASSWORD = "";
 
     private static Connection conexion;
 
-    private Conexion() {}
+    private Conexion() {
+    }
 
     public static Connection getConexion() {
         if (conexion == null) {
             try {
                 Class.forName("org.mariadb.jdbc.Driver");
                 conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-                System.out.println("✅ Conexión exitosa a la base de datos");
+                System.out.println("Conexión exitosa a la base de datos");
             } catch (ClassNotFoundException | SQLException e) {
-                System.out.println("❌ Error al conectar: " + e.getMessage());
+                System.out.println("Error al conectar: " + e.getMessage());
             }
         }
         return conexion;
     }
 }
-    
-

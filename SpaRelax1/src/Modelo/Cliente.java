@@ -10,6 +10,7 @@ package Modelo;
  * @author Usuario
  */
 public class Cliente {
+
     private int codCli;
     private int dni;
     private String nombreCompleto;
@@ -101,6 +102,4 @@ public class Cliente {
         return "Cliente{" + "codCli=" + codCli + ", dni=" + dni + ", nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", edad=" + edad + ", afecciones=" + afecciones + ", estado=" + estado + '}';
     }
 
-    
-    
 }

@@ -2,7 +2,6 @@ package Persistencia;
 
 import Modelo.Cliente;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,12 +36,16 @@ public class ClienteData {
                 c.setCodCli(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Cliente Guardado Exitosamente");
             } else {
-                System.out.println("No se pudo obtener ID");
+                JOptionPane.showMessageDialog(null, "No se pudo obtener ID");
             }
             ps.close();
             System.out.println("Guardado");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cliente");
         }
+    }
+    
+    public void actualizarCliente(){
+        
     }
 }

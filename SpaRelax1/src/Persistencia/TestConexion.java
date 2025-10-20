@@ -20,6 +20,11 @@ public class TestConexion {
         /* Pruebo actualizar cliente
         Cliente cliente = new Cliente(1, 38749730, "Martin Leiza", "0000393426", 30, "Nada de nada", true);   
         clienteD.actualizarCliente(cliente); */
+        
+        /* Pruebo buscarCliente
+        System.out.println(clienteD.buscarCliente("Martin Leiza")); */
+        
+        
     }
 
 }

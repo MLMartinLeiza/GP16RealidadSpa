@@ -64,10 +64,42 @@ public class ClienteData {
             if (actualizado == 1) {
                 JOptionPane.showMessageDialog(null, "Cliente actualizado");
             }
-            
+
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cliente");
         }
+    }
+
+    public Cliente buscarCliente(String nombreCliente) {
+        Cliente clienteEncontrado = null;
+
+        String query = "SELECT * FROM cliente WHERE nombreCompleto=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, nombreCliente);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                clienteEncontrado = new Cliente();
+
+                clienteEncontrado.setCodCli(rs.getInt("codCli"));
+                clienteEncontrado.setDni(rs.getInt("dni"));
+                clienteEncontrado.setNombreCompleto(rs.getString("nombreCompleto"));
+                clienteEncontrado.setTelefono(rs.getString("telefono"));
+                clienteEncontrado.setEdad(rs.getInt("edad"));
+                clienteEncontrado.setAfecciones(rs.getString("afecciones"));
+                clienteEncontrado.setEstado(rs.getBoolean("estado"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el cliente");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cliente");
+        }
+        return clienteEncontrado;
     }
 }

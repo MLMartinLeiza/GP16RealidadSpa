@@ -44,8 +44,30 @@ public class ClienteData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cliente");
         }
     }
-    
-    public void actualizarCliente(){
-        
+
+    public void actualizarCliente(Cliente c) {
+        String query = "UPDATE cliente SET dni=?, nombreCompleto=?, telefono=?, edad=?, afecciones=?, estado=? "
+                + "WHERE codCli=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, c.getDni());
+            ps.setString(2, c.getNombreCompleto());
+            ps.setString(3, c.getTelefono());
+            ps.setInt(4, c.getEdad());
+            ps.setString(5, c.getAfecciones());
+            ps.setBoolean(6, c.isEstado());
+            ps.setInt(7, c.getCodCli());
+
+            int actualizado = ps.executeUpdate();
+
+            if (actualizado == 1) {
+                JOptionPane.showMessageDialog(null, "Cliente actualizado");
+            }
+            
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cliente");
+        }
     }
 }

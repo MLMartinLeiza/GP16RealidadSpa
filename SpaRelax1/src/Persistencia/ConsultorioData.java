@@ -77,10 +77,32 @@ public class ConsultorioData {
      
      
      
+     
+     
       
     }
     
-
+private void altaLogica (int nroConsultorio){
+         String query = "UPDATE consultorio SET apto=1 WHERE nroConsultorio=?";
+         
+     try {
+         PreparedStatement ps = con.prepareStatement(query);
+         ps.setInt(1, nroConsultorio);
+         
+         int actualizado = ps.executeUpdate();
+         
+         if (actualizado == 1) {
+                JOptionPane.showMessageDialog(null, "Consultorio dado de alta correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro al Consultorio con ese numero");
+            }
+            ps.close(); 
+         
+     } catch (SQLException ex) {
+         JOptionPane.showMessageDialog(null, "Error al acceder a la tabla consultorio");
+     }
+         
+     }
  
 
     

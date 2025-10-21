@@ -143,4 +143,24 @@ public class ClienteData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cliente");
         }
     }
+
+    public void eliminarCliente(int codCli) {
+        String query = "DELETE FROM cliente WHERE codCli=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, codCli);
+
+            int eliminado = ps.executeUpdate();
+
+            if (eliminado == 1) {
+                JOptionPane.showMessageDialog(null, "Cliente eliminado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al eliinar cliente");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cliente");
+        }
+    }
 }

@@ -11,9 +11,8 @@ package Modelo;
  */
 public class Masajista {
     
-    private int idMasajista;
-    private String nombre;
-    private String apellido;
+    private int matricula;
+    private String nombre_apellido;
     private String telefono;
     private String especialidad;
     private boolean estado;
@@ -21,35 +20,27 @@ public class Masajista {
     public Masajista(){
         
     }
-        public Masajista(String nombre, String apellido, String telefono, String especialidad, boolean estado) {
-        this.nombre = nombre;
-        this.apellido = apellido;
+        public Masajista(String nombre_apellido, String telefono, String especialidad, boolean estado) {
+        this.nombre_apellido = nombre_apellido;
         this.telefono = telefono;
         this.especialidad = especialidad;
         this.estado = estado;
         }
-    public int getIdMasajista() {
-        return idMasajista;
+
+    public int getMatricula() {
+        return matricula;
     }
 
-    public void setIdMasajista(int idMasajista) {
-        this.idMasajista = idMasajista;
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombre_apellido() {
+        return nombre_apellido;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setNombre_apellido(String nombre_apellido) {
+        this.nombre_apellido = nombre_apellido;
     }
 
     public String getTelefono() {
@@ -75,9 +66,10 @@ public class Masajista {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-            
+
        @Override
     public String toString() {
-        return nombre + " " + apellido + " (" + especialidad + ")";
-    }
+        return "Masajista{" + "matricula=" + matricula + ", nombre_apellido=" + nombre_apellido + ", telefono=" + telefono + ", especialidad=" + especialidad + ", estado=" + estado + '}';
+    }      
+   
 }

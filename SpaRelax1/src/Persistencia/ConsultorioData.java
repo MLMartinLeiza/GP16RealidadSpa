@@ -49,13 +49,41 @@ public class ConsultorioData {
          JOptionPane.showMessageDialog(null, "Error al acceder a la tabla consultorio");
      }
     
+         
+         
+     }
+     
+      private void bajaLogica (int nroConsultorio){
+     String query = "UPDATE consultorio SET apto = 0 WHERE nroConsultorio=?";
      
      
+     try {
+         PreparedStatement ps = con.prepareStatement(query);
+         ps.setInt(1, nroConsultorio);
+         int baja = ps.executeUpdate();
+         
+         if (baja == 1) {
+                JOptionPane.showMessageDialog(null, "Estado actualizado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar estado");
+            }
+
+            ps.close();
+             
+     } catch (SQLException ex) {
+         JOptionPane.showMessageDialog(null, "Error al acceder a la tabla consultorio");
+     }
+      
+     
+     
+     
+      
     }
     
- 
+
  
 
     
     
 }
+

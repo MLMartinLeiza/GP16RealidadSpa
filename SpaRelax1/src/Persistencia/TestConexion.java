@@ -24,7 +24,6 @@ public class TestConexion {
         /* Pruebo buscarCliente
         System.out.println(clienteD.buscarCliente("Martin Leiza")); */
         
-        
     }
 
 }

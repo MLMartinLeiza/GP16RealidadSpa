@@ -102,4 +102,25 @@ public class ClienteData {
         }
         return clienteEncontrado;
     }
+
+    public void bajaLogica(int codCli) {
+        String query = "UPDATE cliente SET estado=0 WHERE codCli=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, codCli);
+            int actualizado = ps.executeUpdate();
+
+            if (actualizado == 1) {
+                JOptionPane.showMessageDialog(null, "Estado actualizado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar estado");
+            }
+            
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cliente");
+        }
+    }
 }

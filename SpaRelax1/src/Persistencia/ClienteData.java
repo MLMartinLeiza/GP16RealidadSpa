@@ -1,11 +1,13 @@
 package Persistencia;
 
 import Modelo.Cliente;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class ClienteData {
@@ -162,5 +164,32 @@ public class ClienteData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cliente");
         }
+    }
+
+    public List<Cliente> listarClientes() {
+
+        String query = "SELECT * FROM cliente WHERE estado=1";
+        List<Cliente> clientes = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setCodCli(rs.getInt("codCli"));
+                cliente.setDni(rs.getInt("dni"));
+                cliente.setNombreCompleto(rs.getString("nombreCompleto"));
+                cliente.setTelefono(rs.getString("telefono"));
+                cliente.setAfecciones(rs.getString("afecciones"));
+                cliente.setEdad(rs.getInt("edad"));
+                cliente.setEstado(rs.getBoolean("estado"));
+                clientes.add(cliente);
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla cliente");
+        }
+        return clientes;
     }
 }

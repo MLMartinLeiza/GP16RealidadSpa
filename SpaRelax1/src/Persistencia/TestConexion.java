@@ -13,17 +13,46 @@ public class TestConexion {
         Conexion.getConexion();
         ClienteData clienteD = new ClienteData();
 
-        /* Pruebo cargar cliente a la base de datos
+        /*Pruebo cargar cliente a la base de datos
         Cliente cliente = new Cliente(38749542, "Martin Leiza", "0000393426", 30, "Nada", true);       
-        clienteD.insertarCliente(cliente); */
+        clienteD.insertarCliente(cliente); 
         
-        /* Pruebo actualizar cliente
+         //Pruebo actualizar cliente
         Cliente cliente = new Cliente(1, 38749730, "Martin Leiza", "0000393426", 30, "Nada de nada", true);   
-        clienteD.actualizarCliente(cliente); */
+        clienteD.actualizarCliente(cliente); 
         
-        /* Pruebo buscarCliente
+         //Pruebo buscarCliente
         System.out.println(clienteD.buscarCliente("Martin Leiza")); */
+        
+        
+         /*Insertar un cliente
+        Cliente cliente = new Cliente(44020403, "Gomez Santiago", "266346734", 24, "Sin afecciones", true);
+        clienteD.insertarCliente(cliente);
+
+        // Buscar cliente por nombre
+        System.out.println(clienteD.buscarCliente("Gomez Santiago"));
+
+        // Mostrar integrantes
+        System.out.println("\nIntegrantes del grupo:");
+        System.out.println("1. Martin Leiza");
+        System.out.println("2. [Compañero 2]");
+        System.out.println("3. [Compañero 3]");   */
+        
+        
+                 //Insertar un cliente
+        Cliente cliente = new Cliente(40523484, "Eduardo Gimenes", "53982367", 35, "Sin afecciones", true);
+        clienteD.insertarCliente(cliente);
+
+        // Buscar cliente por nombre
+        System.out.println(clienteD.buscarCliente("Eduardo Gimenes"));
+
+        // Mostrar integrantes
+        System.out.println("\nIntegrantes del grupo:");
+        System.out.println("1. Martin Leiza");
+        System.out.println("2. Gomez Santiago");
+        System.out.println("3. Eduardo Gimenes"); 
+        System.out.println("4. ");
+        
               
     }
-
 }

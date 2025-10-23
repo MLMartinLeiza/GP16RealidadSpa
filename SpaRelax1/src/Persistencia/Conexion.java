@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    private static final String URL = "jdbc:mariadb://localhost:3306/SpaGP16";
+    private static final String URL = "jdbc:mariadb://localhost:3306/spag16";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 

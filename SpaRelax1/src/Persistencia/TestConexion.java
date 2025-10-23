@@ -13,7 +13,7 @@ public class TestConexion {
         Conexion.getConexion();
         ClienteData clienteD = new ClienteData();
 
-        /*Pruebo cargar cliente a la base de datos
+       /*Pruebo cargar cliente a la base de datos
         Cliente cliente = new Cliente(38749542, "Martin Leiza", "0000393426", 30, "Nada", true);       
         clienteD.insertarCliente(cliente); 
         
@@ -39,8 +39,8 @@ public class TestConexion {
         System.out.println("3. [Compañero 3]");   */
         
         
-                 //Insertar un cliente
-        Cliente cliente = new Cliente(40523484, "Eduardo Gimenes", "53982367", 35, "Sin afecciones", true);
+                /* Insertar un cliente
+       Cliente cliente = new Cliente(40523484, "Eduardo Gimenes", "53982367", 35, "Sin afecciones", true);
         clienteD.insertarCliente(cliente);
 
         // Buscar cliente por nombre
@@ -51,7 +51,21 @@ public class TestConexion {
         System.out.println("1. Martin Leiza");
         System.out.println("2. Gomez Santiago");
         System.out.println("3. Eduardo Gimenes"); 
-        System.out.println("4. ");
+        System.out.println("4. "); */
+       
+      /* Cliente cliente = new Cliente(45886532, "Milagros Alfaro", "53982367", 21, "Sin afecciones", true);
+        clienteD.insertarCliente(cliente);
+
+        // Buscar cliente por nombre
+        System.out.println(clienteD.buscarCliente("Milagros Alfaro"));
+
+        // Mostrar integrantes
+        System.out.println("\nIntegrantes del grupo:");
+        System.out.println("1. Martin Leiza");
+        System.out.println("2. Gomez Santiago");
+        System.out.println("3. Eduardo Gimenes"); 
+        System.out.println("4. Milagros Alfaro");  */
+       
         
               
     }

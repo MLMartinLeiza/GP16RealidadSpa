@@ -38,7 +38,7 @@ public class ServicioData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al buscar servicio " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al buscar el consultorio " + ex.getMessage());
         }
         return s;
     }   

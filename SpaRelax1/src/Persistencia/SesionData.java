@@ -16,9 +16,9 @@ public class SesionData {
 
     public SesionData(Conexion conexion) {
         con = conexion.getConexion();
-        MasajistaData = new masajistaData(conexion);
-        ConsultorioData = new consultorioData(conexion);
-        ServicioData = new servicioData(conexion);
+        masajistaData = new MasajistaData(conexion);
+        consultorioData = new ConsultorioData(conexion);
+        servicioData = new ServicioData(conexion);
     }
 
     public void guardarSesion(Sesion sesion) {

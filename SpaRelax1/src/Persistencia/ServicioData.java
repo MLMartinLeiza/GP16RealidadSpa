@@ -18,6 +18,10 @@ public class ServicioData {
         con = Conexion.getConexion();
     }
 
+    ServicioData(Conexion conexion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     Servicio buscarServicio(int aInt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

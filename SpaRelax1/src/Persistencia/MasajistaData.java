@@ -23,6 +23,10 @@ public class MasajistaData {
     public MasajistaData() {
           con = Conexion.getConexion();
     }
+
+    MasajistaData(Conexion conexion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
       public void guardarMasajista(Masajista m) {
         String sql = "INSERT INTO masajista (nombre_apellido, telefono, especialidad, estado) VALUES (?, ?, ?, ?, ?)";

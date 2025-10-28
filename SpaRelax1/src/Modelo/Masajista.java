@@ -71,5 +71,9 @@ public class Masajista {
     public String toString() {
         return "Masajista{" + "matricula=" + matricula + ", nombre_apellido=" + nombre_apellido + ", telefono=" + telefono + ", especialidad=" + especialidad + ", estado=" + estado + '}';
     }      
+
+    public int getIdMasajista() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
    
 }

@@ -5,6 +5,7 @@
  */
 package Persistencia;
 
+import Modelo.Servicio;
 import java.sql.Connection;
 
 
@@ -15,6 +16,10 @@ public class ServicioData {
   
     public ServicioData() {
         con = Conexion.getConexion();
+    }
+
+    Servicio buscarServicio(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

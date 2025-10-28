@@ -103,6 +103,10 @@ private void altaLogica (int nroConsultorio){
      }
          
      }
+
+    Consultorio buscarConsultorio(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
  
 
     

@@ -16,7 +16,7 @@ public class Masajista {
     private String telefono;
     private String especialidad;
     private boolean estado;
-    
+     
     public Masajista(){
         
     }

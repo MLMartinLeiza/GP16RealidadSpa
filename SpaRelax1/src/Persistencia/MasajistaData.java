@@ -20,13 +20,10 @@ import javax.swing.JOptionPane;
 public class MasajistaData {
       private Connection con = null;
 
-    public MasajistaData() {
+    public MasajistaData(Conexion conexion) {
           con = Conexion.getConexion();
     }
 
-    MasajistaData(Conexion conexion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
       public void guardarMasajista(Masajista m) {
         String sql = "INSERT INTO masajista (nombre_apellido, telefono, especialidad, estado) VALUES (?, ?, ?, ?, ?)";

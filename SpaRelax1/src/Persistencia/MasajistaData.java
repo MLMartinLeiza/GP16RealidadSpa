@@ -69,10 +69,5 @@ public class MasajistaData {
             JOptionPane.showMessageDialog(null, "Error al buscar masajista: " + ex.getMessage());
         }
         return m;
-    }
-
-    Masajista buscarMasajista(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-          
+    }   
 }

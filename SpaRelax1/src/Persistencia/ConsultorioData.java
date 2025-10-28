@@ -6,8 +6,10 @@
 package Persistencia;
 
 import Modelo.Consultorio;
+import Modelo.Servicio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,12 +23,8 @@ public class ConsultorioData {
     
  private Connection con = null;
 
-    public ConsultorioData() {
+    public ConsultorioData(Conexion conexion) {
           con = Conexion.getConexion();
-    }
-
-    ConsultorioData(Conexion conexion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     private void ActualizarConsultorio (Consultorio c) {
@@ -107,13 +105,26 @@ private void altaLogica (int nroConsultorio){
      }
          
      }
+           public Consultorio buscarConsultorio(int nroConsultorio) {
+        String sql = "SELECT * FROM consultorio WHERE nroConsultorio = ?";
+        Consultorio c = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, c.getNroConsultorio());
+            ResultSet rs = ps.executeQuery();
 
-    Consultorio buscarConsultorio(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
- 
-
-    
-    
+            if (rs.next()) {
+               c = new Consultorio();
+               c.setUsos(rs.getString("Usos"));
+               c.setEquipamiento(rs.getString("Eqipamiento"));
+               c.setApto(rs.getBoolean("Apto"));
+                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar servicio " + ex.getMessage());
+        }
+        return c;
+    }   
 }
 

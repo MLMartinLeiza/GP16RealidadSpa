@@ -57,7 +57,7 @@ public class SesionData {
                 s.setCodSesion(rs.getInt("codSesion"));
                 s.setFechaHoraInicio(rs.getTimestamp("fechaHoraInicio").toLocalDateTime());
                 s.setFechaHoraFin(rs.getTimestamp("fechaHoraFin").toLocalDateTime());
-                s.setMasajista(masajistaData.buscarMasajista(rs.getInt("idMasajista")));
+                s.setMasajista(masajistaData.buscarMasajistaPorMatricula(rs.getInt("idMasajista")));
                 s.setTratamiento(servicioData.buscarServicio(rs.getInt("idServicio")));
                 s.setConsultorio(consultorioData.buscarConsultorio(rs.getInt("idConsultorio")));
                 s.setEstado(rs.getBoolean("estado"));

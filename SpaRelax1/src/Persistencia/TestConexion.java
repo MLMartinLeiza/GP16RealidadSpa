@@ -62,10 +62,12 @@ public class TestConexion {
         System.out.println("2. Gomez Santiago");
         System.out.println("3. Eduardo Gimenes"); 
         System.out.println("4. Milagros Alfaro");  */
- 
         // Cargar tratamiento
         /*Tratamiento nuevoTratam = new Tratamiento(2, "Masaje de tejido profundo", "Para aliviar tensión muscular crónica y tratar contracturas, con presión más intensa", 30, 5000, true);
         
         tratData.actualizarTratamiento(nuevoTratam);*/
+        /*System.out.println(tratData.buscarTratamiento("Masaje Sueco"));*/
+        
+        
     }
 }

@@ -65,4 +65,31 @@ public class TratamientoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla tratamiento");
         }
     }
+
+    public Tratamiento buscarTratamiento(String nombTrat) {
+        Tratamiento tratamEncontrado = null;
+        String query = "SELECT * FROM tratamiento WHERE nombre=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, nombTrat);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                tratamEncontrado = new Tratamiento();
+                tratamEncontrado.setCodTratam(rs.getInt("codTratam"));
+                tratamEncontrado.setNombre(rs.getString("nombre"));
+                tratamEncontrado.setDetalle(rs.getString("detalle"));
+                tratamEncontrado.setDuracion(rs.getInt("duracion"));
+                tratamEncontrado.setCosto(rs.getDouble("costo"));
+                tratamEncontrado.setEstado(rs.getBoolean("activo"));
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró tratamiento");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla tratamiento");
+        }
+        return tratamEncontrado;
+    }
 }

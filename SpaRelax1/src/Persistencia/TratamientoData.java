@@ -41,4 +41,27 @@ public class TratamientoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla tratamiento");
         }
     }
+
+    public void actualizarTratamiento(Tratamiento t) {
+        String query = "UPDATE tratamiento SET nombre=?, detalle=?, duracion=?, costo=?, activo=? WHERE codTratam=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, t.getNombre());
+            ps.setString(2, t.getDetalle());
+            ps.setInt(3, t.getDuracion());
+            ps.setDouble(4, t.getCosto());
+            ps.setBoolean(5, t.isEstado());
+            ps.executeUpdate();
+
+            int actualizado = ps.executeUpdate();
+
+            if (actualizado == 1) {
+                JOptionPane.showMessageDialog(null, "Tratamiento actualizado");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla tratamiento");
+        }
+    }
 }

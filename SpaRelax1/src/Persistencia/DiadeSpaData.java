@@ -114,7 +114,7 @@ public class DiadeSpaData {
             }
             ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla tratamiento");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Dia de Spa");
 
         }
     }
@@ -146,13 +146,13 @@ public class DiadeSpaData {
             int eliminado = ps.executeUpdate();
 
             if (eliminado == 1) {
-                JOptionPane.showMessageDialog(null, "Tratamiento eliminado");
+                JOptionPane.showMessageDialog(null, "Dia de spa eliminado");
             } else {
-                JOptionPane.showMessageDialog(null, "Error al eliminar tratamiento");
+                JOptionPane.showMessageDialog(null, "Error al eliminar Dia de Spa");
             }
             ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla tratamiento");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Dia de Spa");
         }
     }
     

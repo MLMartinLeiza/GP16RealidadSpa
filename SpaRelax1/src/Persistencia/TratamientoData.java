@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class TratamientoData {
@@ -92,4 +94,88 @@ public class TratamientoData {
         }
         return tratamEncontrado;
     }
+
+    public void bajaLogica(int codTratam) {
+        String query = "UPDATE tratamiento SET estado=0 WHERE codTratam=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, codTratam);
+            int actualizado = ps.executeUpdate();
+
+            if (actualizado == 1) {
+                JOptionPane.showMessageDialog(null, "Estado actualizado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar estado");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla tratamiento");
+
+        }
+    }
+
+    public void altaLogica(int codTratam) {
+        String query = "UPDATE tratamiento SET estado=1 WHERE codTratam=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, codTratam);
+            int actualizado = ps.executeUpdate();
+
+            if (actualizado == 1) {
+                JOptionPane.showMessageDialog(null, "Estado actualizado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar estado");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla tratamiento");
+        }
+    }
+
+    public void eliminarTratamiento(int codTratam) {
+        String query = "DELETE FROM tratamiento WHERE codTratam=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, codTratam);
+            int eliminado = ps.executeUpdate();
+
+            if (eliminado == 1) {
+                JOptionPane.showMessageDialog(null, "Tratamiento eliminado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar tratamiento");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla tratamiento");
+        }
+    }
+
+    public List<Tratamiento> listarTratamientos() {
+        List<Tratamiento> tratamientos = new ArrayList<>();
+        String query = "SELECT * FROM tratamiento WHERE codTratam=1";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Tratamiento tratamiento = new Tratamiento();
+                tratamiento.setCodTratam(rs.getInt("codTratam"));
+                tratamiento.setNombre(rs.getString("nombre"));
+                tratamiento.setDetalle(rs.getString("detalle"));
+                tratamiento.setDuracion(rs.getInt("duracion"));
+                tratamiento.setCosto(rs.getDouble("costo"));
+                tratamiento.setEstado(rs.getBoolean("activo"));
+                tratamientos.add(tratamiento);
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla tratamiento");
+        }
+        return tratamientos;
+    }
+
 }

@@ -158,7 +158,7 @@ public class ClienteData {
             if (eliminado == 1) {
                 JOptionPane.showMessageDialog(null, "Cliente eliminado");
             } else {
-                JOptionPane.showMessageDialog(null, "Error al eliinar cliente");
+                JOptionPane.showMessageDialog(null, "Error al eliminar cliente");
             }
             ps.close();
         } catch (SQLException e) {

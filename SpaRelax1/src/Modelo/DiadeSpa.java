@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 /**
@@ -14,16 +15,16 @@ import java.time.LocalDate;
 public class DiadeSpa {
     
      private int codPack;
-    private LocalDate fechaHora;
+    private String fechaHora;
     private String preferencias;
     private int CodCli;
-    private boolean monto;
+    private double monto;
     private boolean estado;
 
     public DiadeSpa() {
     }
 
-    public DiadeSpa(int codPack, LocalDate fechaHora, String preferencias, int CodCli, boolean monto, boolean estado) {
+    public DiadeSpa(int codPack, String fechaHora, String preferencias, int CodCli, double monto, boolean estado) {
         this.codPack = codPack;
         this.fechaHora = fechaHora;
         this.preferencias = preferencias;
@@ -32,15 +33,13 @@ public class DiadeSpa {
         this.estado = estado;
     }
 
-    public DiadeSpa(LocalDate fechaHora, String preferencias, int CodCli, boolean monto, boolean estado) {
+    public DiadeSpa(String fechaHora, String preferencias, int CodCli, double monto, boolean estado) {
         this.fechaHora = fechaHora;
         this.preferencias = preferencias;
         this.CodCli = CodCli;
         this.monto = monto;
         this.estado = estado;
     }
-    
-    
 
     public int getCodPack() {
         return codPack;
@@ -50,11 +49,12 @@ public class DiadeSpa {
         this.codPack = codPack;
     }
 
-    public LocalDate getFechaHora() {
-        return fechaHora;
+    public String getfechaHora() {
+         return fechaHora;
+         
     }
 
-    public void setFechaHora(LocalDate fechaHora) {
+    public void setfechaHora(String fechaHora) {
         this.fechaHora = fechaHora;
     }
 
@@ -74,11 +74,11 @@ public class DiadeSpa {
         this.CodCli = CodCli;
     }
 
-    public boolean isMonto() {
+    public double getMonto() {
         return monto;
     }
 
-    public void setMonto(boolean monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 
@@ -89,11 +89,13 @@ public class DiadeSpa {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
+    
     @Override
     public String toString() {
         return "DiadeSpa{" + "codPack=" + codPack + ", fechaHora=" + fechaHora + ", preferencias=" + preferencias + ", CodCli=" + CodCli + ", monto=" + monto + ", estado=" + estado + '}';
     }
+
+ 
     
     
     

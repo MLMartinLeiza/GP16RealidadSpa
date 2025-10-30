@@ -6,14 +6,16 @@
 package Persistencia;
 
 import Modelo.Cliente;
+import Modelo.Tratamiento;
 
 public class TestConexion {
 
     public static void main(String[] args) {
         Conexion.getConexion();
         ClienteData clienteD = new ClienteData();
+        TratamientoData tratData = new TratamientoData();
 
-       /*Pruebo cargar cliente a la base de datos
+        /*Pruebo cargar cliente a la base de datos
         Cliente cliente = new Cliente(38749542, "Martin Leiza", "0000393426", 30, "Nada", true);       
         clienteD.insertarCliente(cliente); 
         
@@ -23,9 +25,7 @@ public class TestConexion {
         
          //Pruebo buscarCliente
         System.out.println(clienteD.buscarCliente("Martin Leiza")); */
-        
-        
-         /*Insertar un cliente
+ /*Insertar un cliente
         Cliente cliente = new Cliente(44020403, "Gomez Santiago", "266346734", 24, "Sin afecciones", true);
         clienteD.insertarCliente(cliente);
 
@@ -37,9 +37,7 @@ public class TestConexion {
         System.out.println("1. Martin Leiza");
         System.out.println("2. [Compañero 2]");
         System.out.println("3. [Compañero 3]");   */
-        
-        
-                /* Insertar un cliente
+ /* Insertar un cliente
        Cliente cliente = new Cliente(40523484, "Eduardo Gimenes", "53982367", 35, "Sin afecciones", true);
         clienteD.insertarCliente(cliente);
 
@@ -52,8 +50,7 @@ public class TestConexion {
         System.out.println("2. Gomez Santiago");
         System.out.println("3. Eduardo Gimenes"); 
         System.out.println("4. "); */
-       
-      /* Cliente cliente = new Cliente(45886532, "Milagros Alfaro", "53982367", 21, "Sin afecciones", true);
+ /* Cliente cliente = new Cliente(45886532, "Milagros Alfaro", "53982367", 21, "Sin afecciones", true);
         clienteD.insertarCliente(cliente);
 
         // Buscar cliente por nombre
@@ -65,8 +62,9 @@ public class TestConexion {
         System.out.println("2. Gomez Santiago");
         System.out.println("3. Eduardo Gimenes"); 
         System.out.println("4. Milagros Alfaro");  */
-       
-        
-              
+ 
+        // Cargar tratamiento
+        Tratamiento nuevoTratam = new Tratamiento("Masaje Sueco", "Terapia de relajación de cuerpo completo con presión ligera a media", 30, 5000, true);
+        tratData.insertarTratamiento(nuevoTratam);
     }
 }

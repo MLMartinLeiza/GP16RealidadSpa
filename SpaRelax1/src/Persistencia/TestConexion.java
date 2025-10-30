@@ -64,7 +64,8 @@ public class TestConexion {
         System.out.println("4. Milagros Alfaro");  */
  
         // Cargar tratamiento
-        Tratamiento nuevoTratam = new Tratamiento("Masaje Sueco", "Terapia de relajación de cuerpo completo con presión ligera a media", 30, 5000, true);
-        tratData.insertarTratamiento(nuevoTratam);
+        /*Tratamiento nuevoTratam = new Tratamiento(2, "Masaje de tejido profundo", "Para aliviar tensión muscular crónica y tratar contracturas, con presión más intensa", 30, 5000, true);
+        
+        tratData.actualizarTratamiento(nuevoTratam);*/
     }
 }

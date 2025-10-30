@@ -52,6 +52,7 @@ public class TratamientoData {
             ps.setInt(3, t.getDuracion());
             ps.setDouble(4, t.getCosto());
             ps.setBoolean(5, t.isEstado());
+            ps.setInt(6, t.getCodTratam());
             ps.executeUpdate();
 
             int actualizado = ps.executeUpdate();

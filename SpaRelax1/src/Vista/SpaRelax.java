@@ -31,7 +31,21 @@ public class SpaRelax extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -49,10 +63,60 @@ public class SpaRelax extends javax.swing.JFrame {
         );
 
         jMenu2.setText("Cliente");
+
+        jMenuItem1.setText("jMenuItem1");
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Masajista");
+
+        jMenuItem2.setText("jMenuItem2");
+        jMenu3.add(jMenuItem2);
+
         jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Tratamiento");
+
+        jMenuItem3.setText("jMenuItem3");
+        jMenu4.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Consultorio");
+
+        jMenuItem4.setText("jMenuItem4");
+        jMenu5.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu5);
+
+        jMenu6.setText("Instalacion");
+
+        jMenuItem5.setText("jMenuItem5");
+        jMenu6.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu6);
+
+        jMenu7.setText("Sesion");
+
+        jMenuItem6.setText("jMenuItem6");
+        jMenu7.add(jMenuItem6);
+
+        jMenuBar1.add(jMenu7);
+
+        jMenu8.setText("Dia de Spa");
+
+        jMenuItem7.setText("jMenuItem7");
+        jMenu8.add(jMenuItem7);
+
+        jMenuBar1.add(jMenu8);
+
+        jMenu10.setText("Servicio");
+
+        jMenuItem8.setText("jMenuItem8");
+        jMenu10.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu10);
 
         setJMenuBar(jMenuBar1);
 
@@ -108,8 +172,22 @@ public class SpaRelax extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
 }

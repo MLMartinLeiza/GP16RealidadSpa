@@ -20,14 +20,15 @@ import javax.swing.JOptionPane;
  * @author Usuario
  */
 public class DiadeSpaData {
-     private Connection con = null;
+
+    private Connection con = null;
 
     public DiadeSpaData(Conexion conexion) {
-          con = Conexion.getConexion();
+        con = Conexion.getConexion();
     }
 
-   public void guardarDiadeSpa(DiadeSpa d) {
-        String sql = "INSERT INTO diadespa(fechaHora, preferencias, CodCli, monto, estado) VALUES (?, ?, ?, ?, ?, ?)";
+    public void guardarDiadeSpa(DiadeSpa d) {
+        String sql = "INSERT INTO dia_de_spa(fechaHora, preferencias, CodCli, monto, estado) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.MIN));
@@ -35,9 +36,9 @@ public class DiadeSpaData {
             ps.setInt(3, d.getCodCli());
             ps.setDouble(4, d.getMonto());
             ps.setBoolean(5, d.isEstado());
-          
+
             ps.executeUpdate();
-            
+
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 d.setCodPack(rs.getInt(1));
@@ -48,8 +49,9 @@ public class DiadeSpaData {
             JOptionPane.showMessageDialog(null, "Error al guardar dia de spa " + ex.getMessage());
         }
     }
+
     public DiadeSpa buscarDiadeSpaporCodigo(int matricula) {
-        String sql = "SELECT * FROM diadespa WHERE codPack = ?";
+        String sql = "SELECT * FROM dia_de_spa WHERE codPack = ?";
         DiadeSpa d = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -58,15 +60,12 @@ public class DiadeSpaData {
 
             if (rs.next()) {
                 d = new DiadeSpa();
-                d.setCodCli(rs.getInt("CodigoPack"));
-                Timestamp ts = rs.getTimestamp("FechaHora");
-                d.setPreferencias(rs.getString("Preferencias"));
-                d.setMonto(rs.getDouble("Monto"));
-                d.setEstado(rs.getBoolean("Estado"));
+                d.setCodCli(rs.getInt("codPack"));
+                Timestamp ts = rs.getTimestamp("fecha_hora");
+                d.setPreferencias(rs.getString("preferencias"));
+                d.setMonto(rs.getDouble("monto"));
+                d.setEstado(rs.getBoolean("estado"));
 
-                
-                
-               
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró Dia de Spa ");
             }
@@ -75,21 +74,20 @@ public class DiadeSpaData {
             JOptionPane.showMessageDialog(null, "Error al buscar Dia de Spa: " + ex.getMessage());
         }
         return d;
-    }   
-    
-     public void ActializarDiadeSpa(DiadeSpa d) {
-        String query = "UPDATE diadespa SET fechaHora=?, preferencias=? codCli=? monto=? estado=? WHERE codPack = ?";
+    }
+
+    public void ActializarDiadeSpa(DiadeSpa d) {
+        String query = "UPDATE dia_de_spa SET fecha_hora=?, preferencias=? codCli=? monto=? estado=? WHERE codPack = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            
+
             Timestamp ts = Timestamp.valueOf(d.getfechaHora());
             ps.setString(0, d.getPreferencias());
             ps.setDouble(0, d.getMonto());
             ps.setBoolean(0, true);
-            
+
             int logrado = ps.executeUpdate();
-            
 
             if (logrado == 1) {
                 JOptionPane.showMessageDialog(null, "Dia de Spa actualizada");
@@ -99,8 +97,9 @@ public class DiadeSpaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de Dia de Spa");
         }
     }
-     public void bajaLogica(int codPack) {
-        String query = "UPDATE diadespa SET estado=0 WHERE codPack=?";
+
+    public void bajaLogica(int codPack) {
+        String query = "UPDATE dia_de_spa SET estado=0 WHERE codPack=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -118,9 +117,9 @@ public class DiadeSpaData {
 
         }
     }
-   
+
     public void altaLogica(int codPack) {
-        String query = "UPDATE diadespa SET estado=1 WHERE codPack=?";
+        String query = "UPDATE dia_de_spa SET estado=1 WHERE codPack=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -137,8 +136,9 @@ public class DiadeSpaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Dia de Spa");
         }
     }
+
     public void eliminarDiadeSpa(int codPack) {
-        String query = "DELETE FROM diadespa WHERE codPack?";
+        String query = "DELETE FROM dia_de_spa WHERE codPack?";
 
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -155,6 +155,5 @@ public class DiadeSpaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Dia de Spa");
         }
     }
-    
-}
 
+}

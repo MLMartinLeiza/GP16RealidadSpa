@@ -22,12 +22,13 @@ public class SesionData {
     }
 
     public void guardarSesion(Sesion sesion) {
-        String sql = "INSERT INTO sesion (fechaHoraInicio, fechaHoraFin, idMasajista, idServicio, idConsultorio, estado) VALUES (?, ?, ?, ?, ?, ?)";
+        // corregir esto
+        String sql = "INSERT INTO sesion (fecha_hora_inicio, fecha_hora_fin, codTratamiento, nroConsultorio, matricula, codPack, estado, codInstal) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setTimestamp(1, Timestamp.valueOf(sesion.getFechaHoraInicio()));
             ps.setTimestamp(2, Timestamp.valueOf(sesion.getFechaHoraFin()));
-            ps.setInt(3, sesion.getMasajista().getIdMasajista());
+            ps.setInt(3, sesion.getMasajista().getMatricula());
             ps.setInt(4, sesion.getTratamiento().getIdServicio());
             ps.setInt(5, sesion.getConsultorio().getIdConsultorio());
             ps.setBoolean(6, sesion.isEstado());

@@ -6,13 +6,10 @@
 package Persistencia;
 
 import Modelo.Consultorio;
-import Modelo.Servicio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,8 +24,8 @@ public class ConsultorioData {
           con = Conexion.getConexion();
     }
     
-    private void ActualizarConsultorio (Consultorio c) {
-        String query = "UPDATE Consultorio SET usos=?, Equipamiento=?, apto=? "
+    public void ActualizarConsultorio (Consultorio c) {
+        String query = "UPDATE consultorio SET usos=?, equipamiento=?, apto=? "
                 + "WHERE nroConsultorio=?";
         
      try {
@@ -55,7 +52,7 @@ public class ConsultorioData {
          
      }
      
-      private void bajaLogica (int nroConsultorio){
+      public void bajaLogica (int nroConsultorio){
      String query = "UPDATE consultorio SET apto = 0 WHERE nroConsultorio=?";
      
      
@@ -84,7 +81,7 @@ public class ConsultorioData {
       
     }
     
-private void altaLogica (int nroConsultorio){
+public void altaLogica (int nroConsultorio){
          String query = "UPDATE consultorio SET apto=1 WHERE nroConsultorio=?";
          
      try {

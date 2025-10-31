@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.3-1.fc42
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2025 a las 00:18:55
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Servidor: localhost
+-- Tiempo de generación: 30-10-2025 a las 16:13:06
+-- Versión del servidor: 10.11.11-MariaDB
+-- Versión de PHP: 8.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -129,6 +129,14 @@ CREATE TABLE `tratamiento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `tratamiento`
+--
+
+INSERT INTO `tratamiento` (`codTratam`, `nombre`, `detalle`, `duracion`, `costo`, `activo`) VALUES
+(1, 'Masaje Sueco', 'Terapia de relajación de cuerpo completo con presión ligera a media', 30, 5000, 1),
+(2, 'Masaje de tejido profundo', 'Para aliviar tensión muscular crónica y tratar contracturas, con presión más intensa', 30, 5000, 1);
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -213,7 +221,7 @@ ALTER TABLE `sesion`
 -- AUTO_INCREMENT de la tabla `tratamiento`
 --
 ALTER TABLE `tratamiento`
-  MODIFY `codTratam` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `codTratam` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas

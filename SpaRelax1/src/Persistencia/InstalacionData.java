@@ -19,7 +19,7 @@ public class InstalacionData {
     }
     
     public void guardarInstalacion(Instalacion ins) {
-        String sql = "INSERT INTO instalacion (nombre, detalleUso, precio30m, estado) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO instalacion (nombre, detalle_uso, precio_30m, estado) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ins.getNombre());

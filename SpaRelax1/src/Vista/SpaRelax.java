@@ -44,8 +44,6 @@ public class SpaRelax extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu10 = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -111,13 +109,6 @@ public class SpaRelax extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu8);
 
-        jMenu10.setText("Servicio");
-
-        jMenuItem8.setText("jMenuItem8");
-        jMenu10.add(jMenuItem8);
-
-        jMenuBar1.add(jMenu10);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,7 +163,6 @@ public class SpaRelax extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -188,6 +178,5 @@ public class SpaRelax extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
 }

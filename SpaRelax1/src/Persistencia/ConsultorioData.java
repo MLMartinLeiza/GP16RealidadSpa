@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +24,34 @@ public class ConsultorioData {
     public ConsultorioData(Conexion conexion) {
           con = Conexion.getConexion();
     }
+    
+    
+    
+    public void insertarConsultorio(Consultorio c) {
+        String query = "INSERT INTO consultorio (usos, equipamiento, apto) VALUES (?,?,?,?,?)";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+           
+            ps.setString(1, c.getUsos());
+            ps.setString(2, c.getEquipamiento());
+            ps.setBoolean(3, true);
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if (rs.next()) {
+                c.setNroConsultorio(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Consultorio Guardado Existosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo obtener el ID");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de Consultorio");
+        }
+    }
+
     
     public void ActualizarConsultorio (Consultorio c) {
         String query = "UPDATE consultorio SET usos=?, equipamiento=?, apto=? "

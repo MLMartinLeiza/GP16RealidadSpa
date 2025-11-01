@@ -67,11 +67,5 @@ public class Consultorio {
     public String toString() {
         return "Consultorio{" + "nroConsultorio=" + nroConsultorio + ", usos=" + usos + ", equipamiento=" + equipamiento + ", apto=" + apto + '}';
     }
-
-    public int getIdConsultorio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    
+        
 }

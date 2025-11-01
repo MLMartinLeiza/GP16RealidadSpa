@@ -1,34 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo;
 
-/**
- *
- * @author Usuario
- */
 public class Instalacion {
-    private int CodInstall;
+
+    private int codInstal;
     private String nombre;
-    private String DetalleDeUso;
+    private String detalleUso;
     private double precio30m;
-    public boolean estado;
+    private boolean estado;
 
-    public Instalacion(int CodInstall, String nombre, String DetalleDeUso, double precio30m, double estado) {
-        this.CodInstall = CodInstall;
+    public Instalacion() {
+    }
+
+    public Instalacion(int codInstal, String nombre, String detalleUso, double precio30m, boolean estado) {
+        this.codInstal = codInstal;
         this.nombre = nombre;
-        this.DetalleDeUso = DetalleDeUso;
+        this.detalleUso = detalleUso;
         this.precio30m = precio30m;
+        this.estado = estado;
     }
 
-    public int getCodInstall() {
-        return CodInstall;
+    public int getCodInstal() {
+        return codInstal;
     }
 
-    public void setCodInstall(int codInstall) {
-        this.CodInstall = codInstall;
+    public void setCodInstal(int codInstal) {
+        this.codInstal = codInstal;
     }
 
     public String getNombre() {
@@ -37,14 +33,14 @@ public class Instalacion {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-
-    }
-    public String getDetalleDeUso() {
-        return DetalleDeUso;
     }
 
-    public void setDetalleDeUso(String DetalleDeUso) {
-        this.DetalleDeUso = DetalleDeUso;
+    public String getDetalleUso() {
+        return detalleUso;
+    }
+
+    public void setDetalleUso(String detalleUso) {
+        this.detalleUso = detalleUso;
     }
 
     public double getPrecio30m() {
@@ -63,15 +59,14 @@ public class Instalacion {
         this.estado = estado;
     }
 
-
-
     @Override
     public String toString() {
-        return "Intalacion{" + "codInstall=" + CodInstall + ", nombre=" + nombre + ", DetalleDeUso=" + DetalleDeUso + ", precio30m=" + precio30m + ", estado=" + estado + '}';
+        return "Instalacion{"
+                + "codInstal=" + codInstal
+                + ", nombre='" + nombre + '\''
+                + ", detalleUso='" + detalleUso + '\''
+                + ", precio30m=" + precio30m
+                + ", estado=" + estado
+                + '}';
     }
-
-    }
-
-    
-    
-    
+}

@@ -70,4 +70,42 @@ public class MasajistaData {
         }
         return m;
     }   
+           public void bajaLogica(int matricula) {
+        String query = "UPDATE masajista SET estado=0 WHERE matricula=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, matricula);
+            int actualizado = ps.executeUpdate();
+
+            if (actualizado == 1) {
+                JOptionPane.showMessageDialog(null, "Estado actualizado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar estado");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de Masajista");
+
+        }
+    }
+     public void altaLogica(int matricula) {
+        String query = "UPDATE masajista SET estado=1 WHERE matricula=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, matricula);
+            int actualizado = ps.executeUpdate();
+
+            if (actualizado == 1) {
+                JOptionPane.showMessageDialog(null, "Estado actualizado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar estado");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla matricula");
+        }
+    }
+
 }

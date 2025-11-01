@@ -55,7 +55,6 @@ public class TratamientoData {
             ps.setDouble(4, t.getCosto());
             ps.setBoolean(5, t.isEstado());
             ps.setInt(6, t.getCodTratam());
-            ps.executeUpdate();
 
             int actualizado = ps.executeUpdate();
 
@@ -96,7 +95,7 @@ public class TratamientoData {
     }
 
     public void bajaLogica(int codTratam) {
-        String query = "UPDATE tratamiento SET estado=0 WHERE codTratam=?";
+        String query = "UPDATE tratamiento SET activo=0 WHERE codTratam=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -116,7 +115,7 @@ public class TratamientoData {
     }
 
     public void altaLogica(int codTratam) {
-        String query = "UPDATE tratamiento SET estado=1 WHERE codTratam=?";
+        String query = "UPDATE tratamiento SET activo=1 WHERE codTratam=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(query);
@@ -155,7 +154,7 @@ public class TratamientoData {
 
     public List<Tratamiento> listarTratamientos() {
         List<Tratamiento> tratamientos = new ArrayList<>();
-        String query = "SELECT * FROM tratamiento WHERE codTratam=1";
+        String query = "SELECT * FROM tratamiento WHERE activo=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(query);

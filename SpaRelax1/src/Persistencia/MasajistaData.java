@@ -1,56 +1,69 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Persistencia;
 
 import Modelo.Masajista;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Santy
- */
 public class MasajistaData {
-      private Connection con = null;
 
-    public MasajistaData(Conexion conexion) {
-          con = Conexion.getConexion();
+    private Connection con = null;
+
+    public MasajistaData() {
+        con = Conexion.getConexion();
     }
 
-    
-      public void guardarMasajista(Masajista m) {
-        String sql = "INSERT INTO masajista (nombre_apellido, telefono, especialidad, estado) VALUES (?, ?, ?, ?, ?)";
+    public void insertarMasajista(Masajista m) {
+        String query = "INSERT INTO masajista(nombre_apellido, telefono, especialidad, estado) VALUES(?,?,?,?)";
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, m.getNombre_apellido());
-            ps.setString(3, m.getTelefono());
-            ps.setString(4, m.getEspecialidad());
-            ps.setBoolean(5, m.isEstado());
-
+            ps.setString(2, m.getTelefono());
+            ps.setString(3, m.getEspecialidad());
+            ps.setBoolean(4, m.isEstado());
             ps.executeUpdate();
+
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 m.setMatricula(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Masajista agregado con éxito");
+                JOptionPane.showMessageDialog(null, "Masajista guardado exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo obtener el ID");
             }
             ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar masajista: " + ex.getMessage());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla masajista");
         }
     }
-      
-          public Masajista buscarMasajistaPorMatricula(int matricula) {
-        String sql = "SELECT * FROM masajista WHERE matricula = ?";
-        Masajista m = null;
+
+    public void actualizarMasajista(Masajista m) {
+        String query = "UPDATE masajista SET nombre_apellido=?, telefono=?, especialidad=?, estado=? WHERE matricula=?";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, m.getNombre_apellido());
+            ps.setString(2, m.getTelefono());
+            ps.setString(3, m.getEspecialidad());
+            ps.setBoolean(4, m.isEstado());
+            ps.setInt(5, m.getMatricula());
+            int actualizado = ps.executeUpdate();
+
+            if (actualizado == 1) {
+                JOptionPane.showMessageDialog(null, "Masajista actualizado");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el masajista");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla masajista");
+        }
+    }
+
+    public Masajista buscarMasajistaPorMatricula(int matricula) {
+        Masajista m = null;
+        String query = "SELECT * FROM masajista WHERE matricula=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, matricula);
             ResultSet rs = ps.executeQuery();
 
@@ -62,50 +75,89 @@ public class MasajistaData {
                 m.setEspecialidad(rs.getString("especialidad"));
                 m.setEstado(rs.getBoolean("estado"));
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró masajista con esa matrícula");
+                JOptionPane.showMessageDialog(null, "No se encontró el masajista");
             }
             ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al buscar masajista: " + ex.getMessage());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla masajista");
         }
         return m;
-    }   
-           public void bajaLogica(int matricula) {
+    }
+
+    public void bajaLogica(int matricula) {
         String query = "UPDATE masajista SET estado=0 WHERE matricula=?";
-
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, matricula);
             int actualizado = ps.executeUpdate();
 
             if (actualizado == 1) {
-                JOptionPane.showMessageDialog(null, "Estado actualizado");
+                JOptionPane.showMessageDialog(null, "Masajista dado de baja");
             } else {
-                JOptionPane.showMessageDialog(null, "Error al actualizar estado");
+                JOptionPane.showMessageDialog(null, "No se encontró el masajista");
             }
             ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de Masajista");
-
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla masajista");
         }
     }
-     public void altaLogica(int matricula) {
+
+    public void altaLogica(int matricula) {
         String query = "UPDATE masajista SET estado=1 WHERE matricula=?";
-
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, matricula);
             int actualizado = ps.executeUpdate();
 
             if (actualizado == 1) {
-                JOptionPane.showMessageDialog(null, "Estado actualizado");
+                JOptionPane.showMessageDialog(null, "Masajista dado de alta");
             } else {
-                JOptionPane.showMessageDialog(null, "Error al actualizar estado");
+                JOptionPane.showMessageDialog(null, "No se encontró el masajista");
             }
             ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla matricula");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla masajista");
         }
     }
 
+    public void eliminarMasajista(int matricula) {
+        String query = "DELETE FROM masajista WHERE matricula=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, matricula);
+            int eliminado = ps.executeUpdate();
+
+            if (eliminado == 1) {
+                JOptionPane.showMessageDialog(null, "Masajista eliminado");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el masajista");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla masajista");
+        }
+    }
+
+    public List<Masajista> listarMasajistas() {
+        List<Masajista> lista = new ArrayList<>();
+        String query = "SELECT * FROM masajista WHERE estado=1";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Masajista m = new Masajista();
+                m.setMatricula(rs.getInt("matricula"));
+                m.setNombre_apellido(rs.getString("nombre_apellido"));
+                m.setTelefono(rs.getString("telefono"));
+                m.setEspecialidad(rs.getString("especialidad"));
+                m.setEstado(rs.getBoolean("estado"));
+                lista.add(m);
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla masajista");
+        }
+        return lista;
+    }
 }

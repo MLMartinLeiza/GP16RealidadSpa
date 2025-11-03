@@ -16,6 +16,7 @@ public class SpaRelax extends javax.swing.JFrame {
      */
     public SpaRelax() {
         initComponents();
+        setExtendedState(SpaRelax.MAXIMIZED_BOTH);
     }
 
     /**
@@ -28,7 +29,7 @@ public class SpaRelax extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -43,21 +44,21 @@ public class SpaRelax extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        mItemDiaSpa = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 692, Short.MAX_VALUE)
+        javax.swing.GroupLayout jDesktopLayout = new javax.swing.GroupLayout(jDesktop);
+        jDesktop.setLayout(jDesktopLayout);
+        jDesktopLayout.setHorizontalGroup(
+            jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 501, Short.MAX_VALUE)
+        jDesktopLayout.setVerticalGroup(
+            jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 526, Short.MAX_VALUE)
         );
 
         jMenu2.setText("Cliente");
@@ -104,8 +105,13 @@ public class SpaRelax extends javax.swing.JFrame {
 
         jMenu8.setText("Dia de Spa");
 
-        jMenuItem7.setText("jMenuItem7");
-        jMenu8.add(jMenuItem7);
+        mItemDiaSpa.setText("Form. Dia de Spa");
+        mItemDiaSpa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemDiaSpaActionPerformed(evt);
+            }
+        });
+        jMenu8.add(mItemDiaSpa);
 
         jMenuBar1.add(jMenu8);
 
@@ -115,15 +121,22 @@ public class SpaRelax extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktop)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktop)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mItemDiaSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemDiaSpaActionPerformed
+        DiadeSpa diaDeSpa = new DiadeSpa();
+        jDesktop.add(diaDeSpa);
+        diaDeSpa.setVisible(true);
+        centrarVentana(diaDeSpa);
+    }//GEN-LAST:event_mItemDiaSpaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,8 +173,15 @@ public class SpaRelax extends javax.swing.JFrame {
         });
     }
 
+    // Centra los internal frame
+    private void centrarVentana(javax.swing.JInternalFrame vista) {
+        int x = (jDesktop.getWidth() - vista.getWidth()) / 2;
+        int y = (jDesktop.getHeight() - vista.getHeight()) / 2;
+        vista.setLocation(new java.awt.Point(x, y));
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane jDesktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -177,6 +197,6 @@ public class SpaRelax extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem mItemDiaSpa;
     // End of variables declaration//GEN-END:variables
 }

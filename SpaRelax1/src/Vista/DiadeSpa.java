@@ -245,7 +245,6 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
         horarios.add("17:00");
         horarios.add("18:00");
         horarios.add("19:00");
-        horarios.add("20:00");
 
         cmbHora.removeAllItems();
 

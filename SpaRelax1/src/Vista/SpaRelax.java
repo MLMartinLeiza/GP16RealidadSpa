@@ -29,6 +29,7 @@ public class SpaRelax extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -41,12 +42,14 @@ public class SpaRelax extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
+        mItemFormSesion = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         mItemDiaSpa = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
+
+        jMenu7.setText("jMenu7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,12 +99,17 @@ public class SpaRelax extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
-        jMenu7.setText("Sesion");
+        jMenu9.setText("Sesión");
 
-        jMenuItem6.setText("jMenuItem6");
-        jMenu7.add(jMenuItem6);
+        mItemFormSesion.setText("Form. Sesión");
+        mItemFormSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemFormSesionActionPerformed(evt);
+            }
+        });
+        jMenu9.add(mItemFormSesion);
 
-        jMenuBar1.add(jMenu7);
+        jMenuBar1.add(jMenu9);
 
         jMenu8.setText("Dia de Spa");
 
@@ -137,6 +145,13 @@ public class SpaRelax extends javax.swing.JFrame {
         diaDeSpa.setVisible(true);
         centrarVentana(diaDeSpa);
     }//GEN-LAST:event_mItemDiaSpaActionPerformed
+
+    private void mItemFormSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemFormSesionActionPerformed
+        Sesion sesion = new Sesion();
+        jDesktop.add(sesion);
+        sesion.setVisible(true);
+        centrarVentana(sesion);
+    }//GEN-LAST:event_mItemFormSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,13 +205,14 @@ public class SpaRelax extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem mItemDiaSpa;
+    private javax.swing.JMenuItem mItemFormSesion;
     // End of variables declaration//GEN-END:variables
 }

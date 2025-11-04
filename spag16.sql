@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-10-2025 a las 16:13:06
+-- Tiempo de generación: 04-11-2025 a las 16:11:03
 -- Versión del servidor: 10.11.11-MariaDB
--- Versión de PHP: 8.4.13
+-- Versión de PHP: 8.4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -104,7 +104,7 @@ CREATE TABLE `masajista` (
 CREATE TABLE `sesion` (
   `codSesion` int(10) NOT NULL,
   `fecha_hora_inicio` datetime NOT NULL,
-  `fecha_hora_fin` datetime NOT NULL,
+  `fecha_hora_fin` datetime DEFAULT NULL,
   `codTratamiento` int(10) DEFAULT NULL,
   `nroConsultorio` int(10) DEFAULT NULL,
   `matricula` int(10) DEFAULT NULL,

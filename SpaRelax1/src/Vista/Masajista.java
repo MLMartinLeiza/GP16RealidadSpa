@@ -45,7 +45,6 @@ public class Masajista extends javax.swing.JInternalFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
 
@@ -89,9 +88,7 @@ public class Masajista extends javax.swing.JInternalFrame {
 
         jButton6.setText("Listar");
 
-        jLabel2.setText("Buscar por Matricula:");
-
-        jButton7.setText("Buscar");
+        jButton7.setText("Buscar por Matricula");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,8 +125,8 @@ public class Masajista extends javax.swing.JInternalFrame {
                                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jButton7)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField1))
                             .addGroup(layout.createSequentialGroup()
@@ -138,16 +135,10 @@ public class Masajista extends javax.swing.JInternalFrame {
                                 .addComponent(jButton3)
                                 .addGap(33, 33, 33)
                                 .addComponent(jButton4)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 33, Short.MAX_VALUE)
-                                .addComponent(jButton6)
-                                .addGap(27, 27, 27)
-                                .addComponent(jButton5))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton7)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(18, 51, Short.MAX_VALUE)
+                        .addComponent(jButton6)
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton5)))
                 .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
@@ -177,7 +168,6 @@ public class Masajista extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7))
                 .addGap(18, 18, 18)
@@ -204,7 +194,6 @@ public class Masajista extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

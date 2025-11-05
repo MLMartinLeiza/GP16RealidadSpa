@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import Modelo.Cliente;
+import Persistencia.ClienteData;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +19,9 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo;
 
+    private List<Cliente> clientes;
+    private ClienteData clienteData;
+
     public DiadeSpa() {
         initComponents();
         setClosable(true);
@@ -24,8 +29,11 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
         setResizable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         modelo = new DefaultTableModel();
+        clienteData = new ClienteData();
+        clientes = clienteData.listarClientes();
         armarCabeceraTabla();
         cargarComboHorarios();
+        cargarComboClientes();
     }
 
     /**
@@ -92,6 +100,11 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
 
         btnLimpiar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnBuscar.setText("Buscar por Codigo");
@@ -230,6 +243,10 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbHoraActionPerformed
 
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
     private void cargarComboHorarios() {
         List<String> horarios = new ArrayList<>();
 
@@ -253,6 +270,12 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
         }
     }
 
+    private void cargarComboClientes() {
+        for (Cliente c : clientes) {
+            cmbClientes.addItem(c);
+        }
+    }
+
     private void armarCabeceraTabla() {
         List<Object> titulos = new ArrayList<>();
 
@@ -268,6 +291,24 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
         }
 
         tblDiaSpa.setModel(modelo);
+    }
+
+    public void limpiarCampos() {
+        cmbClientes.setSelectedItem(null);
+        txtPreferencias.setText("");
+        txtMonto.setText("");
+        chekEstado.setSelected(false);
+        dateFecha.setDate(null);
+        txtBuscar.setText("");
+        cmbHora.setSelectedItem(null);
+    }
+
+    private void borrarFilaTabla() {
+        int indice = modelo.getRowCount() - 1;
+
+        for (int i = indice; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

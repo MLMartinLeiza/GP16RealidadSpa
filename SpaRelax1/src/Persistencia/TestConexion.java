@@ -19,12 +19,12 @@ public class TestConexion {
         Cliente cliente = new Cliente(38749542, "Martin Leiza", "0000393426", 30, "Nada", true);       
         clienteD.insertarCliente(cliente); 
         
-         //Pruebo actualizar cliente
+         /*Pruebo actualizar cliente
         Cliente cliente = new Cliente(1, 38749730, "Martin Leiza", "0000393426", 30, "Nada de nada", true);   
         clienteD.actualizarCliente(cliente); 
         
          //Pruebo buscarCliente
-        System.out.println(clienteD.buscarCliente("Martin Leiza")); */
+        System.out.println(clienteD.buscarCliente("Martin Leiza"));
  /*Insertar un cliente
         Cliente cliente = new Cliente(44020403, "Gomez Santiago", "266346734", 24, "Sin afecciones", true);
         clienteD.insertarCliente(cliente);

@@ -7,23 +7,25 @@ package Vista;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Usuario
  */
 public class Sesion extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form Sesion
-     */
+    
+    private DefaultTableModel modelo;
+    
     public Sesion() {
         initComponents();
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        modelo = new DefaultTableModel();
         cargarComboHorarios();
+        armarCabeceraTabla();
     }
 
     /**
@@ -51,6 +53,17 @@ public class Sesion extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         cmbPack = new javax.swing.JComboBox<>();
         cmbHora = new javax.swing.JComboBox<>();
+        chekSesion = new javax.swing.JCheckBox();
+        btnInsertar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSesion = new javax.swing.JTable();
+        btnActualizar = new javax.swing.JButton();
+        btnAlta = new javax.swing.JButton();
+        btnBaja = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1000, 600));
         setPreferredSize(new java.awt.Dimension(1000, 600));
@@ -79,57 +92,121 @@ public class Sesion extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         jLabel9.setText("Pack:");
 
+        chekSesion.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
+        chekSesion.setText("Estado");
+
+        btnInsertar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
+        btnInsertar.setText("Insertar");
+
+        btnBuscar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
+        btnBuscar.setText("Buscar por Código");
+
+        tblSesion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblSesion);
+
+        btnActualizar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
+        btnActualizar.setText("Actualizar");
+
+        btnAlta.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
+        btnAlta.setText("Alta");
+
+        btnBaja.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
+        btnBaja.setText("Baja");
+
+        btnEliminar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
+        btnEliminar.setText("Eliminar");
+
+        btnLimpiar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
+        btnLimpiar.setText("Limpiar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(352, 352, 352)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 258, Short.MAX_VALUE)
+                .addGap(352, 717, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(271, 271, 271))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbPack, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbInstalacion, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(34, 34, 34)
-                        .addComponent(cmbMasajista, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel9)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cmbPack, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel8)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cmbInstalacion, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel6)
+                                            .addGap(34, 34, 34)
+                                            .addComponent(cmbMasajista, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel5)
+                                                .addComponent(chekSesion))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(btnInsertar)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(btnBuscar))
+                                                .addComponent(cmbTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(24, 24, 24)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(jLabel1)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(txtBuscar)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel7)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(cmbConsultorio, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnActualizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAlta)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBaja)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEliminar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLimpiar))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbConsultorio, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(448, 448, 448)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addComponent(jLabel2)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,17 +228,30 @@ public class Sesion extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(cmbPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cmbPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chekSesion)
+                            .addComponent(btnInsertar)
+                            .addComponent(btnBuscar)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(405, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnAlta)
+                    .addComponent(btnBaja)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnLimpiar))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-     private void cargarComboHorarios() {
-        List<String> horarios = new ArrayList<>();
 
+    private void cargarComboHorarios() {
+        List<String> horarios = new ArrayList<>();
+        
         horarios.add("08:00");
         horarios.add("08:30");
         horarios.add("09:00");
@@ -186,21 +276,49 @@ public class Sesion extends javax.swing.JInternalFrame {
         horarios.add("18:30");
         horarios.add("19:00");
         horarios.add("19:30");
-
+        
         cmbHora.removeAllItems();
-
+        
         for (String hora : horarios) {
             cmbHora.addItem(hora);
         }
     }
+    
+    private void armarCabeceraTabla() {
+        List<Object> titulos = new ArrayList<>();
+        
+        titulos.add("Código Sesión");
+        titulos.add("Inicio");
+        titulos.add("Fin");
+        titulos.add("Masajista");
+        titulos.add("Tratamiento");
+        titulos.add("Consultorio");
+        titulos.add("Instalación");
+        titulos.add("Pack");
+        titulos.add("Estado");
+        
+        for (Object o : titulos) {
+            modelo.addColumn(o);
+        }
+        
+        tblSesion.setModel(modelo);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cmbConsultorio;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAlta;
+    private javax.swing.JButton btnBaja;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnInsertar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JCheckBox chekSesion;
+    private javax.swing.JComboBox<Consultorio> cmbConsultorio;
     private javax.swing.JComboBox<String> cmbHora;
-    private javax.swing.JComboBox<String> cmbInstalacion;
-    private javax.swing.JComboBox<String> cmbMasajista;
-    private javax.swing.JComboBox<String> cmbPack;
-    private javax.swing.JComboBox<String> cmbTratamiento;
+    private javax.swing.JComboBox<Instalacion> cmbInstalacion;
+    private javax.swing.JComboBox<Masajista> cmbMasajista;
+    private javax.swing.JComboBox<DiadeSpa> cmbPack;
+    private javax.swing.JComboBox<Tratamiento> cmbTratamiento;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -211,5 +329,8 @@ public class Sesion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblSesion;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

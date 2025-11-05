@@ -7,8 +7,11 @@ package Vista;
 
 import Modelo.Cliente;
 import Persistencia.ClienteData;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -88,6 +91,11 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
 
         btnInsertar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnInsertar.setText("Insertar");
+        btnInsertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertarActionPerformed(evt);
+            }
+        });
 
         btnAlta.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnAlta.setText("Alta");
@@ -168,15 +176,13 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
                                         .addComponent(btnBuscar)
                                         .addGap(26, 26, 26)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(chekEstado)
-                                                .addGap(74, 74, 74)
-                                                .addComponent(jLabel5))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel6)))
-                                        .addGap(58, 58, 58)
+                                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(chekEstado))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel5))
+                                        .addGap(57, 57, 57)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,6 +252,18 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
+        if(cmbClientes.getSelectedItem() != null){
+        Cliente cliente = (Cliente) cmbClientes.getSelectedItem();
+        }else{JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente");
+        }
+        
+        String preferencias = txtPreferencias.getText();
+        
+        // Validar si la fecha es null
+        LocalDate fecha = dateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void cargarComboHorarios() {
         List<String> horarios = new ArrayList<>();

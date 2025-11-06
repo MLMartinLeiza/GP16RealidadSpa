@@ -8,6 +8,8 @@ package Vista;
 import Modelo.Cliente;
 import Persistencia.ClienteData;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -254,15 +256,59 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if(cmbClientes.getSelectedItem() != null){
-        Cliente cliente = (Cliente) cmbClientes.getSelectedItem();
-        }else{JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente");
+        Cliente cliente;
+        LocalDate fecha;
+        LocalTime hora;
+        LocalDateTime fechaHora;
+        String montoString;
+        double monto;
+        boolean estado;
+
+        if (cmbClientes.getSelectedItem() != null) {
+            cliente = (Cliente) cmbClientes.getSelectedItem();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccionar un cliente");
+            return;
         }
-        
-        String preferencias = txtPreferencias.getText();
-        
-        // Validar si la fecha es null
-        LocalDate fecha = dateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        String preferencias = txtPreferencias.getText().trim();
+
+        if (dateFecha.getDate() != null) {
+            fecha = dateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccionar la fecha");
+            return;
+        }
+
+        if (cmbHora.getSelectedItem() != null) {
+            hora = (LocalTime) cmbHora.getSelectedItem();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccionar un horario");
+            return;
+        }
+
+        fechaHora = LocalDateTime.of(fecha, hora);
+
+        montoString = txtMonto.getText().trim();
+
+        if (montoString.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese un monto");
+            return;
+        }
+
+        try {
+            monto = Double.parseDouble(montoString);
+
+            if (monto <= 0) {
+                JOptionPane.showMessageDialog(null, "El monto debe ser mayor a cero");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese solo numeros");
+            return;
+        }
+
+        estado = chekEstado.isSelected();
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void cargarComboHorarios() {

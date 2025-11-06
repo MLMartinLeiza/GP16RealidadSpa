@@ -315,7 +315,7 @@ public class Sesion extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox chekSesion;
     private javax.swing.JComboBox<Consultorio> cmbConsultorio;
     private javax.swing.JComboBox<String> cmbHora;
-    private javax.swing.JComboBox<Instalacion> cmbInstalacion;
+    private javax.swing.JComboBox<VistaInstalacion> cmbInstalacion;
     private javax.swing.JComboBox<Masajista> cmbMasajista;
     private javax.swing.JComboBox<DiadeSpa> cmbPack;
     private javax.swing.JComboBox<Tratamiento> cmbTratamiento;

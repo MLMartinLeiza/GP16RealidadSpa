@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Persistencia;
+package Vista;
 
 import Modelo.Cliente;
 import Modelo.Tratamiento;
+import Persistencia.ClienteData;
+import Persistencia.Conexion;
+import Persistencia.TratamientoData;
 
 public class TestConexion {
 

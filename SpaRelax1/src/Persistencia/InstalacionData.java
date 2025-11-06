@@ -160,4 +160,8 @@ public class InstalacionData {
         }
         return lista;
     }
+
+    public void insertarInstalacion(Vista.VistaInstalacion ins) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -19,6 +19,13 @@ public class Instalacion {
         this.estado = estado;
     }
 
+    public Instalacion(String nombre, String detalleUso, double precio30m, boolean estado) {
+        this.nombre = nombre;
+        this.detalleUso = detalleUso;
+        this.precio30m = precio30m;
+        this.estado = estado;
+    }
+
     public int getCodInstal() {
         return codInstal;
     }

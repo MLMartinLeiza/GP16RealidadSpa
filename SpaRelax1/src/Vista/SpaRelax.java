@@ -94,7 +94,12 @@ public class SpaRelax extends javax.swing.JFrame {
 
         jMenu6.setText("Instalacion");
 
-        jMenuItem5.setText("jMenuItem5");
+        jMenuItem5.setText("Instalaciones");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem5);
 
         jMenuBar1.add(jMenu6);
@@ -152,6 +157,13 @@ public class SpaRelax extends javax.swing.JFrame {
         sesion.setVisible(true);
         centrarVentana(sesion);
     }//GEN-LAST:event_mItemFormSesionActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        VistaInstalacion instalacion = new VistaInstalacion();
+        jDesktop.add(instalacion);
+        instalacion.setVisible(true);
+        centrarVentana(instalacion);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

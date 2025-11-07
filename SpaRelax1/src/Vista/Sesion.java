@@ -318,7 +318,7 @@ public class Sesion extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<VistaInstalacion> cmbInstalacion;
     private javax.swing.JComboBox<Masajista> cmbMasajista;
     private javax.swing.JComboBox<DiadeSpa> cmbPack;
-    private javax.swing.JComboBox<Tratamiento> cmbTratamiento;
+    private javax.swing.JComboBox<VistaTratamiento> cmbTratamiento;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

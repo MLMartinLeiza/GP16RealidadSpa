@@ -154,7 +154,7 @@ public class TratamientoData {
 
     public List<Tratamiento> listarTratamientos() {
         List<Tratamiento> tratamientos = new ArrayList<>();
-        String query = "SELECT * FROM tratamiento WHERE activo=?";
+        String query = "SELECT * FROM tratamiento WHERE activo=1";
 
         try {
             PreparedStatement ps = con.prepareStatement(query);

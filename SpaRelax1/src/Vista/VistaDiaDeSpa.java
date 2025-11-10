@@ -23,13 +23,13 @@ import javax.swing.table.DefaultTableModel;
  * @author Usuario
  */
 public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
-    
+
     private DefaultTableModel modelo;
-    
+
     private List<Cliente> clientes;
     private ClienteData clienteData;
     private DiadeSpaData diaDeSpaData;
-    
+
     public VistaDiaDeSpa() {
         initComponents();
         setClosable(true);
@@ -43,6 +43,10 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         armarCabeceraTabla();
         cargarComboHorarios();
         cargarComboClientes();
+        btnActualizar.setEnabled(false);
+        btnAlta.setEnabled(false);
+        btnBaja.setEnabled(false);
+        btnEliminar.setEnabled(false);
     }
 
     /**
@@ -111,6 +115,11 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
         btnActualizar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnLimpiar.setText("Limpiar");
@@ -274,23 +283,23 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         String montoString;
         double monto;
         boolean estado;
-        
+
         if (cmbClientes.getSelectedItem() != null) {
             cliente = (Cliente) cmbClientes.getSelectedItem();
         } else {
             JOptionPane.showMessageDialog(null, "Seleccionar un cliente");
             return;
         }
-        
+
         String preferencias = txtPreferencias.getText().trim();
-        
+
         if (dateFecha.getDate() != null) {
             fecha = dateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         } else {
             JOptionPane.showMessageDialog(null, "Seleccionar la fecha");
             return;
         }
-        
+
         String horaString = (String) cmbHora.getSelectedItem();
         if (horaString != null && !horaString.isEmpty()) {
             try {
@@ -303,19 +312,19 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccionar un horario");
             return;
         }
-        
+
         fechaHora = LocalDateTime.of(fecha, hora);
-        
+
         montoString = txtMonto.getText().trim();
-        
+
         if (montoString.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese un monto");
             return;
         }
-        
+
         try {
             monto = Double.parseDouble(montoString);
-            
+
             if (monto <= 0) {
                 JOptionPane.showMessageDialog(null, "El monto debe ser mayor a cero");
                 return;
@@ -324,11 +333,11 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Ingrese solo numeros");
             return;
         }
-        
+
         estado = chekEstado.isSelected();
-        
+
         diaSpa = new DiaDeSpa(fechaHora, preferencias, cliente.getCodCli(), monto, estado);
-        
+
         try {
             diaDeSpaData.insertarDiadeSpa(diaSpa);
             limpiarCampos();
@@ -338,48 +347,151 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
+
         int codigo = 0;
-        
+
         try {
             codigo = Integer.parseInt(txtBuscar.getText().trim());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
             return;
         }
-        
+
         if (codigo <= 0) {
             JOptionPane.showMessageDialog(this, "Código inválido");
             return;
         }
-        
+
         borrarFilaTabla();
-        
+
         DiaDeSpa dSpa = diaDeSpaData.buscarDiadeSpaPorCodigo(codigo);
-        
+
         if (dSpa != null) {
             modelo.addRow(new Object[]{dSpa.getCodPack(), dSpa.getFechaHora(), dSpa.getPreferencias(),
                 dSpa.getCodCli(), dSpa.getMonto(), dSpa.isEstado()});
-            
-            for (int i = 0; i >= 0; i++) {
+
+            for (int i = 0; i < cmbClientes.getItemCount(); i++) {
                 Cliente c = cmbClientes.getItemAt(i);
                 if (c.getCodCli() == dSpa.getCodCli()) {
                     cmbClientes.setSelectedIndex(i);
                     break;
                 }
             }
-            
+
             txtMonto.setText(String.valueOf(dSpa.getMonto()));
             txtPreferencias.setText(dSpa.getPreferencias());
             chekEstado.setSelected(dSpa.isEstado());
+            btnActualizar.setEnabled(true);
+            btnAlta.setEnabled(true);
+            btnBaja.setEnabled(true);
+            btnEliminar.setEnabled(true);
+            btnInsertar.setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(this, "No se encontró Día de Spa con ese código");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
-    
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        Cliente cliente;
+        DiaDeSpa diaSpa;
+        LocalDate fecha;
+        LocalTime hora;
+        LocalDateTime fechaHora;
+        String montoString;
+        double monto;
+        boolean estado;
+        int codSeleccionado;
+
+        try {
+            codSeleccionado = Integer.parseInt(txtBuscar.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Buscá por un código válido.");
+            return;
+        }
+        if (codSeleccionado <= 0) {
+            JOptionPane.showMessageDialog(this, "Código inválido.");
+            return;
+        }
+
+        if (cmbClientes.getSelectedItem() != null) {
+            cliente = (Cliente) cmbClientes.getSelectedItem();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccionar un cliente");
+            return;
+        }
+
+        String preferencias = txtPreferencias.getText().trim();
+
+        if (dateFecha.getDate() != null) {
+            fecha = dateFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccionar la fecha");
+            return;
+        }
+
+        String horaString = (String) cmbHora.getSelectedItem();
+        if (horaString != null && !horaString.isEmpty()) {
+            try {
+                hora = java.time.LocalTime.parse(horaString); // formato "HH:mm"
+            } catch (java.time.format.DateTimeParseException e) {
+                JOptionPane.showMessageDialog(this, "Formato de hora inválido");
+                return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccionar un horario");
+            return;
+        }
+
+        fechaHora = LocalDateTime.of(fecha, hora);
+
+        montoString = txtMonto.getText().trim();
+
+        if (montoString.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese un monto");
+            return;
+        }
+
+        try {
+            monto = Double.parseDouble(montoString);
+
+            if (monto <= 0) {
+                JOptionPane.showMessageDialog(null, "El monto debe ser mayor a cero");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese solo numeros");
+            return;
+        }
+
+        estado = chekEstado.isSelected();
+
+        diaSpa = new DiaDeSpa(codSeleccionado, fechaHora, preferencias, cliente.getCodCli(), monto, estado);
+
+        try {
+            boolean actualizado = diaDeSpaData.actualizarDiadeSpa(diaSpa);
+            if (actualizado) {
+                borrarFilaTabla();
+                DiaDeSpa diaDeSpaActualizado = diaDeSpaData.buscarDiadeSpaPorCodigo(codSeleccionado);
+                if (diaDeSpaActualizado != null) {
+                    modelo.addRow(new Object[]{
+                        diaDeSpaActualizado.getCodPack(),
+                        diaDeSpaActualizado.getFechaHora(),
+                        diaDeSpaActualizado.getPreferencias(),
+                        diaDeSpaActualizado.getCodCli(),
+                        diaDeSpaActualizado.getMonto(),
+                        diaDeSpaActualizado.isEstado()
+                    });
+                }
+
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el Día de Spa " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
     private void cargarComboHorarios() {
         List<String> horarios = new ArrayList<>();
-        
+
         horarios.add("08:00");
         horarios.add("09:00");
         horarios.add("10:00");
@@ -392,37 +504,37 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         horarios.add("17:00");
         horarios.add("18:00");
         horarios.add("19:00");
-        
+
         cmbHora.removeAllItems();
-        
+
         for (String hora : horarios) {
             cmbHora.addItem(hora);
         }
     }
-    
+
     private void cargarComboClientes() {
         for (Cliente c : clientes) {
             cmbClientes.addItem(c);
         }
     }
-    
+
     private void armarCabeceraTabla() {
         List<Object> titulos = new ArrayList<>();
-        
+
         titulos.add("Código Pack");
         titulos.add("Fecha y Hora");
         titulos.add("Preferencias");
         titulos.add("Código Cliente");
         titulos.add("Monto");
         titulos.add("Estado");
-        
+
         for (Object o : titulos) {
             modelo.addColumn(o);
         }
-        
+
         tblDiaSpa.setModel(modelo);
     }
-    
+
     public void limpiarCampos() {
         cmbClientes.setSelectedItem(null);
         txtPreferencias.setText("");
@@ -431,11 +543,16 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         dateFecha.setDate(null);
         txtBuscar.setText("");
         cmbHora.setSelectedItem(null);
+        btnActualizar.setEnabled(false);
+        btnAlta.setEnabled(false);
+        btnBaja.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnInsertar.setEnabled(true);
     }
-    
+
     private void borrarFilaTabla() {
         int indice = modelo.getRowCount() - 1;
-        
+
         for (int i = indice; i >= 0; i--) {
             modelo.removeRow(i);
         }

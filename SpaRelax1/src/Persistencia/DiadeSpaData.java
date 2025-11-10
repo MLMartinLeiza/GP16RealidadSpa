@@ -48,7 +48,8 @@ public class DiadeSpaData {
         }
     }
 
-    public void actualizarDiadeSpa(DiaDeSpa d) {
+    public boolean actualizarDiadeSpa(DiaDeSpa d) {
+        boolean ok = false;
         String query = "UPDATE dia_de_spa SET fecha_hora=?, preferencias=?, codCli=?, monto=?, estado=? WHERE codPack=?";
 
         try {
@@ -64,6 +65,7 @@ public class DiadeSpaData {
 
             if (actualizado == 1) {
                 JOptionPane.showMessageDialog(null, "Día de Spa actualizado");
+                ok = true;
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el Día de Spa para actualizar");
             }
@@ -71,7 +73,7 @@ public class DiadeSpaData {
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla dia_de_spa");
-        }
+        } return ok;
     }
 
     public DiaDeSpa buscarDiadeSpaPorCodigo(int codPack) {

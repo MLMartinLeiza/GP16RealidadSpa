@@ -1,6 +1,6 @@
 package Persistencia;
 
-import Modelo.DiadeSpa;
+import Modelo.DiaDeSpa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ public class DiadeSpaData {
         con = Conexion.getConexion();
     }
 
-    public void insertarDiadeSpa(DiadeSpa d) {
+    public void insertarDiadeSpa(DiaDeSpa d) {
         String query = "INSERT INTO dia_de_spa(fecha_hora, preferencias, codCli, monto, estado) VALUES(?,?,?,?,?)";
 
         try {
@@ -48,7 +48,7 @@ public class DiadeSpaData {
         }
     }
 
-    public void actualizarDiadeSpa(DiadeSpa d) {
+    public void actualizarDiadeSpa(DiaDeSpa d) {
         String query = "UPDATE dia_de_spa SET fecha_hora=?, preferencias=?, codCli=?, monto=?, estado=? WHERE codPack=?";
 
         try {
@@ -74,8 +74,8 @@ public class DiadeSpaData {
         }
     }
 
-    public DiadeSpa buscarDiadeSpaPorCodigo(int codPack) {
-        DiadeSpa d = null;
+    public DiaDeSpa buscarDiadeSpaPorCodigo(int codPack) {
+        DiaDeSpa d = null;
         String query = "SELECT * FROM dia_de_spa WHERE codPack=?";
 
         try {
@@ -84,7 +84,7 @@ public class DiadeSpaData {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                d = new DiadeSpa();
+                d = new DiaDeSpa();
                 d.setCodPack(rs.getInt("codPack"));
                 Timestamp ts = rs.getTimestamp("fecha_hora");
                 if (ts != null) {
@@ -167,16 +167,16 @@ public class DiadeSpaData {
         }
     }
 
-    public List<DiadeSpa> listarDiadeSpa() {
+    public List<DiaDeSpa> listarDiadeSpa() {
         String query = "SELECT * FROM dia_de_spa WHERE estado=1";
-        List<DiadeSpa> lista = new ArrayList<>();
+        List<DiaDeSpa> lista = new ArrayList<>();
 
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                DiadeSpa d = new DiadeSpa();
+                DiaDeSpa d = new DiaDeSpa();
                 d.setCodPack(rs.getInt("codPack"));
                 Timestamp ts = rs.getTimestamp("fecha_hora");
                 if (ts != null) {

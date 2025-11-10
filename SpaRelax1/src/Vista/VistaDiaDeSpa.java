@@ -6,7 +6,9 @@
 package Vista;
 
 import Modelo.Cliente;
+import Modelo.DiaDeSpa;
 import Persistencia.ClienteData;
+import Persistencia.DiadeSpaData;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -20,14 +22,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Usuario
  */
-public class DiadeSpa extends javax.swing.JInternalFrame {
+public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo;
 
     private List<Cliente> clientes;
     private ClienteData clienteData;
+    private DiadeSpaData diaDeSpaData;
 
-    public DiadeSpa() {
+    public VistaDiaDeSpa() {
         initComponents();
         setClosable(true);
         setIconifiable(true);
@@ -35,6 +38,7 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         modelo = new DefaultTableModel();
         clienteData = new ClienteData();
+        diaDeSpaData = new DiadeSpaData();
         clientes = clienteData.listarClientes();
         armarCabeceraTabla();
         cargarComboHorarios();
@@ -257,6 +261,7 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         Cliente cliente;
+        DiaDeSpa diaSpa;
         LocalDate fecha;
         LocalTime hora;
         LocalDateTime fechaHora;
@@ -280,10 +285,16 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
             return;
         }
 
-        if (cmbHora.getSelectedItem() != null) {
-            hora = (LocalTime) cmbHora.getSelectedItem();
+        String horaString = (String) cmbHora.getSelectedItem();
+        if (horaString != null && !horaString.isEmpty()) {
+            try {
+                hora = java.time.LocalTime.parse(horaString); // formato "HH:mm"
+            } catch (java.time.format.DateTimeParseException e) {
+                JOptionPane.showMessageDialog(this, "Formato de hora inválido");
+                return;
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Seleccionar un horario");
+            JOptionPane.showMessageDialog(this, "Seleccionar un horario");
             return;
         }
 
@@ -309,6 +320,15 @@ public class DiadeSpa extends javax.swing.JInternalFrame {
         }
 
         estado = chekEstado.isSelected();
+
+        diaSpa = new DiaDeSpa(fechaHora, preferencias, cliente.getCodCli(), monto, estado);
+
+        try {
+            diaDeSpaData.insertarDiadeSpa(diaSpa);
+            limpiarCampos();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el turno: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void cargarComboHorarios() {

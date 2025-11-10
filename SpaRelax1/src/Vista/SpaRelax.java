@@ -150,7 +150,7 @@ public class SpaRelax extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mItemDiaSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemDiaSpaActionPerformed
-        DiadeSpa diaDeSpa = new DiadeSpa();
+        VistaDiaDeSpa diaDeSpa = new VistaDiaDeSpa();
         jDesktop.add(diaDeSpa);
         diaDeSpa.setVisible(true);
         centrarVentana(diaDeSpa);

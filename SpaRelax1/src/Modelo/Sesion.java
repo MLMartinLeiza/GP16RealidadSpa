@@ -10,7 +10,7 @@ public class Sesion {
     private Masajista masajista;
     private Tratamiento tratamiento;
     private Consultorio consultorio;
-    private DiadeSpa diaDeSpa;
+    private DiaDeSpa diaDeSpa;
     private Instalacion instalacion;
     private boolean estado;
 
@@ -18,7 +18,7 @@ public class Sesion {
     }
 
     public Sesion(int codSesion, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin,
-            Masajista masajista, Tratamiento tratamiento, Consultorio consultorio, DiadeSpa diaDeSpa, Instalacion instalacion, boolean estado) {
+            Masajista masajista, Tratamiento tratamiento, Consultorio consultorio, DiaDeSpa diaDeSpa, Instalacion instalacion, boolean estado) {
         this.codSesion = codSesion;
         this.fechaHoraInicio = fechaHoraInicio;
         this.fechaHoraFin = fechaHoraFin;
@@ -31,7 +31,7 @@ public class Sesion {
     }
 
     public Sesion(LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin,
-            Masajista masajista, Tratamiento tratamiento, Consultorio consultorio, DiadeSpa diaDeSpa, Instalacion instalacion, boolean estado) {
+            Masajista masajista, Tratamiento tratamiento, Consultorio consultorio, DiaDeSpa diaDeSpa, Instalacion instalacion, boolean estado) {
         this.fechaHoraInicio = fechaHoraInicio;
         this.fechaHoraFin = fechaHoraFin;
         this.masajista = masajista;
@@ -50,11 +50,11 @@ public class Sesion {
         this.instalacion = instalacion;
     }
 
-    public DiadeSpa getDiaDeSpa() {
+    public DiaDeSpa getDiaDeSpa() {
         return diaDeSpa;
     }
 
-    public void setDiaDeSpa(DiadeSpa diaDeSpa) {
+    public void setDiaDeSpa(DiaDeSpa diaDeSpa) {
         this.diaDeSpa = diaDeSpa;
     }
 

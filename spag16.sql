@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.3-1.fc42
+-- version 5.2.3-1.fc43
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-11-2025 a las 16:11:03
--- Versión del servidor: 10.11.11-MariaDB
+-- Tiempo de generación: 10-11-2025 a las 02:31:56
+-- Versión del servidor: 10.11.13-MariaDB
 -- Versión de PHP: 8.4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -39,6 +39,13 @@ CREATE TABLE `cliente` (
   `estado` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`codCli`, `dni`, `nombreCompleto`, `telefono`, `edad`, `afecciones`, `estado`) VALUES
+(1, 38749542, 'Martin Leiza', '0000393426', 30, 'Nada', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -66,6 +73,14 @@ CREATE TABLE `dia_de_spa` (
   `monto` double NOT NULL,
   `estado` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `dia_de_spa`
+--
+
+INSERT INTO `dia_de_spa` (`codPack`, `fecha_hora`, `preferencias`, `codCli`, `monto`, `estado`) VALUES
+(1, '2025-11-14 10:00:00', 'Masaje Relajante', 1, 10000, 1),
+(2, '2025-11-17 10:00:00', 'Masaje mas relajante', 1, 15000, 1);
 
 -- --------------------------------------------------------
 
@@ -197,7 +212,7 @@ ALTER TABLE `tratamiento`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `codCli` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `codCli` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `consultorio`
@@ -209,7 +224,7 @@ ALTER TABLE `consultorio`
 -- AUTO_INCREMENT de la tabla `dia_de_spa`
 --
 ALTER TABLE `dia_de_spa`
-  MODIFY `codPack` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `codPack` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `sesion`

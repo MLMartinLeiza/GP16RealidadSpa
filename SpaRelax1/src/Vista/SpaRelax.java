@@ -157,7 +157,7 @@ public class SpaRelax extends javax.swing.JFrame {
     }//GEN-LAST:event_mItemDiaSpaActionPerformed
 
     private void mItemFormSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemFormSesionActionPerformed
-        Sesion sesion = new Sesion();
+        VistaSesion sesion = new VistaSesion();
         jDesktop.add(sesion);
         sesion.setVisible(true);
         centrarVentana(sesion);

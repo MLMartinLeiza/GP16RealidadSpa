@@ -9,12 +9,12 @@ package Vista;
  *
  * @author Usuario
  */
-public class Masajista extends javax.swing.JInternalFrame {
+public class VistaMasajista extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Masajista
      */
-    public Masajista() {
+    public VistaMasajista() {
         initComponents();
     }
 

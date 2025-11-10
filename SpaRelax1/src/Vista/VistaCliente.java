@@ -9,12 +9,12 @@ package Vista;
  *
  * @author Usuario
  */
-public class Cliente extends javax.swing.JInternalFrame {
+public class VistaCliente extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Cliente
      */
-    public Cliente() {
+    public VistaCliente() {
         initComponents();
     }
 

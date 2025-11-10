@@ -9,12 +9,12 @@ package Vista;
  *
  * @author Usuario
  */
-public class Consultorio extends javax.swing.JInternalFrame {
+public class VistaConsultorio extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Consultorio
      */
-    public Consultorio() {
+    public VistaConsultorio() {
         initComponents();
     }
 

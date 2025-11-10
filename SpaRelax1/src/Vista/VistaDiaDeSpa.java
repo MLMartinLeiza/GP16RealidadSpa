@@ -327,7 +327,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
             diaDeSpaData.insertarDiadeSpa(diaSpa);
             limpiarCampos();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar el turno: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el Día de Spa " + ex.getMessage());
         }
     }//GEN-LAST:event_btnInsertarActionPerformed
 

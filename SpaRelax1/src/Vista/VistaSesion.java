@@ -13,11 +13,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Usuario
  */
-public class Sesion extends javax.swing.JInternalFrame {
+public class VistaSesion extends javax.swing.JInternalFrame {
     
     private DefaultTableModel modelo;
     
-    public Sesion() {
+    public VistaSesion() {
         initComponents();
         setClosable(true);
         setIconifiable(true);
@@ -313,12 +313,12 @@ public class Sesion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox chekSesion;
-    private javax.swing.JComboBox<Consultorio> cmbConsultorio;
+    private javax.swing.JComboBox<VistaConsultorio> cmbConsultorio;
     private javax.swing.JComboBox<String> cmbHora;
-    private javax.swing.JComboBox<VistaInstalacion> cmbInstalacion;
-    private javax.swing.JComboBox<Masajista> cmbMasajista;
-    private javax.swing.JComboBox<VistaDiaDeSpa> cmbPack;
-    private javax.swing.JComboBox<VistaTratamiento> cmbTratamiento;
+    private javax.swing.JComboBox<Vista.VistaInstalacion> cmbInstalacion;
+    private javax.swing.JComboBox<VistaMasajista> cmbMasajista;
+    private javax.swing.JComboBox<Vista.VistaDiaDeSpa> cmbPack;
+    private javax.swing.JComboBox<Vista.VistaTratamiento> cmbTratamiento;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -13,37 +13,24 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
 
     public VistaInstalacion() {
         initComponents();
+        instalacionData = new InstalacionData();
+        modeloTabla = new DefaultTableModel();
+        armarTabla();
+        
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        instalacionData = new InstalacionData();
-        modeloTabla = new DefaultTableModel();
-        armarCabeceraTabla();
-        estadoInicialBotones();
-        listarInstalaciones();
+        setTitle("Gestión de Instalaciones");
+
+        setLocation(150, 50);
+        
     }
 
-    // -------------------------------------------------------------------------
-    // MÉTODOS AUXILIARES
-    // -------------------------------------------------------------------------
-
-    private void armarCabeceraTabla() {
-        modeloTabla.addColumn("Código");
-        modeloTabla.addColumn("Nombre");
-        modeloTabla.addColumn("Detalle de Uso");
-        modeloTabla.addColumn("Precio (30m)");
-        modeloTabla.addColumn("Estado");
-        tablaInstalaciones.setModel(modeloTabla);
-    }
-
-    private void borrarFilaTabla() {
-        int filas = modeloTabla.getRowCount() - 1;
-        for (int i = filas; i >= 0; i--) {
-            modeloTabla.removeRow(i);
-        }
-    }
+    // -----------------------------------------------------------
+    // MÉTODOS DE BOTONES
+    // -----------------------------------------------------------
 
     private void limpiarCampos() {
         txtCodigo.setText("");
@@ -51,75 +38,42 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
         txtdetalleUso.setText("");
         txtPrecio.setText("");
         chkActivo.setSelected(false);
-        estadoInicialBotones();
     }
-
-    private void estadoInicialBotones() {
-        btnGuardar.setEnabled(true);
-        btnModificar.setEnabled(false);
-        btnEliminar.setEnabled(false);
-        btnAlta.setEnabled(false);
-        btnBaja.setEnabled(false);
-    }
-
-    private boolean validarCampos() {
-        if (txtNombre.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.");
-            return false;
-        }
-        if (txtdetalleUso.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un detalle de uso.");
-            return false;
-        }
-        if (txtPrecio.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un precio.");
-            return false;
-        }
-        try {
-            double precio = Double.parseDouble(txtPrecio.getText().trim());
-            if (precio <= 0) {
-                JOptionPane.showMessageDialog(this, "El precio debe ser mayor a cero.");
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El precio debe ser numérico.");
-            return false;
-        }
-        return true;
-    }
-
 
     private void guardarInstalacion() {
-        if (!validarCampos()) return;
-
-        String nombre = txtNombre.getText().trim();
-        String detalle = txtdetalleUso.getText().trim();
-        double precio = Double.parseDouble(txtPrecio.getText().trim());
-        boolean estado = chkActivo.isSelected();
-
-        Instalacion ins = new Instalacion(nombre, detalle, precio, estado);
-
         try {
+            String nombre = txtNombre.getText().trim();
+            String detalle = txtdetalleUso.getText().trim();
+            String precioTxt = txtPrecio.getText().trim();
+            boolean estado = chkActivo.isSelected();
+
+            if (nombre.isEmpty() || detalle.isEmpty() || precioTxt.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios");
+                return;
+            }
+
+            double precio = Double.parseDouble(precioTxt);
+            if (precio <= 0) {
+                JOptionPane.showMessageDialog(this, "El precio debe ser mayor a 0.");
+                return;
+            }
+
+            Instalacion ins = new Instalacion(nombre, detalle, precio, estado);
             instalacionData.insertarInstalacion(ins);
-            JOptionPane.showMessageDialog(this, "Instalación guardada correctamente.");
+            txtCodigo.setText(String.valueOf(ins.getCodInstal()));
             listarInstalaciones();
             limpiarCampos();
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "El precio debe ser numérico.");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar la instalación.");
+            JOptionPane.showMessageDialog(this, "Error al guardar instalación: " + e.getMessage());
         }
     }
 
     private void buscarInstalacion() {
-        String codigoTxt = txtCodigo.getText().trim();
-        if (codigoTxt.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese el código de la instalación para buscar.");
-            return;
-        }
-
         try {
-            int codigo = Integer.parseInt(codigoTxt);
-            borrarFilaTabla();
-
+            int codigo = Integer.parseInt(txtCodigo.getText().trim());
             Instalacion ins = instalacionData.buscarInstalacionPorCodigo(codigo);
 
             if (ins != null) {
@@ -127,103 +81,53 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
                 txtdetalleUso.setText(ins.getDetalleUso());
                 txtPrecio.setText(String.valueOf(ins.getPrecio30m()));
                 chkActivo.setSelected(ins.isEstado());
-
-                modeloTabla.addRow(new Object[]{
-                    ins.getCodInstal(),
-                    ins.getNombre(),
-                    ins.getDetalleUso(),
-                    ins.getPrecio30m(),
-                    ins.isEstado() ? "Activo" : "Inactivo"
-                });
-
-                btnModificar.setEnabled(true);
-                btnEliminar.setEnabled(true);
-                btnAlta.setEnabled(true);
-                btnBaja.setEnabled(true);
-                btnGuardar.setEnabled(false);
-
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró ninguna instalación con ese código.");
+                JOptionPane.showMessageDialog(this, "No se encontró instalación con ese código.");
             }
-
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El código debe ser un número.");
+            JOptionPane.showMessageDialog(this, "Ingrese un código válido para buscar.");
         }
     }
 
     private void modificarInstalacion() {
-        if (!validarCampos()) return;
-
         try {
-            int codigo = Integer.parseInt(txtCodigo.getText().trim());
+            int codigo = Integer.parseInt(txtCodigo.getText());
             String nombre = txtNombre.getText().trim();
             String detalle = txtdetalleUso.getText().trim();
-            double precio = Double.parseDouble(txtPrecio.getText().trim());
+            String precioTxt = txtPrecio.getText().trim();
             boolean estado = chkActivo.isSelected();
 
+            if (nombre.isEmpty() || detalle.isEmpty() || precioTxt.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Complete todos los campos antes de modificar.");
+                return;
+            }
+
+            double precio = Double.parseDouble(precioTxt);
+            if (precio <= 0) {
+                JOptionPane.showMessageDialog(this, "El precio debe ser mayor a 0.");
+                return;
+            }
+
             Instalacion ins = new Instalacion(codigo, nombre, detalle, precio, estado);
-
             boolean actualizado = instalacionData.actualizarInstalacion(ins);
+
             if (actualizado) {
-                JOptionPane.showMessageDialog(this, "Instalación actualizada correctamente.");
+                JOptionPane.showMessageDialog(this, "Instalación modificada correctamente.");
                 listarInstalaciones();
                 limpiarCampos();
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró la instalación para actualizar.");
+                JOptionPane.showMessageDialog(this, "No se pudo modificar la instalación.");
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un código válido para modificar.");
-        }
-    }
-
-    private void eliminarInstalacion() {
-        try {
-            int codigo = Integer.parseInt(txtCodigo.getText().trim());
-            boolean eliminado = instalacionData.eliminarInstalacion(codigo);
-
-            if (eliminado) {
-                JOptionPane.showMessageDialog(this, "Instalación eliminada correctamente.");
-                listarInstalaciones();
-                limpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontró la instalación con ese código.");
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un código válido para eliminar.");
-        }
-    }
-
-    private void altaLogica() {
-        try {
-            int codigo = Integer.parseInt(txtCodigo.getText().trim());
-            boolean alta = instalacionData.altaLogica(codigo);
-            if (alta) {
-                JOptionPane.showMessageDialog(this, "Instalación dada de alta correctamente.");
-                listarInstalaciones();
-                limpiarCampos();
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un código válido para dar de alta.");
-        }
-    }
-
-    private void bajaLogica() {
-        try {
-            int codigo = Integer.parseInt(txtCodigo.getText().trim());
-            boolean baja = instalacionData.bajaLogica(codigo);
-            if (baja) {
-                JOptionPane.showMessageDialog(this, "Instalación dada de baja correctamente.");
-                listarInstalaciones();
-                limpiarCampos();
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un código válido para dar de baja.");
+            JOptionPane.showMessageDialog(this, "Ingrese un código y un precio válidos.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al modificar instalación: " + e.getMessage());
         }
     }
 
     private void listarInstalaciones() {
-        borrarFilaTabla();
+        modeloTabla.setRowCount(0);
 
         List<Instalacion> lista = instalacionData.listarInstalaciones();
         for (Instalacion ins : lista) {
@@ -234,6 +138,35 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
                 ins.getPrecio30m(),
                 ins.isEstado() ? "Activo" : "Inactivo"
             });
+        }
+    }
+
+    private void armarTabla() {
+        modeloTabla.addColumn("Código");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Detalle");
+        modeloTabla.addColumn("Precio");
+        modeloTabla.addColumn("Estado");
+        tablaInstalaciones.setModel(modeloTabla);
+    }
+
+    private void altaLogica() {
+        try {
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            instalacionData.altaLogica(codigo);
+            listarInstalaciones();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un código válido para dar de alta.");
+        }
+    }
+
+    private void bajaLogica() {
+        try {
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            instalacionData.bajaLogica(codigo);
+            listarInstalaciones();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un código válido para dar de baja.");
         }
     }
  
@@ -254,8 +187,6 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaInstalaciones = new javax.swing.JTable();
@@ -264,6 +195,7 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
         txtdetalleUso = new javax.swing.JTextArea();
         btnAlta = new javax.swing.JButton();
         btnBaja = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
 
         jLabel1.setBackground(new java.awt.Color(204, 0, 153));
         jLabel1.setFont(new java.awt.Font("Dubai Medium", 0, 24)); // NOI18N
@@ -329,20 +261,6 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
             }
         });
 
-        btnModificar.setText("Modificar");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
         btnListar.setText("Listar");
         btnListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,30 +302,35 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(btnNuevo)
-                .addGap(47, 47, 47)
-                .addComponent(btnGuardar)
-                .addGap(18, 18, 18)
-                .addComponent(btnBuscar)
-                .addGap(18, 18, 18)
-                .addComponent(btnModificar)
-                .addGap(18, 18, 18)
-                .addComponent(btnEliminar)
-                .addGap(31, 31, 31)
-                .addComponent(btnListar)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(279, 279, 279)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(btnNuevo)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnGuardar)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnBuscar)
+                        .addGap(48, 48, 48)
+                        .addComponent(btnModificar)
+                        .addGap(54, 54, 54)
+                        .addComponent(btnListar)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -471,9 +394,8 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
                     .addComponent(btnNuevo)
                     .addComponent(btnGuardar)
                     .addComponent(btnBuscar)
-                    .addComponent(btnModificar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnListar))
+                    .addComponent(btnListar)
+                    .addComponent(btnModificar))
                 .addGap(77, 77, 77))
         );
 
@@ -500,16 +422,8 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_chkActivoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        buscarInstalacion();
     }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        modificarInstalacion();
-    }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        eliminarInstalacion();
-    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         listarInstalaciones();
@@ -526,13 +440,16 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
     }//GEN-LAST:event_txtNombreActionPerformed
 
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        modificarInstalacion();
+    }//GEN-LAST:event_btnModificarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Nombre;
     private javax.swing.JButton btnAlta;
     private javax.swing.JButton btnBaja;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnModificar;

@@ -15,7 +15,7 @@ public class InstalacionData {
     }
 
     public void insertarInstalacion(Instalacion ins) {
-        String sql = "INSERT INTO instalacion (nombre, detalle_Uso, precio_30m, estado) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO instalacion (nombre, detalle_Uso, precio_30min, estado) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, ins.getNombre());
@@ -37,7 +37,7 @@ public class InstalacionData {
     }
 
     public boolean actualizarInstalacion(Instalacion ins) {
-        String sql = "UPDATE instalacion SET nombre = ?, detalle_Uso = ?, precio_30m = ?, estado = ? WHERE codInstal = ?";
+        String sql = "UPDATE instalacion SET nombre = ?, detalle_Uso = ?, precio_30min = ?, estado = ? WHERE codInstal = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, ins.getNombre());
@@ -67,8 +67,8 @@ public class InstalacionData {
                 ins = new Instalacion();
                 ins.setCodInstal(rs.getInt("codInstal"));
                 ins.setNombre(rs.getString("nombre"));
-                ins.setDetalleUso(rs.getString("detalleUso"));
-                ins.setPrecio30m(rs.getDouble("precio30m"));
+                ins.setDetalleUso(rs.getString("detalle_Uso"));
+                ins.setPrecio30m(rs.getDouble("precio_30min"));
                 ins.setEstado(rs.getBoolean("estado"));
             }
 
@@ -79,46 +79,61 @@ public class InstalacionData {
         return ins;
     }
 
-    public boolean bajaLogica(int codigo) {
+    public void bajaLogica(int codInstal) {
         String sql = "UPDATE instalacion SET estado = 0 WHERE codInstal = ?";
-
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, codigo);
-            int exito = ps.executeUpdate();
-            return exito == 1;
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al dar de baja la instalación: " + ex.getMessage());
-            return false;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codInstal);
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(null, "Instalación dada de BAJA correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la instalación con ese código.");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al dar de BAJA: " + e.getMessage());
         }
-    }
+    }   
 
-    public boolean altaLogica(int codigo) {
+    public void altaLogica(int codInstal) {
         String sql = "UPDATE instalacion SET estado = 1 WHERE codInstal = ?";
-
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, codigo);
-            int exito = ps.executeUpdate();
-            return exito == 1;
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al dar de alta la instalación: " + ex.getMessage());
-            return false;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codInstal);
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(null, "Instalación dada de ALTA correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la instalación con ese código.");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al dar de ALTA: " + e.getMessage());
         }
     }
-
-    public boolean eliminarInstalacion(int codigo) {
-        String sql = "DELETE FROM instalacion WHERE codInstal = ?";
+    
+        public Instalacion buscarInstalacion(String nombre) {
+        String sql = "SELECT * FROM instalacion WHERE nombre = ?";
+        Instalacion ins = null;
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, codigo);
-            int exito = ps.executeUpdate();
-            return exito == 1;
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                ins = new Instalacion();
+                ins.setCodInstal(rs.getInt("codInstal"));
+                ins.setNombre(rs.getString("nombre"));
+                ins.setDetalleUso(rs.getString("detalle_uso"));
+                ins.setPrecio30m(rs.getDouble("precio_30min"));
+                ins.setEstado(rs.getBoolean("estado"));
+            }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar instalación: " + ex.getMessage());
-            return false;
+            JOptionPane.showMessageDialog(null, "Error al buscar instalación por nombre: " + ex.getMessage());
         }
+        return ins;
     }
 
     public List<Instalacion> listarInstalaciones() {
@@ -132,8 +147,8 @@ public class InstalacionData {
                 Instalacion ins = new Instalacion();
                 ins.setCodInstal(rs.getInt("codInstal"));
                 ins.setNombre(rs.getString("nombre"));
-                ins.setDetalleUso(rs.getString("detalleUso"));
-                ins.setPrecio30m(rs.getDouble("precio30m"));
+                ins.setDetalleUso(rs.getString("detalle_Uso"));
+                ins.setPrecio30m(rs.getDouble("precio_30min"));
                 ins.setEstado(rs.getBoolean("estado"));
                 lista.add(ins);
             }

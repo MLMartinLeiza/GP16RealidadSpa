@@ -156,7 +156,8 @@ public class DiadeSpaData {
         return dadoAlta;
     }
 
-    public void eliminarDiadeSpa(int codPack) {
+    public boolean eliminarDiadeSpa(int codPack) {
+        boolean borrado = false;
         String query = "DELETE FROM dia_de_spa WHERE codPack=?";
 
         try {
@@ -165,6 +166,7 @@ public class DiadeSpaData {
             int eliminado = ps.executeUpdate();
 
             if (eliminado == 1) {
+                borrado = true;
                 JOptionPane.showMessageDialog(null, "Día de Spa eliminado");
             } else {
                 JOptionPane.showMessageDialog(null, "Error al eliminar Día de Spa");
@@ -174,6 +176,7 @@ public class DiadeSpaData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla dia_de_spa");
         }
+        return borrado;
     }
 
     public List<DiaDeSpa> listarDiadeSpa() {

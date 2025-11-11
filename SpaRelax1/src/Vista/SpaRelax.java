@@ -37,7 +37,7 @@ public class SpaRelax extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        Tratamiento = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -66,14 +66,14 @@ public class SpaRelax extends javax.swing.JFrame {
 
         jMenu2.setText("Cliente");
 
-        jMenuItem1.setText("Clientes");
+        jMenuItem1.setText("jMenuItem1");
         jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Masajista");
 
-        jMenuItem2.setText("Masajistas");
+        jMenuItem2.setText("jMenuItem2");
         jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
@@ -85,19 +85,19 @@ public class SpaRelax extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem3.setText("Tratamientos");
-        jMenu4.add(jMenuItem3);
+        Tratamiento.setText("Tratamientos");
+        Tratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TratamientoActionPerformed(evt);
+            }
+        });
+        jMenu4.add(Tratamiento);
 
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Consultorio");
 
-        jMenuItem4.setText("Consultorios");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
+        jMenuItem4.setText("jMenuItem4");
         jMenu5.add(jMenuItem4);
 
         jMenuBar1.add(jMenu5);
@@ -169,24 +169,25 @@ public class SpaRelax extends javax.swing.JFrame {
     }//GEN-LAST:event_mItemFormSesionActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        VistaInstalacion vistaI = new VistaInstalacion();
-        jDesktop.add(vistaI);
-        vistaI.setVisible(true);
-        centrarVentana(vistaI);
-        vistaI.toFront();
+        VistaInstalacion instalacion = new VistaInstalacion();
+        jDesktop.add(instalacion);
+        instalacion.setVisible(true);
+        centrarVentana(instalacion);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
         // TODO add your handling code here:
-        VistaTratamiento vistaT = new VistaTratamiento ();
+      
+    }//GEN-LAST:event_jMenu4ActionPerformed
+
+    private void TratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TratamientoActionPerformed
+        // TODO add your handling code here:
+        
+          VistaTratamiento vistaT = new VistaTratamiento ();
         jDesktop.add(vistaT);
          vistaT.setVisible(true);
          centrarVentana(vistaT);
-    }//GEN-LAST:event_jMenu4ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_TratamientoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,6 +232,7 @@ public class SpaRelax extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Tratamiento;
     private javax.swing.JDesktopPane jDesktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -244,7 +246,6 @@ public class SpaRelax extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem mItemDiaSpa;

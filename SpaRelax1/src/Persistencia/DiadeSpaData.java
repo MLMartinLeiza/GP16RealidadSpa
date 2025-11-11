@@ -73,7 +73,8 @@ public class DiadeSpaData {
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla dia_de_spa");
-        } return ok;
+        }
+        return ok;
     }
 
     public DiaDeSpa buscarDiadeSpaPorCodigo(int codPack) {
@@ -109,7 +110,8 @@ public class DiadeSpaData {
         return d;
     }
 
-    public void bajaLogica(int codPack) {
+    public boolean bajaLogica(int codPack) {
+        boolean dadoBaja = false;
         String query = "UPDATE dia_de_spa SET estado=0 WHERE codPack=?";
 
         try {
@@ -118,6 +120,7 @@ public class DiadeSpaData {
             int actualizado = ps.executeUpdate();
 
             if (actualizado == 1) {
+                dadoBaja = true;
                 JOptionPane.showMessageDialog(null, "Estado actualizado (baja lógica)");
             } else {
                 JOptionPane.showMessageDialog(null, "Error al actualizar estado");
@@ -127,9 +130,11 @@ public class DiadeSpaData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla dia_de_spa");
         }
+        return dadoBaja;
     }
 
-    public void altaLogica(int codPack) {
+    public boolean altaLogica(int codPack) {
+        boolean dadoAlta = false;
         String query = "UPDATE dia_de_spa SET estado=1 WHERE codPack=?";
 
         try {
@@ -139,6 +144,7 @@ public class DiadeSpaData {
 
             if (actualizado == 1) {
                 JOptionPane.showMessageDialog(null, "Estado actualizado (alta lógica)");
+                dadoAlta = true;
             } else {
                 JOptionPane.showMessageDialog(null, "Error al actualizar estado");
             }
@@ -147,6 +153,7 @@ public class DiadeSpaData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla dia_de_spa");
         }
+        return dadoAlta;
     }
 
     public void eliminarDiadeSpa(int codPack) {

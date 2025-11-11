@@ -109,9 +109,19 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
         btnAlta.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnAlta.setText("Alta");
+        btnAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltaActionPerformed(evt);
+            }
+        });
 
         btnBaja.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnBaja.setText("Baja");
+        btnBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnActualizar.setText("Actualizar");
@@ -303,7 +313,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         String horaString = (String) cmbHora.getSelectedItem();
         if (horaString != null && !horaString.isEmpty()) {
             try {
-                hora = java.time.LocalTime.parse(horaString); // formato "HH:mm"
+                hora = java.time.LocalTime.parse(horaString);
             } catch (java.time.format.DateTimeParseException e) {
                 JOptionPane.showMessageDialog(this, "Formato de hora inválido");
                 return;
@@ -342,7 +352,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
             diaDeSpaData.insertarDiadeSpa(diaSpa);
             limpiarCampos();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar el Día de Spa " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el Día de Spa ");
         }
     }//GEN-LAST:event_btnInsertarActionPerformed
 
@@ -405,11 +415,11 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         try {
             codSeleccionado = Integer.parseInt(txtBuscar.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Buscá por un código válido.");
+            JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
             return;
         }
         if (codSeleccionado <= 0) {
-            JOptionPane.showMessageDialog(this, "Código inválido.");
+            JOptionPane.showMessageDialog(this, "Código inválido");
             return;
         }
 
@@ -432,7 +442,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         String horaString = (String) cmbHora.getSelectedItem();
         if (horaString != null && !horaString.isEmpty()) {
             try {
-                hora = java.time.LocalTime.parse(horaString); // formato "HH:mm"
+                hora = java.time.LocalTime.parse(horaString);
             } catch (java.time.format.DateTimeParseException e) {
                 JOptionPane.showMessageDialog(this, "Formato de hora inválido");
                 return;
@@ -485,9 +495,87 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar el Día de Spa " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el Día de Spa ");
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
+
+        int codPack;
+
+        try {
+            codPack = Integer.parseInt(txtBuscar.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+            return;
+        }
+
+        if (codPack <= 0) {
+            JOptionPane.showMessageDialog(this, "Código inválido");
+            return;
+        }
+
+        try {
+            boolean dadoAlta = diaDeSpaData.altaLogica(codPack);
+            if (dadoAlta) {
+                borrarFilaTabla();
+                DiaDeSpa diaDeSpaActualizado = diaDeSpaData.buscarDiadeSpaPorCodigo(codPack);
+                if (diaDeSpaActualizado != null) {
+                    chekEstado.setSelected(true);
+                    modelo.addRow(new Object[]{
+                        diaDeSpaActualizado.getCodPack(),
+                        diaDeSpaActualizado.getFechaHora(),
+                        diaDeSpaActualizado.getPreferencias(),
+                        diaDeSpaActualizado.getCodCli(),
+                        diaDeSpaActualizado.getMonto(),
+                        diaDeSpaActualizado.isEstado()
+                    });
+                }
+
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "No se pudo dar de alta el Día de Spa ");
+        }
+
+    }//GEN-LAST:event_btnAltaActionPerformed
+
+    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+        int codPack;
+
+        try {
+            codPack = Integer.parseInt(txtBuscar.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+            return;
+        }
+
+        if (codPack <= 0) {
+            JOptionPane.showMessageDialog(this, "Código inválido");
+            return;
+        }
+
+        try {
+            boolean dadoBaja = diaDeSpaData.bajaLogica(codPack);
+            if (dadoBaja) {
+                borrarFilaTabla();
+                DiaDeSpa diaDeSpaActualizado = diaDeSpaData.buscarDiadeSpaPorCodigo(codPack);
+                if (diaDeSpaActualizado != null) {
+                    chekEstado.setSelected(false);
+                    modelo.addRow(new Object[]{
+                        diaDeSpaActualizado.getCodPack(),
+                        diaDeSpaActualizado.getFechaHora(),
+                        diaDeSpaActualizado.getPreferencias(),
+                        diaDeSpaActualizado.getCodCli(),
+                        diaDeSpaActualizado.getMonto(),
+                        diaDeSpaActualizado.isEstado()
+                    });
+                }
+
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "No se pudo dar de Baja el Día de Spa ");
+        }
+    }//GEN-LAST:event_btnBajaActionPerformed
 
     private void cargarComboHorarios() {
         List<String> horarios = new ArrayList<>();

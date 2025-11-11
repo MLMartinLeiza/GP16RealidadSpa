@@ -37,7 +37,7 @@ public class SpaRelax extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        Tratamiento = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -85,8 +85,13 @@ public class SpaRelax extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem3.setText("jMenuItem3");
-        jMenu4.add(jMenuItem3);
+        Tratamiento.setText("Tratamientos");
+        Tratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TratamientoActionPerformed(evt);
+            }
+        });
+        jMenu4.add(Tratamiento);
 
         jMenuBar1.add(jMenu4);
 
@@ -172,11 +177,17 @@ public class SpaRelax extends javax.swing.JFrame {
 
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
         // TODO add your handling code here:
-        VistaTratamiento vistaT = new VistaTratamiento ();
+      
+    }//GEN-LAST:event_jMenu4ActionPerformed
+
+    private void TratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TratamientoActionPerformed
+        // TODO add your handling code here:
+        
+          VistaTratamiento vistaT = new VistaTratamiento ();
         jDesktop.add(vistaT);
          vistaT.setVisible(true);
          centrarVentana(vistaT);
-    }//GEN-LAST:event_jMenu4ActionPerformed
+    }//GEN-LAST:event_TratamientoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,6 +232,7 @@ public class SpaRelax extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Tratamiento;
     private javax.swing.JDesktopPane jDesktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -234,7 +246,6 @@ public class SpaRelax extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem mItemDiaSpa;

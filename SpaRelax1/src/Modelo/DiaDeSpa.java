@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class DiaDeSpa {
 
@@ -10,6 +11,7 @@ public class DiaDeSpa {
     private int codCli;
     private double monto;
     private boolean estado;
+    private List<Sesion> sesiones;
 
     public DiaDeSpa() {
     }
@@ -81,13 +83,7 @@ public class DiaDeSpa {
 
     @Override
     public String toString() {
-        return "DiadeSpa{"
-                + "codPack=" + codPack
-                + ", fechaHora=" + fechaHora
-                + ", preferencias='" + preferencias + '\''
-                + ", codCli=" + codCli
-                + ", monto=" + monto
-                + ", estado=" + estado
-                + '}';
+        return codPack + " - " + preferencias + " (Cli: " + codCli + ")";
     }
+
 }

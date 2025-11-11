@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import Modelo.DiaDeSpa;
+import Persistencia.DiadeSpaData;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -14,9 +16,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Usuario
  */
 public class VistaSesion extends javax.swing.JInternalFrame {
-    
+
     private DefaultTableModel modelo;
-    
+    DiadeSpaData diaSpaData;
+
     public VistaSesion() {
         initComponents();
         setClosable(true);
@@ -24,7 +27,9 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         setResizable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         modelo = new DefaultTableModel();
+        diaSpaData = new DiadeSpaData();
         cargarComboHorarios();
+        cargarComboPacks();
         armarCabeceraTabla();
     }
 
@@ -249,9 +254,19 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cargarComboPacks() {
+        List<DiaDeSpa> diasSpa = diaSpaData.listarDiadeSpa();
+        cmbPack.removeAllItems();
+        for (DiaDeSpa d : diasSpa) {
+            {
+                cmbPack.addItem(d);
+            }
+        }
+    }
+
     private void cargarComboHorarios() {
         List<String> horarios = new ArrayList<>();
-        
+
         horarios.add("08:00");
         horarios.add("08:30");
         horarios.add("09:00");
@@ -276,17 +291,17 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         horarios.add("18:30");
         horarios.add("19:00");
         horarios.add("19:30");
-        
+
         cmbHora.removeAllItems();
-        
+
         for (String hora : horarios) {
             cmbHora.addItem(hora);
         }
     }
-    
+
     private void armarCabeceraTabla() {
         List<Object> titulos = new ArrayList<>();
-        
+
         titulos.add("Código Sesión");
         titulos.add("Inicio");
         titulos.add("Fin");
@@ -296,11 +311,11 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         titulos.add("Instalación");
         titulos.add("Pack");
         titulos.add("Estado");
-        
+
         for (Object o : titulos) {
             modelo.addColumn(o);
         }
-        
+
         tblSesion.setModel(modelo);
     }
 
@@ -313,11 +328,11 @@ public class VistaSesion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox chekSesion;
-    private javax.swing.JComboBox<VistaConsultorio> cmbConsultorio;
+    private javax.swing.JComboBox<Vista.VistaConsultorio> cmbConsultorio;
     private javax.swing.JComboBox<String> cmbHora;
     private javax.swing.JComboBox<Vista.VistaInstalacion> cmbInstalacion;
-    private javax.swing.JComboBox<VistaMasajista> cmbMasajista;
-    private javax.swing.JComboBox<Vista.VistaDiaDeSpa> cmbPack;
+    private javax.swing.JComboBox<Vista.VistaMasajista> cmbMasajista;
+    private javax.swing.JComboBox<DiaDeSpa> cmbPack;
     private javax.swing.JComboBox<Vista.VistaTratamiento> cmbTratamiento;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;

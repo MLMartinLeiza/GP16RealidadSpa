@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 10-11-2025 a las 13:45:22
+-- Tiempo de generación: 11-11-2025 a las 16:38:43
 -- Versión del servidor: 10.11.13-MariaDB
 -- Versión de PHP: 8.4.14
 
@@ -79,8 +79,8 @@ CREATE TABLE `dia_de_spa` (
 --
 
 INSERT INTO `dia_de_spa` (`codPack`, `fecha_hora`, `preferencias`, `codCli`, `monto`, `estado`) VALUES
-(1, '2025-11-14 10:00:00', 'Masaje Relajante', 1, 10000, 1),
-(2, '2025-11-17 10:00:00', 'Masaje mas relajante', 1, 15000, 1);
+(2, '2025-11-19 08:00:00', 'Masaje mas relajante', 1, 20000, 1),
+(3, '2025-11-21 10:00:00', 'Masaje relajante', 1, 25000, 1);
 
 -- --------------------------------------------------------
 
@@ -224,7 +224,7 @@ ALTER TABLE `consultorio`
 -- AUTO_INCREMENT de la tabla `dia_de_spa`
 --
 ALTER TABLE `dia_de_spa`
-  MODIFY `codPack` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codPack` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `sesion`

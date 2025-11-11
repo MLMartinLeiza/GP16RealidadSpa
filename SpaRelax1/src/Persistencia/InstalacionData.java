@@ -15,9 +15,9 @@ public class InstalacionData {
     }
 
     public void insertarInstalacion(Instalacion ins) {
-        String query = "INSERT INTO instalacion(nombre, detalle_uso, precio_30min, estado) VALUES(?,?,?,?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        String sql = "INSERT INTO instalacion (nombre, detalle_Uso, precio_30m, estado) VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, ins.getNombre());
             ps.setString(2, ins.getDetalleUso());
             ps.setDouble(3, ins.getPrecio30m());
@@ -27,141 +27,121 @@ public class InstalacionData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 ins.setCodInstal(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Instalación guardada exitosamente");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo obtener el ID");
             }
-            ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla instalacion");
+
+            JOptionPane.showMessageDialog(null, "Instalación guardada correctamente.");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar instalación: " + ex.getMessage());
         }
     }
 
-    public void actualizarInstalacion(Instalacion ins) {
-        String query = "UPDATE instalacion SET nombre=?, detalle_uso=?, precio_30min=?, estado=? WHERE codInstal=?";
-        try {
-            PreparedStatement ps = con.prepareStatement(query);
+    public boolean actualizarInstalacion(Instalacion ins) {
+        String sql = "UPDATE instalacion SET nombre = ?, detalle_Uso = ?, precio_30m = ?, estado = ? WHERE codInstal = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, ins.getNombre());
             ps.setString(2, ins.getDetalleUso());
             ps.setDouble(3, ins.getPrecio30m());
             ps.setBoolean(4, ins.isEstado());
             ps.setInt(5, ins.getCodInstal());
-            int actualizado = ps.executeUpdate();
 
-            if (actualizado == 1) {
-                JOptionPane.showMessageDialog(null, "Instalación actualizada");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la instalación");
-            }
-            ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla instalacion");
+            int exito = ps.executeUpdate();
+            return exito == 1;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar instalación: " + ex.getMessage());
+            return false;
         }
     }
 
-    public Instalacion buscarInstalacion(String nombre) {
+    public Instalacion buscarInstalacionPorCodigo(int codigo) {
+        String sql = "SELECT * FROM instalacion WHERE codInstal = ?";
         Instalacion ins = null;
-        String query = "SELECT * FROM instalacion WHERE nombre=?";
-        try {
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, nombre);
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, codigo);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 ins = new Instalacion();
                 ins.setCodInstal(rs.getInt("codInstal"));
                 ins.setNombre(rs.getString("nombre"));
-                ins.setDetalleUso(rs.getString("detalle_uso"));
-                ins.setPrecio30m(rs.getDouble("precio_30min"));
+                ins.setDetalleUso(rs.getString("detalleUso"));
+                ins.setPrecio30m(rs.getDouble("precio30m"));
                 ins.setEstado(rs.getBoolean("estado"));
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la instalación");
             }
-            ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla instalacion");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar instalación: " + ex.getMessage());
         }
+
         return ins;
     }
 
-    public void bajaLogica(int codInstal) {
-        String query = "UPDATE instalacion SET estado=0 WHERE codInstal=?";
-        try {
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1, codInstal);
-            int actualizado = ps.executeUpdate();
+    public boolean bajaLogica(int codigo) {
+        String sql = "UPDATE instalacion SET estado = 0 WHERE codInstal = ?";
 
-            if (actualizado == 1) {
-                JOptionPane.showMessageDialog(null, "Estado actualizado");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la instalación");
-            }
-            ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla instalacion");
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, codigo);
+            int exito = ps.executeUpdate();
+            return exito == 1;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al dar de baja la instalación: " + ex.getMessage());
+            return false;
         }
     }
 
-    public void altaLogica(int codInstal) {
-        String query = "UPDATE instalacion SET estado=1 WHERE codInstal=?";
-        try {
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1, codInstal);
-            int actualizado = ps.executeUpdate();
+    public boolean altaLogica(int codigo) {
+        String sql = "UPDATE instalacion SET estado = 1 WHERE codInstal = ?";
 
-            if (actualizado == 1) {
-                JOptionPane.showMessageDialog(null, "Estado actualizado");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la instalación");
-            }
-            ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla instalacion");
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, codigo);
+            int exito = ps.executeUpdate();
+            return exito == 1;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al dar de alta la instalación: " + ex.getMessage());
+            return false;
         }
     }
 
-    public void eliminarInstalacion(int codInstal) {
-        String query = "DELETE FROM instalacion WHERE codInstal=?";
-        try {
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1, codInstal);
-            int eliminado = ps.executeUpdate();
+    public boolean eliminarInstalacion(int codigo) {
+        String sql = "DELETE FROM instalacion WHERE codInstal = ?";
 
-            if (eliminado == 1) {
-                JOptionPane.showMessageDialog(null, "Instalación eliminada");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la instalación");
-            }
-            ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla instalacion");
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, codigo);
+            int exito = ps.executeUpdate();
+            return exito == 1;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar instalación: " + ex.getMessage());
+            return false;
         }
     }
 
     public List<Instalacion> listarInstalaciones() {
         List<Instalacion> lista = new ArrayList<>();
-        String query = "SELECT * FROM instalacion WHERE estado=1";
-        try {
-            PreparedStatement ps = con.prepareStatement(query);
+        String sql = "SELECT * FROM instalacion";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 Instalacion ins = new Instalacion();
                 ins.setCodInstal(rs.getInt("codInstal"));
                 ins.setNombre(rs.getString("nombre"));
-                ins.setDetalleUso(rs.getString("detalle_uso"));
-                ins.setPrecio30m(rs.getDouble("precio_30min"));
+                ins.setDetalleUso(rs.getString("detalleUso"));
+                ins.setPrecio30m(rs.getDouble("precio30m"));
                 ins.setEstado(rs.getBoolean("estado"));
                 lista.add(ins);
             }
-            ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla instalacion");
-        }
-        return lista;
-    }
 
-    public void insertarInstalacion(Vista.VistaInstalacion ins) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al listar instalaciones: " + ex.getMessage());
+        }
+
+        return lista;
     }
 }

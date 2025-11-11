@@ -66,14 +66,14 @@ public class SpaRelax extends javax.swing.JFrame {
 
         jMenu2.setText("Cliente");
 
-        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.setText("Clientes");
         jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Masajista");
 
-        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.setText("Masajistas");
         jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
@@ -85,14 +85,19 @@ public class SpaRelax extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setText("Tratamientos");
         jMenu4.add(jMenuItem3);
 
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Consultorio");
 
-        jMenuItem4.setText("jMenuItem4");
+        jMenuItem4.setText("Consultorios");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem4);
 
         jMenuBar1.add(jMenu5);
@@ -164,10 +169,11 @@ public class SpaRelax extends javax.swing.JFrame {
     }//GEN-LAST:event_mItemFormSesionActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        VistaInstalacion instalacion = new VistaInstalacion();
-        jDesktop.add(instalacion);
-        instalacion.setVisible(true);
-        centrarVentana(instalacion);
+        VistaInstalacion vistaI = new VistaInstalacion();
+        jDesktop.add(vistaI);
+        vistaI.setVisible(true);
+        centrarVentana(vistaI);
+        vistaI.toFront();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
@@ -177,6 +183,10 @@ public class SpaRelax extends javax.swing.JFrame {
          vistaT.setVisible(true);
          centrarVentana(vistaT);
     }//GEN-LAST:event_jMenu4ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments

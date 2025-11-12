@@ -78,7 +78,7 @@ public class Tratamiento {
 
     @Override
     public String toString() {
-        return "Tratamiento{" + "codTratam=" + codTratam + ", nombre=" + nombre + ", detalle=" + detalle + ", duracion=" + duracion + ", costo=" + costo + ", estado=" + estado + '}';
+        return "Tratamiento: " + nombre;
     }
     
     

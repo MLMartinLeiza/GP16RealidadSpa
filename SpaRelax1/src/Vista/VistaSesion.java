@@ -5,8 +5,16 @@
  */
 package Vista;
 
+import Modelo.Consultorio;
 import Modelo.DiaDeSpa;
+import Modelo.Instalacion;
+import Modelo.Masajista;
+import Modelo.Tratamiento;
+import Persistencia.ConsultorioData;
 import Persistencia.DiadeSpaData;
+import Persistencia.InstalacionData;
+import Persistencia.MasajistaData;
+import Persistencia.TratamientoData;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +26,11 @@ import javax.swing.table.DefaultTableModel;
 public class VistaSesion extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo;
-    DiadeSpaData diaSpaData;
+    private DiadeSpaData diaSpaData;
+    private MasajistaData masajData;
+    private TratamientoData tratData;
+    private InstalacionData instData;
+    private ConsultorioData consData;
 
     public VistaSesion() {
         initComponents();
@@ -28,8 +40,15 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         modelo = new DefaultTableModel();
         diaSpaData = new DiadeSpaData();
+        masajData = new MasajistaData();
+        tratData = new TratamientoData();
+        instData = new InstalacionData();
+        consData = new ConsultorioData();
         cargarComboHorarios();
         cargarComboPacks();
+        cargarComboMasajistas();
+        cargarComboTratamientos();
+        cargarComboInstalaciones();
         armarCabeceraTabla();
     }
 
@@ -258,9 +277,31 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         List<DiaDeSpa> diasSpa = diaSpaData.listarDiadeSpa();
         cmbPack.removeAllItems();
         for (DiaDeSpa d : diasSpa) {
-            {
-                cmbPack.addItem(d);
-            }
+            cmbPack.addItem(d);
+        }
+    }
+
+    private void cargarComboMasajistas() {
+        List<Masajista> masajistas = masajData.listarMasajistas();
+        cmbMasajista.removeAllItems();
+        for (Masajista m : masajistas) {
+            cmbMasajista.addItem(m);
+        }
+    }
+
+    private void cargarComboTratamientos() {
+        List<Tratamiento> tratamientos = tratData.listarTratamientos();
+        cmbTratamiento.removeAllItems();
+        for (Tratamiento t : tratamientos) {
+            cmbTratamiento.addItem(t);
+        }
+    }
+
+    private void cargarComboInstalaciones() {
+        List<Instalacion> instalaciones = instData.listarInstalaciones();
+        cmbInstalacion.removeAllItems();
+        for (Instalacion i : instalaciones) {
+            cmbInstalacion.addItem(i);
         }
     }
 
@@ -328,12 +369,12 @@ public class VistaSesion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox chekSesion;
-    private javax.swing.JComboBox<Vista.VistaConsultorio> cmbConsultorio;
+    private javax.swing.JComboBox<Consultorio> cmbConsultorio;
     private javax.swing.JComboBox<String> cmbHora;
-    private javax.swing.JComboBox<Vista.VistaInstalacion> cmbInstalacion;
-    private javax.swing.JComboBox<Vista.VistaMasajista> cmbMasajista;
+    private javax.swing.JComboBox<Instalacion> cmbInstalacion;
+    private javax.swing.JComboBox<Masajista> cmbMasajista;
     private javax.swing.JComboBox<DiaDeSpa> cmbPack;
-    private javax.swing.JComboBox<Vista.VistaTratamiento> cmbTratamiento;
+    private javax.swing.JComboBox<Tratamiento> cmbTratamiento;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

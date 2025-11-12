@@ -83,7 +83,7 @@ public class DiaDeSpa {
 
     @Override
     public String toString() {
-        return codPack + " - " + preferencias + " (Cli: " + codCli + ")";
+        return codPack + " - " + preferencias + " Cliente: " + codCli;
     }
 
 }

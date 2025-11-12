@@ -19,6 +19,10 @@ public class VistaTratamiento extends javax.swing.JInternalFrame {
     
     public VistaTratamiento() {
         initComponents();
+        setClosable(true);
+        setIconifiable(true);
+        setResizable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         tratamientoData = new TratamientoData ();
         modeloTabla = new DefaultTableModel ();
         armarTabla(); 

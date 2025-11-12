@@ -28,10 +28,6 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
         
     }
 
-    // -----------------------------------------------------------
-    // MÉTODOS DE BOTONES
-    // -----------------------------------------------------------
-
     private void limpiarCampos() {
         txtCodigo.setText("");
         txtNombre.setText("");

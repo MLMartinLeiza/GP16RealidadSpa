@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -304,8 +305,8 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         String horaString = (String) cmbHora.getSelectedItem();
         if (horaString != null && !horaString.isEmpty()) {
             try {
-                hora = java.time.LocalTime.parse(horaString);
-            } catch (java.time.format.DateTimeParseException e) {
+                hora = LocalTime.parse(horaString);
+            } catch (DateTimeParseException e) {
                 JOptionPane.showMessageDialog(this, "Formato de hora inválido");
                 return;
             }

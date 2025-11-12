@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-11-2025 a las 13:22:31
+-- Tiempo de generación: 12-11-2025 a las 17:03:41
 -- Versión del servidor: 10.11.13-MariaDB
 -- Versión de PHP: 8.4.14
 
@@ -143,8 +143,8 @@ CREATE TABLE `sesion` (
   `codTratamiento` int(10) DEFAULT NULL,
   `nroConsultorio` int(10) DEFAULT NULL,
   `matricula` int(10) DEFAULT NULL,
-  `codPack` int(10) DEFAULT NULL,
-  `estado` tinyint(1) DEFAULT 1,
+  `codPack` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT 1,
   `codInstal` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -162,6 +162,13 @@ CREATE TABLE `tratamiento` (
   `costo` double NOT NULL,
   `activo` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tratamiento`
+--
+
+INSERT INTO `tratamiento` (`codTratam`, `nombre`, `detalle`, `duracion`, `costo`, `activo`) VALUES
+(1, 'Facial básico', 'Limpieza profunda, exfoliación y mascarilla para refrescar el cutis.', 30, 10000, 1);
 
 --
 -- Índices para tablas volcadas
@@ -260,7 +267,7 @@ ALTER TABLE `sesion`
 -- AUTO_INCREMENT de la tabla `tratamiento`
 --
 ALTER TABLE `tratamiento`
-  MODIFY `codTratam` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `codTratam` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas

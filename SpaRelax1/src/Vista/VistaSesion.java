@@ -9,14 +9,22 @@ import Modelo.Consultorio;
 import Modelo.DiaDeSpa;
 import Modelo.Instalacion;
 import Modelo.Masajista;
+import Modelo.Sesion;
 import Modelo.Tratamiento;
 import Persistencia.ConsultorioData;
 import Persistencia.DiadeSpaData;
 import Persistencia.InstalacionData;
 import Persistencia.MasajistaData;
+import Persistencia.SesionData;
 import Persistencia.TratamientoData;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,6 +39,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
     private TratamientoData tratData;
     private InstalacionData instData;
     private ConsultorioData consData;
+    private SesionData sesionData;
 
     public VistaSesion() {
         initComponents();
@@ -64,7 +73,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        selecFecha = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -122,6 +131,11 @@ public class VistaSesion extends javax.swing.JInternalFrame {
 
         btnInsertar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnInsertar.setText("Insertar");
+        btnInsertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnBuscar.setText("Buscar por Código");
@@ -210,7 +224,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
                                             .addGap(18, 18, 18)
                                             .addComponent(jLabel4)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(selecFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnActualizar)
                                 .addGap(18, 18, 18)
@@ -258,7 +272,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
                             .addComponent(btnInsertar)
                             .addComponent(btnBuscar)
                             .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selecFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -273,6 +287,51 @@ public class VistaSesion extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
+        LocalDate fecha;
+        LocalTime hora = null;
+        LocalDateTime fechaHora;
+        LocalDateTime fechaHoraFin;
+        String horaString;
+        Masajista masajista;
+        Tratamiento tratamiento;
+        Consultorio consultorio;
+        Instalacion instalacion;
+        DiaDeSpa diaSpa = null;
+        Sesion sesion;
+
+        diaSpa = (DiaDeSpa) cmbPack.getSelectedItem();
+        if (diaSpa == null) {
+            JOptionPane.showMessageDialog(this, "Seleccionar un día de spa");
+            return;
+        }
+
+        if (selecFecha.getDate() != null) {
+            fecha = selecFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccionar la fecha");
+            return;
+        }
+
+        horaString = (String) cmbHora.getSelectedItem();
+        if (horaString == null || horaString.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccioná la hora");
+            return;
+        }
+        hora = LocalTime.parse(horaString);
+
+        fechaHora = LocalDateTime.of(fecha, hora);
+
+        masajista = (Masajista) cmbMasajista.getSelectedItem();
+        tratamiento = (Tratamiento) cmbTratamiento.getSelectedItem();
+        consultorio = (Consultorio) cmbConsultorio.getSelectedItem();
+        instalacion = (Instalacion) cmbInstalacion.getSelectedItem();
+
+        sesion = new Sesion();
+
+        sesionData.insertarSesion(sesion);
+    }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void cargarComboPacks() {
         List<DiaDeSpa> diasSpa = diaSpaData.listarDiadeSpa();
@@ -384,7 +443,6 @@ public class VistaSesion extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Masajista> cmbMasajista;
     private javax.swing.JComboBox<DiaDeSpa> cmbPack;
     private javax.swing.JComboBox<Tratamiento> cmbTratamiento;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -395,6 +453,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JDateChooser selecFecha;
     private javax.swing.JTable tblSesion;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables

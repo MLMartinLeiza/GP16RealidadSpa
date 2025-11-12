@@ -49,6 +49,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         cargarComboMasajistas();
         cargarComboTratamientos();
         cargarComboInstalaciones();
+        cargarComboConsultorio();
         armarCabeceraTabla();
     }
 
@@ -302,6 +303,14 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         cmbInstalacion.removeAllItems();
         for (Instalacion i : instalaciones) {
             cmbInstalacion.addItem(i);
+        }
+    }
+
+    private void cargarComboConsultorio() {
+        List<Consultorio> consultorios = consData.listarConsultorios();
+        cmbConsultorio.removeAllItems();
+        for (Consultorio c : consultorios) {
+            cmbConsultorio.addItem(c);
         }
     }
 

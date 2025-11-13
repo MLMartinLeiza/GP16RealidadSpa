@@ -60,6 +60,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         cargarComboConsultorio();
         armarCabeceraTabla();
         cargarComboDuracion();
+        limpiarCombos();
     }
 
     /**
@@ -431,6 +432,17 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         for (String d : duraciones) {
             cmbDuracion.addItem(d);
         }
+    }
+
+    private void limpiarCombos() {
+        cmbMasajista.setSelectedItem(null);
+        cmbTratamiento.setSelectedItem(null);
+        cmbConsultorio.setSelectedItem(null);
+        cmbInstalacion.setSelectedItem(null);
+        cmbPack.setSelectedItem(null);
+        cmbDuracion.setSelectedItem(null);
+        cmbHora.setSelectedItem(null);
+
     }
 
     private void armarCabeceraTabla() {

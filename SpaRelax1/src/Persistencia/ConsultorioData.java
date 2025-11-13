@@ -137,7 +137,7 @@ public class ConsultorioData {
 
     public List<Consultorio> listarConsultorios() {
         List<Consultorio> lista = new ArrayList<>();
-        String query = "SELECT * FROM consultorio WHERE apto=1";
+        String query = "SELECT * FROM consultorio";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();

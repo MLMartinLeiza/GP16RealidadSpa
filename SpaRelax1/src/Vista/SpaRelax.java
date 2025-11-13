@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author Vinchucon
@@ -38,7 +40,7 @@ public class SpaRelax extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         Tratamiento = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        Consultorios = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -64,16 +66,26 @@ public class SpaRelax extends javax.swing.JFrame {
             .addGap(0, 526, Short.MAX_VALUE)
         );
 
+        jMenuBar1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jMenuBar1AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
         jMenu2.setText("Cliente");
 
-        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.setText("Clientes");
         jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Masajista");
 
-        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.setText("Masajistas");
         jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
@@ -95,12 +107,17 @@ public class SpaRelax extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        jMenu5.setText("Consultorio");
+        Consultorios.setText("Consultorio");
 
-        jMenuItem4.setText("jMenuItem4");
-        jMenu5.add(jMenuItem4);
+        jMenuItem4.setText("Consultorios");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        Consultorios.add(jMenuItem4);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(Consultorios);
 
         jMenu6.setText("Instalacion");
 
@@ -176,18 +193,31 @@ public class SpaRelax extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
-        // TODO add your handling code here:
-      
+
+
     }//GEN-LAST:event_jMenu4ActionPerformed
 
     private void TratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TratamientoActionPerformed
         // TODO add your handling code here:
         
-          VistaTratamiento vistaT = new VistaTratamiento ();
+        VistaTratamiento vistaT = new VistaTratamiento ();
         jDesktop.add(vistaT);
          vistaT.setVisible(true);
          centrarVentana(vistaT);
     }//GEN-LAST:event_TratamientoActionPerformed
+
+    private void jMenuBar1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jMenuBar1AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuBar1AncestorAdded
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    VistaConsultorio vistaC = new VistaConsultorio();
+        
+    jDesktop.add(vistaC);
+    vistaC.setVisible(true);
+    centrarVentana(vistaC);
+    vistaC.toFront();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,13 +262,13 @@ public class SpaRelax extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Consultorios;
     private javax.swing.JMenuItem Tratamiento;
     private javax.swing.JDesktopPane jDesktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;

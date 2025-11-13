@@ -21,6 +21,9 @@
       </Layout>
     </Container>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
+      <Events>
+        <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jMenuBar1AncestorAdded"/>
+      </Events>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
@@ -64,7 +67,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu5">
+        <Menu class="javax.swing.JMenu" name="Consultorios">
           <Properties>
             <Property name="text" type="java.lang.String" value="Consultorio"/>
           </Properties>

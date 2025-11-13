@@ -2,6 +2,7 @@ package Vista;
 
 import Modelo.Instalacion;
 import Persistencia.InstalacionData;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +26,7 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
         setTitle("Gestión de Instalaciones");
 
         setLocation(150, 50);
+        cargarComboDuracion();
         
     }
 
@@ -144,6 +146,21 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
         modeloTabla.addColumn("Precio");
         modeloTabla.addColumn("Estado");
         tablaInstalaciones.setModel(modeloTabla);
+    }
+    
+     private void cargarComboDuracion() {
+        List<String> duraciones = new ArrayList<>();
+
+        duraciones.add("30");
+        duraciones.add("60");
+        duraciones.add("90");
+        duraciones.add("120");
+
+        cmbDuracion.removeAllItems();
+
+        for (String d : duraciones) {
+            cmbDuracion.addItem(d);
+        }
     }
 
     private void altaLogica() {
@@ -377,11 +394,12 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
                             .addComponent(Nombre)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(chkActivo)
-                            .addComponent(jLabel3)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(chkActivo)
+                                .addComponent(jLabel3)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)

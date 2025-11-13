@@ -86,7 +86,7 @@
                                           </Group>
                                       </Group>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="chekSesion" min="-2" max="-2" attributes="0"/>
+                                          <Component id="chekEstado" min="-2" max="-2" attributes="0"/>
                                           <Component id="cmbHora" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -151,7 +151,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cmbPack" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chekSesion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chekEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cmbDuracion" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -307,7 +307,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="chekSesion">
+    <Component class="javax.swing.JCheckBox" name="chekEstado">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="sansserif" size="15" style="0"/>

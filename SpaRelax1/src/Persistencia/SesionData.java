@@ -15,9 +15,14 @@ public class SesionData {
     }
 
     public void insertarSesion(Sesion s) {
-        String query = "INSERT INTO sesion (fecha_hora_inicio, fecha_hora_fin, codTratamiento, nroConsultorio, matricula, codPack, estado, codInstal) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO sesion "
+                + "(fecha_hora_inicio, fecha_hora_fin, codTratamiento, nroConsultorio, "
+                + " matricula, codPack, estado, codInstal) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
         try {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
             ps.setTimestamp(1, Timestamp.valueOf(s.getFechaHoraInicio()));
 
             if (s.getFechaHoraFin() != null) {
@@ -26,9 +31,23 @@ public class SesionData {
                 ps.setNull(2, Types.TIMESTAMP);
             }
 
-            ps.setInt(3, s.getTratamiento().getCodTratam());
-            ps.setInt(4, s.getConsultorio().getNroConsultorio());
-            ps.setInt(5, s.getMasajista().getMatricula());
+            if (s.getTratamiento() != null) {
+                ps.setInt(3, s.getTratamiento().getCodTratam());
+            } else {
+                ps.setNull(3, Types.INTEGER);
+            }
+
+            if (s.getConsultorio() != null) {
+                ps.setInt(4, s.getConsultorio().getNroConsultorio());
+            } else {
+                ps.setNull(4, Types.INTEGER);
+            }
+
+            if (s.getMasajista() != null) {
+                ps.setInt(5, s.getMasajista().getMatricula());
+            } else {
+                ps.setNull(5, Types.INTEGER);
+            }
 
             if (s.getDiaDeSpa() != null) {
                 ps.setInt(6, s.getDiaDeSpa().getCodPack());
@@ -50,11 +69,10 @@ public class SesionData {
             if (rs.next()) {
                 s.setCodSesion(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Sesión guardada exitosamente");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo obtener ID de sesión");
             }
 
             ps.close();
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla sesion");
         }

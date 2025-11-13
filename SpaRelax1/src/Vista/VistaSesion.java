@@ -88,7 +88,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         cmbPack = new javax.swing.JComboBox<>();
         cmbHora = new javax.swing.JComboBox<>();
-        chekSesion = new javax.swing.JCheckBox();
+        chekEstado = new javax.swing.JCheckBox();
         btnInsertar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         txtBuscar = new javax.swing.JTextField();
@@ -129,8 +129,8 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         jLabel9.setText("Pack:");
 
-        chekSesion.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
-        chekSesion.setText("Estado");
+        chekEstado.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
+        chekEstado.setText("Estado");
 
         btnInsertar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnInsertar.setText("Insertar");
@@ -226,7 +226,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
                                                 .addComponent(cmbPack, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(71, 71, 71)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(chekSesion)
+                                            .addComponent(chekEstado)
                                             .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnInsertar)
@@ -277,7 +277,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(cmbPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chekSesion)
+                            .addComponent(chekEstado)
                             .addComponent(jLabel10)
                             .addComponent(cmbDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(selecFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -310,6 +310,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         Consultorio consultorio;
         Instalacion instalacion;
         DiaDeSpa diaSpa = null;
+        boolean estado = false;
         Sesion sesion;
 
         diaSpa = (DiaDeSpa) cmbPack.getSelectedItem();
@@ -327,7 +328,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
 
         horaString = (String) cmbHora.getSelectedItem();
         if (horaString == null || horaString.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Seleccioná la hora");
+            JOptionPane.showMessageDialog(this, "Seleccionar la hora");
             return;
         }
         hora = LocalTime.parse(horaString);
@@ -339,7 +340,39 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         consultorio = (Consultorio) cmbConsultorio.getSelectedItem();
         instalacion = (Instalacion) cmbInstalacion.getSelectedItem();
 
-        sesion = new Sesion();
+        int duracionMinutos;
+
+        if (tratamiento != null) {
+            duracionMinutos = tratamiento.getDuracion();
+            if (masajista == null || consultorio == null) {
+                JOptionPane.showMessageDialog(this, "Seleccionar Masajista y Consultorio");
+                return;
+            }
+        } else if (instalacion != null) {
+            String duracionString = (String) cmbDuracion.getSelectedItem();
+            if (duracionString == null || duracionString.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "Seleccionar la duración de la instalación");
+                return;
+            }
+            try {
+                duracionMinutos = Integer.parseInt(duracionString);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Duración inválida");
+                return;
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccionar un Tratamiento con masajista y consultorio o una Instalación");
+            return;
+        }
+
+        fechaHoraFin = fechaHora.plusMinutes(duracionMinutos);
+
+        estado = chekEstado.isSelected();
+
+        sesion = new Sesion(fechaHora, fechaHoraFin, masajista, tratamiento, consultorio, diaSpa, instalacion, estado);
 
         sesionData.insertarSesion(sesion);
     }//GEN-LAST:event_btnInsertarActionPerformed
@@ -473,7 +506,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnInsertar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JCheckBox chekSesion;
+    private javax.swing.JCheckBox chekEstado;
     private javax.swing.JComboBox<Consultorio> cmbConsultorio;
     private javax.swing.JComboBox<String> cmbDuracion;
     private javax.swing.JComboBox<String> cmbHora;

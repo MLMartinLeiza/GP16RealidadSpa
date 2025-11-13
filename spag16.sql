@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-11-2025 a las 17:03:41
+-- Tiempo de generación: 13-11-2025 a las 17:34:27
 -- Versión del servidor: 10.11.13-MariaDB
 -- Versión de PHP: 8.4.14
 
@@ -61,6 +61,13 @@ CREATE TABLE `consultorio` (
   `equipamiento` varchar(200) NOT NULL,
   `apto` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `consultorio`
+--
+
+INSERT INTO `consultorio` (`nroConsultorio`, `usos`, `equipamiento`, `apto`) VALUES
+(1, 'Masajes', 'Camilla', 1);
 
 -- --------------------------------------------------------
 
@@ -147,6 +154,14 @@ CREATE TABLE `sesion` (
   `estado` tinyint(1) NOT NULL DEFAULT 1,
   `codInstal` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `sesion`
+--
+
+INSERT INTO `sesion` (`codSesion`, `fecha_hora_inicio`, `fecha_hora_fin`, `codTratamiento`, `nroConsultorio`, `matricula`, `codPack`, `estado`, `codInstal`) VALUES
+(1, '2025-11-14 08:00:00', '2025-11-14 08:30:00', 1, 1, 1, 2, 1, NULL),
+(2, '2025-11-14 08:00:00', '2025-11-14 09:00:00', NULL, NULL, NULL, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -237,7 +252,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `consultorio`
 --
 ALTER TABLE `consultorio`
-  MODIFY `nroConsultorio` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `nroConsultorio` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `dia_de_spa`
@@ -261,7 +276,7 @@ ALTER TABLE `masajista`
 -- AUTO_INCREMENT de la tabla `sesion`
 --
 ALTER TABLE `sesion`
-  MODIFY `codSesion` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `codSesion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tratamiento`

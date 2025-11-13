@@ -47,6 +47,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         setResizable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         modelo = new DefaultTableModel();
+        sesionData = new SesionData(); 
         diaSpaData = new DiadeSpaData();
         masajData = new MasajistaData();
         tratData = new TratamientoData();

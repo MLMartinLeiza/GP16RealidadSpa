@@ -26,7 +26,7 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
         setTitle("Gestión de Instalaciones");
 
         setLocation(150, 50);
-        cargarComboDuracion();
+
         
     }
 
@@ -148,20 +148,7 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
         tablaInstalaciones.setModel(modeloTabla);
     }
     
-     private void cargarComboDuracion() {
-        List<String> duraciones = new ArrayList<>();
-
-        duraciones.add("30");
-        duraciones.add("60");
-        duraciones.add("90");
-        duraciones.add("120");
-
-        cmbDuracion.removeAllItems();
-
-        for (String d : duraciones) {
-            cmbDuracion.addItem(d);
-        }
-    }
+     
 
     private void altaLogica() {
         try {
@@ -209,8 +196,6 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
         btnModificar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        cmbDuracion = new javax.swing.JComboBox<>();
 
         jLabel1.setBackground(new java.awt.Color(204, 0, 153));
         jLabel1.setFont(new java.awt.Font("Dubai Medium", 0, 24)); // NOI18N
@@ -317,8 +302,6 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Codigo");
 
-        jLabel6.setText("Duración");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -343,7 +326,7 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(104, 104, 104))
+                                .addGap(126, 126, 126))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -367,13 +350,9 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
                                     .addComponent(chkActivo)
                                     .addComponent(btnBaja))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel3))))
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCodigo)
-                            .addComponent(cmbDuracion, 0, 100, Short.MAX_VALUE))
+                                .addComponent(jLabel3)
+                                .addGap(33, 33, 33)))
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -406,10 +385,7 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnBaja)
-                            .addComponent(jLabel6)
-                            .addComponent(cmbDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBaja))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(btnAlta)))
@@ -479,13 +455,11 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JCheckBox chkActivo;
-    private javax.swing.JComboBox<String> cmbDuracion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaInstalaciones;

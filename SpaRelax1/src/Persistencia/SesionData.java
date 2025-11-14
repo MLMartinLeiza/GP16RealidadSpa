@@ -126,33 +126,76 @@ public class SesionData {
 
     public Sesion buscarSesion(int codSesion) {
         Sesion s = null;
-        String query = "SELECT * FROM sesion WHERE codSesion=?";
+        String sql = "SELECT * FROM sesion WHERE codSesion = ?";
 
         try {
-            PreparedStatement ps = con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, codSesion);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 s = new Sesion();
-                s.setCodSesion(rs.getInt("codSesion"));
-                Timestamp inicio = rs.getTimestamp("fecha_hora_inicio");
-                if (inicio != null) {
-                    s.setFechaHoraInicio(inicio.toLocalDateTime());
+
+                Timestamp ini = rs.getTimestamp("fecha_hora_inicio");
+                if (ini != null) {
+                    s.setFechaHoraInicio(ini.toLocalDateTime());
                 }
+
                 Timestamp fin = rs.getTimestamp("fecha_hora_fin");
                 if (fin != null) {
                     s.setFechaHoraFin(fin.toLocalDateTime());
                 }
+
                 s.setEstado(rs.getBoolean("estado"));
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la sesión");
+                s.setCodSesion(rs.getInt("codSesion"));
+
+                int codPack = rs.getInt("codPack");
+                String strPack = rs.getString("codPack");
+                if (strPack != null) {
+                    DiaDeSpa d = new DiaDeSpa();
+                    d.setCodPack(codPack);
+                    s.setDiaDeSpa(d);
+                }
+
+                int codTrat = rs.getInt("codTratamiento");
+                String strTrat = rs.getString("codTratamiento");
+                if (strTrat != null) {
+                    Tratamiento t = new Tratamiento();
+                    t.setCodTratam(codTrat);
+                    s.setTratamiento(t);
+                }
+
+                int nroCons = rs.getInt("nroConsultorio");
+                String strCons = rs.getString("nroConsultorio");
+                if (strCons != null) {
+                    Consultorio c = new Consultorio();
+                    c.setNroConsultorio(nroCons);
+                    s.setConsultorio(c);
+                }
+
+                int matricula = rs.getInt("matricula");
+                String strMat = rs.getString("matricula");
+                if (strMat != null) {
+                    Masajista m = new Masajista();
+                    m.setMatricula(matricula);
+                    s.setMasajista(m);
+                }
+
+                int codInstal = rs.getInt("codInstal");
+                String strInst = rs.getString("codInstal");
+                if (strInst != null) {
+                    Instalacion i = new Instalacion();
+                    i.setCodInstal(codInstal);
+                    s.setInstalacion(i);
+                }
             }
 
             ps.close();
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla sesion");
+            JOptionPane.showMessageDialog(null, "Error al buscar sesión");
         }
+
         return s;
     }
 

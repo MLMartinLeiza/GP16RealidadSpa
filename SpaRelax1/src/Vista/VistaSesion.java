@@ -17,6 +17,7 @@ import Persistencia.InstalacionData;
 import Persistencia.MasajistaData;
 import Persistencia.SesionData;
 import Persistencia.TratamientoData;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -47,7 +48,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         setResizable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         modelo = new DefaultTableModel();
-        sesionData = new SesionData(); 
+        sesionData = new SesionData();
         diaSpaData = new DiadeSpaData();
         masajData = new MasajistaData();
         tratData = new TratamientoData();
@@ -62,6 +63,10 @@ public class VistaSesion extends javax.swing.JInternalFrame {
         armarCabeceraTabla();
         cargarComboDuracion();
         limpiarCombos();
+        btnActualizar.setEnabled(false);
+        btnAlta.setEnabled(false);
+        btnBaja.setEnabled(false);
+        btnEliminar.setEnabled(false);
     }
 
     /**
@@ -143,6 +148,11 @@ public class VistaSesion extends javax.swing.JInternalFrame {
 
         btnBuscar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnBuscar.setText("Buscar por Código");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         tblSesion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,6 +181,11 @@ public class VistaSesion extends javax.swing.JInternalFrame {
 
         btnLimpiar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Duración:");
 
@@ -375,8 +390,179 @@ public class VistaSesion extends javax.swing.JInternalFrame {
 
         sesion = new Sesion(fechaHora, fechaHoraFin, masajista, tratamiento, consultorio, diaSpa, instalacion, estado);
 
-        sesionData.insertarSesion(sesion);
+        try {
+            sesionData.insertarSesion(sesion);
+            limpiarCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el Día de Spa ");
+        }
     }//GEN-LAST:event_btnInsertarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarCampos();
+        borrarFilaTabla();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        int codigo = 0;
+
+        try {
+            codigo = Integer.parseInt(txtBuscar.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+            return;
+        }
+
+        if (codigo <= 0) {
+            JOptionPane.showMessageDialog(this, "Código inválido");
+            return;
+        }
+
+        borrarFilaTabla();
+
+        Sesion sesion = sesionData.buscarSesion(codigo);
+
+        if (sesion == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró sesión con ese código");
+            limpiarCampos();
+            return;
+        }
+
+        if (sesion != null) {
+
+            Object codSesion = sesion.getCodSesion();
+            Object inicio = sesion.getFechaHoraInicio();
+            Object fin = sesion.getFechaHoraFin();
+
+            Object masajista;
+            if (sesion.getMasajista() != null) {
+                masajista = sesion.getMasajista().getNombre_apellido();
+            } else {
+                masajista = "-";
+            }
+
+            Object tratamiento;
+            if (sesion.getTratamiento() != null) {
+                tratamiento = sesion.getTratamiento().getNombre();
+            } else {
+                tratamiento = "-";
+            }
+
+            Object consultorio;
+            if (sesion.getConsultorio() != null) {
+                consultorio = sesion.getConsultorio().getNroConsultorio();
+            } else {
+                consultorio = "-";
+            }
+
+            Object instalacion;
+            if (sesion.getInstalacion() != null) {
+                instalacion = sesion.getInstalacion().getNombre();
+            } else {
+                instalacion = "-";
+            }
+
+            Object pack;
+            if (sesion.getDiaDeSpa() != null) {
+                pack = sesion.getDiaDeSpa().getCodPack();
+            } else {
+                pack = "-";
+            }
+
+            Object estado;
+            if (sesion.isEstado()) {
+                estado = "Activa";
+            } else {
+                estado = "Inactiva";
+            }
+
+            modelo.addRow(new Object[]{
+                codSesion,
+                inicio,
+                fin,
+                masajista,
+                tratamiento,
+                consultorio,
+                instalacion,
+                pack,
+                estado
+            });
+        }
+
+        if (sesion.getDiaDeSpa() != null) {
+            for (int i = 0; i < cmbPack.getItemCount(); i++) {
+                DiaDeSpa d = cmbPack.getItemAt(i);
+                if (d.getCodPack() == sesion.getDiaDeSpa().getCodPack()) {
+                    cmbPack.setSelectedIndex(i);
+                    break;
+                }
+            }
+        } else {
+            cmbPack.setSelectedItem(null);
+        }
+
+        if (sesion.getTratamiento() != null) {
+            for (int i = 0; i < cmbTratamiento.getItemCount(); i++) {
+                Tratamiento t = cmbTratamiento.getItemAt(i);
+                if (t.getCodTratam() == sesion.getTratamiento().getCodTratam()) {
+                    cmbTratamiento.setSelectedIndex(i);
+                    break;
+                }
+            }
+        } else {
+            cmbTratamiento.setSelectedItem(null);
+        }
+
+        if (sesion.getMasajista() != null) {
+            for (int i = 0; i < cmbMasajista.getItemCount(); i++) {
+                Masajista m = cmbMasajista.getItemAt(i);
+                if (m.getMatricula() == sesion.getMasajista().getMatricula()) {
+                    cmbMasajista.setSelectedIndex(i);
+                    break;
+                }
+            }
+        } else {
+            cmbMasajista.setSelectedItem(null);
+        }
+
+        if (sesion.getConsultorio() != null) {
+            for (int i = 0; i < cmbConsultorio.getItemCount(); i++) {
+                Consultorio c = cmbConsultorio.getItemAt(i);
+                if (c.getNroConsultorio() == sesion.getConsultorio().getNroConsultorio()) {
+                    cmbConsultorio.setSelectedIndex(i);
+                    break;
+                }
+            }
+        } else {
+            cmbConsultorio.setSelectedItem(null);
+        }
+
+        if (sesion.getInstalacion() != null) {
+            for (int i = 0; i < cmbInstalacion.getItemCount(); i++) {
+                Instalacion ins = cmbInstalacion.getItemAt(i);
+                if (ins.getCodInstal() == sesion.getInstalacion().getCodInstal()) {
+                    cmbInstalacion.setSelectedIndex(i);
+                    break;
+                }
+            }
+        } else {
+            cmbInstalacion.setSelectedItem(null);
+        }
+
+        chekEstado.setSelected(sesion.isEstado());
+
+        selecFecha.setDate(Date.valueOf(sesion.getFechaHoraInicio().toLocalDate()));
+        cmbHora.setSelectedItem(sesion.getFechaHoraInicio().toLocalTime().toString());
+
+        btnActualizar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+        btnBaja.setEnabled(true);
+        btnAlta.setEnabled(true);
+        btnInsertar.setEnabled(false);
+
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cargarComboPacks() {
         List<DiaDeSpa> diasSpa = diaSpaData.listarDiadeSpa();
@@ -498,6 +684,33 @@ public class VistaSesion extends javax.swing.JInternalFrame {
 
         tblSesion.setModel(modelo);
     }
+
+    private void borrarFilaTabla() {
+        int filas = modelo.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
+
+    public void limpiarCampos() {
+
+        cmbPack.setSelectedItem(null);
+        cmbTratamiento.setSelectedItem(null);
+        cmbMasajista.setSelectedItem(null);
+        cmbConsultorio.setSelectedItem(null);
+        cmbInstalacion.setSelectedItem(null);
+        cmbDuracion.setSelectedItem(null);
+        cmbHora.setSelectedItem(null);
+        selecFecha.setDate(null);
+        chekEstado.setSelected(false);
+        txtBuscar.setText("");
+        btnActualizar.setEnabled(false);
+        btnAlta.setEnabled(false);
+        btnBaja.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnInsertar.setEnabled(true);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;

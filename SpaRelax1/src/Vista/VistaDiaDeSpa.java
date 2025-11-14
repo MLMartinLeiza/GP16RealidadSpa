@@ -35,6 +35,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         armarCabeceraTabla();
         cargarComboHorarios();
         cargarComboClientes();
+        limpiarCampos();
         btnActualizar.setEnabled(false);
         btnAlta.setEnabled(false);
         btnBaja.setEnabled(false);
@@ -343,7 +344,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         try {
             diaDeSpaData.insertarDiadeSpa(diaSpa);
             limpiarCampos();
-        } catch (Exception ex) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el Día de Spa ");
         }
     }//GEN-LAST:event_btnInsertarActionPerformed
@@ -652,6 +653,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         btnBaja.setEnabled(false);
         btnEliminar.setEnabled(false);
         btnInsertar.setEnabled(true);
+        cmbClientes.setSelectedItem(null);
     }
 
     private void borrarFilaTabla() {

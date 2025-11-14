@@ -66,7 +66,7 @@ public class Consultorio {
 
     @Override
     public String toString() {
-        return nroConsultorio + "Usos: " + usos + "Apto: " + apto;
+        return nroConsultorio + " Usos: " + usos + " Apto: " + apto;
     }
 
 }

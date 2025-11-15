@@ -177,9 +177,19 @@ public class VistaSesion extends javax.swing.JInternalFrame {
 
         btnAlta.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnAlta.setText("Alta");
+        btnAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltaActionPerformed(evt);
+            }
+        });
 
         btnBaja.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnBaja.setText("Baja");
+        btnBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnEliminar.setText("Eliminar");
@@ -541,6 +551,71 @@ public class VistaSesion extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No se pudo guardar la sesión");
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
+        int codigo = 0;
+
+        try {
+            codigo = Integer.parseInt(txtBuscar.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+            return;
+        }
+
+        if (codigo <= 0) {
+            JOptionPane.showMessageDialog(this, "Código inválido");
+            return;
+        }
+
+        try {
+            boolean actualizado = sesionData.altaLogica(codigo);
+
+            if (actualizado) {
+                Sesion sesionActualizada = sesionData.buscarSesion(codigo);
+                if (sesionActualizada != null) {
+                    cargarTablaSesion(sesionActualizada);
+                }
+            } else {
+                borrarFilaTabla();
+                limpiarCampos();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar el estado");
+        }
+
+    }//GEN-LAST:event_btnAltaActionPerformed
+
+    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+        int codigo = 0;
+
+        try {
+            codigo = Integer.parseInt(txtBuscar.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+            return;
+        }
+
+        if (codigo <= 0) {
+            JOptionPane.showMessageDialog(this, "Código inválido");
+            return;
+        }
+
+        try {
+            boolean actualizado = sesionData.bajaLogica(codigo);
+
+            if (actualizado) {
+                Sesion sesionActualizada = sesionData.buscarSesion(codigo);
+                if (sesionActualizada != null) {
+                    cargarTablaSesion(sesionActualizada);
+                }
+            } else {
+                borrarFilaTabla();
+                limpiarCampos();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar el estado");
+        }
+    }//GEN-LAST:event_btnBajaActionPerformed
 
     private void cargarComboPacks() {
         List<DiaDeSpa> diasSpa = diaSpaData.listarDiadeSpa();

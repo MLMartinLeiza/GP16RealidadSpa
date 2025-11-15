@@ -222,7 +222,8 @@ public class SesionData {
         return s;
     }
 
-    public void bajaLogica(int codSesion) {
+    public boolean bajaLogica(int codSesion) {
+        boolean ok = false;
         String query = "UPDATE sesion SET estado=0 WHERE codSesion=?";
 
         try {
@@ -232,6 +233,7 @@ public class SesionData {
 
             if (actualizado == 1) {
                 JOptionPane.showMessageDialog(null, "Sesión dada de baja");
+                ok = true;
             } else {
                 JOptionPane.showMessageDialog(null, "Error al actualizar estado");
             }
@@ -239,10 +241,11 @@ public class SesionData {
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla sesion");
-        }
+        } return ok;
     }
 
-    public void altaLogica(int codSesion) {
+    public boolean altaLogica(int codSesion) {
+        boolean ok = false;
         String query = "UPDATE sesion SET estado=1 WHERE codSesion=?";
 
         try {
@@ -252,6 +255,7 @@ public class SesionData {
 
             if (actualizado == 1) {
                 JOptionPane.showMessageDialog(null, "Sesión dada de alta");
+                ok = true;
             } else {
                 JOptionPane.showMessageDialog(null, "Error al actualizar estado");
             }
@@ -259,7 +263,7 @@ public class SesionData {
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla sesion");
-        }
+        } return ok;
     }
 
     public void eliminarSesion(int codSesion) {

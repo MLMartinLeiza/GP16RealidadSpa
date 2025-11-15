@@ -48,6 +48,8 @@ public class SpaRelax extends javax.swing.JFrame {
         mItemFormSesion = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         mItemDiaSpa = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        mnuItemListados = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -67,10 +69,10 @@ public class SpaRelax extends javax.swing.JFrame {
         );
 
         jMenuBar1.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jMenuBar1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -160,6 +162,18 @@ public class SpaRelax extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu8);
 
+        jMenu5.setText("Listados");
+
+        mnuItemListados.setText("Ver listados");
+        mnuItemListados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemListadosActionPerformed(evt);
+            }
+        });
+        jMenu5.add(mnuItemListados);
+
+        jMenuBar1.add(jMenu5);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,11 +218,11 @@ public class SpaRelax extends javax.swing.JFrame {
 
     private void TratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TratamientoActionPerformed
         // TODO add your handling code here:
-        
-        VistaTratamiento vistaT = new VistaTratamiento ();
+
+        VistaTratamiento vistaT = new VistaTratamiento();
         jDesktop.add(vistaT);
-         vistaT.setVisible(true);
-         centrarVentana(vistaT);
+        vistaT.setVisible(true);
+        centrarVentana(vistaT);
     }//GEN-LAST:event_TratamientoActionPerformed
 
     private void jMenuBar1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jMenuBar1AncestorAdded
@@ -216,24 +230,31 @@ public class SpaRelax extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuBar1AncestorAdded
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-    VistaConsultorio vistaC = new VistaConsultorio();
-        
-    jDesktop.add(vistaC);
-    vistaC.setVisible(true);
-    centrarVentana(vistaC);
-    vistaC.toFront();
+        VistaConsultorio vistaC = new VistaConsultorio();
+
+        jDesktop.add(vistaC);
+        vistaC.setVisible(true);
+        centrarVentana(vistaC);
+        vistaC.toFront();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-     VistaCliente vistac = new VistaCliente ();
-     jDesktop.add(vistac);
-    vistac.setVisible(true);
-    centrarVentana(vistac);
-    vistac.toFront();
-     
-        
+        VistaCliente vistac = new VistaCliente();
+        jDesktop.add(vistac);
+        vistac.setVisible(true);
+        centrarVentana(vistac);
+        vistac.toFront();
+
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void mnuItemListadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemListadosActionPerformed
+        VistaListados vistaListas = new VistaListados();
+        jDesktop.add(vistaListas);
+        vistaListas.setVisible(true);
+        centrarVentana(vistaListas);
+    }//GEN-LAST:event_mnuItemListadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,6 +306,7 @@ public class SpaRelax extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
@@ -296,5 +318,6 @@ public class SpaRelax extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem mItemDiaSpa;
     private javax.swing.JMenuItem mItemFormSesion;
+    private javax.swing.JMenuItem mnuItemListados;
     // End of variables declaration//GEN-END:variables
 }

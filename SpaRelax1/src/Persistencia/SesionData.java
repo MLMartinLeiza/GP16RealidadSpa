@@ -9,9 +9,19 @@ import javax.swing.JOptionPane;
 public class SesionData {
 
     private Connection con = null;
+    private DiadeSpaData diaSpaData;
+    private TratamientoData tratamientoData;
+    private ConsultorioData consultorioData;
+    private MasajistaData masajistaData;
+    private InstalacionData instalacionData;
 
     public SesionData() {
         con = Conexion.getConexion();
+        diaSpaData = new DiadeSpaData();
+        tratamientoData = new TratamientoData();
+        consultorioData = new ConsultorioData();
+        masajistaData = new MasajistaData();
+        instalacionData = new InstalacionData();
     }
 
     public void insertarSesion(Sesion s) {
@@ -78,7 +88,8 @@ public class SesionData {
         }
     }
 
-    public void actualizarSesion(Sesion s) {
+    public boolean actualizarSesion(Sesion s) {
+        boolean ok = false;
         String query = "UPDATE sesion SET fecha_hora_inicio=?, fecha_hora_fin=?, codTratamiento=?, nroConsultorio=?, matricula=?, codPack=?, estado=?, codInstal=? WHERE codSesion=?";
 
         try {
@@ -91,9 +102,23 @@ public class SesionData {
                 ps.setNull(2, Types.TIMESTAMP);
             }
 
-            ps.setInt(3, s.getTratamiento().getCodTratam());
-            ps.setInt(4, s.getConsultorio().getNroConsultorio());
-            ps.setInt(5, s.getMasajista().getMatricula());
+            if (s.getTratamiento() != null) {
+                ps.setInt(3, s.getTratamiento().getCodTratam());
+            } else {
+                ps.setNull(3, Types.INTEGER);
+            }
+
+            if (s.getConsultorio() != null) {
+                ps.setInt(4, s.getConsultorio().getNroConsultorio());
+            } else {
+                ps.setNull(4, Types.INTEGER);
+            }
+
+            if (s.getMasajista() != null) {
+                ps.setInt(5, s.getMasajista().getMatricula());
+            } else {
+                ps.setNull(5, Types.INTEGER);
+            }
 
             if (s.getDiaDeSpa() != null) {
                 ps.setInt(6, s.getDiaDeSpa().getCodPack());
@@ -114,6 +139,7 @@ public class SesionData {
             int actualizado = ps.executeUpdate();
             if (actualizado == 1) {
                 JOptionPane.showMessageDialog(null, "Sesión actualizada correctamente");
+                ok = true;
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró la sesión para actualizar");
             }
@@ -122,14 +148,15 @@ public class SesionData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla sesion");
         }
+        return ok;
     }
 
     public Sesion buscarSesion(int codSesion) {
         Sesion s = null;
-        String sql = "SELECT * FROM sesion WHERE codSesion = ?";
+        String query = "SELECT * FROM sesion WHERE codSesion = ?";
 
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, codSesion);
             ResultSet rs = ps.executeQuery();
 
@@ -152,42 +179,38 @@ public class SesionData {
                 int codPack = rs.getInt("codPack");
                 String strPack = rs.getString("codPack");
                 if (strPack != null) {
-                    DiaDeSpa d = new DiaDeSpa();
-                    d.setCodPack(codPack);
+                    DiaDeSpa d = diaSpaData.buscarDiadeSpaPorCodigo(codPack);
                     s.setDiaDeSpa(d);
                 }
 
                 int codTrat = rs.getInt("codTratamiento");
                 String strTrat = rs.getString("codTratamiento");
                 if (strTrat != null) {
-                    Tratamiento t = new Tratamiento();
-                    t.setCodTratam(codTrat);
+                    Tratamiento t = tratamientoData.buscarTratamiento(codTrat);
                     s.setTratamiento(t);
                 }
 
                 int nroCons = rs.getInt("nroConsultorio");
                 String strCons = rs.getString("nroConsultorio");
                 if (strCons != null) {
-                    Consultorio c = new Consultorio();
-                    c.setNroConsultorio(nroCons);
+                    Consultorio c = consultorioData.buscarConsultorio(nroCons);
                     s.setConsultorio(c);
                 }
 
                 int matricula = rs.getInt("matricula");
                 String strMat = rs.getString("matricula");
                 if (strMat != null) {
-                    Masajista m = new Masajista();
-                    m.setMatricula(matricula);
+                    Masajista m = masajistaData.buscarMasajistaPorMatricula(matricula);
                     s.setMasajista(m);
                 }
 
                 int codInstal = rs.getInt("codInstal");
                 String strInst = rs.getString("codInstal");
                 if (strInst != null) {
-                    Instalacion i = new Instalacion();
-                    i.setCodInstal(codInstal);
+                    Instalacion i = instalacionData.buscarInstalacionPorCodigo(codInstal);
                     s.setInstalacion(i);
                 }
+
             }
 
             ps.close();

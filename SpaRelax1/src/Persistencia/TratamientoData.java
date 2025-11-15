@@ -67,13 +67,13 @@ public class TratamientoData {
         }
     }
 
-    public Tratamiento buscarTratamiento(String nombre) {
+    public Tratamiento buscarTratamiento(int codTrat) {
         Tratamiento tratamEncontrado = null;
-        String query = "SELECT * FROM tratamiento WHERE nombre=?";
+        String query = "SELECT * FROM tratamiento WHERE codTratam=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, nombre);
+            ps.setInt(1, codTrat);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {

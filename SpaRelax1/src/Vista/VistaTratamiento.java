@@ -10,128 +10,142 @@ import Persistencia.TratamientoData;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 public class VistaTratamiento extends javax.swing.JInternalFrame {
 
     private TratamientoData tratamientoData;
     private DefaultTableModel modeloTabla;
-    
-    
-    
+
     public VistaTratamiento() {
         initComponents();
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        tratamientoData = new TratamientoData ();
-        modeloTabla = new DefaultTableModel ();
-        armarTabla(); 
+        tratamientoData = new TratamientoData();
+        modeloTabla = new DefaultTableModel();
+        armarTabla();
         btnNuevo.addActionListener(e -> limpiarCampos());
         btnGuardar.addActionListener(e -> guardarTratamiento());
         btnBuscar.addActionListener(e -> buscarTratamiento());
         btnModificar.addActionListener(e -> modificarTratamiento());
         btnEliminar.addActionListener(e -> eliminarTratamiento());
         btnListar.addActionListener(e -> listarTratamientos());
-        
+
     }
-    
+
     private void limpiarCampos() {
-    txtCodigo.setText("");
-    txtNombre.setText("");
-    txtDetalle.setText("");
-    txtDuracion.setText("");
-    txtCosto.setText("");
-    chkActivo.setSelected(false);
-}
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtDetalle.setText("");
+        txtDuracion.setText("");
+        txtCosto.setText("");
+        chkActivo.setSelected(false);
+    }
 
     private void guardarTratamiento() {
-    try {
-        String nombre = txtNombre.getText();
-        String detalle = txtDetalle.getText();
-        int duracion = Integer.parseInt(txtDuracion.getText());
-        double costo = Double.parseDouble(txtCosto.getText());
-        boolean estado = chkActivo.isSelected();
+        try {
+            String nombre = txtNombre.getText();
+            String detalle = txtDetalle.getText();
+            int duracion = Integer.parseInt(txtDuracion.getText());
+            double costo = Double.parseDouble(txtCosto.getText());
+            boolean estado = chkActivo.isSelected();
 
-        if (nombre.isEmpty() || detalle.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios");
+            if (nombre.isEmpty() || detalle.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios");
+                return;
+            }
+
+            Tratamiento t = new Tratamiento(nombre, detalle, duracion, costo, estado);
+            tratamientoData.insertarTratamiento(t);
+            txtCodigo.setText(String.valueOf(t.getCodTratam()));
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Duración o costo inválido.");
+        }
+    }
+
+    private void buscarTratamiento() {
+        String codigoStr = txtCodigo.getText().trim();
+
+        if (codigoStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un código para buscar");
             return;
         }
 
-        Tratamiento t = new Tratamiento(nombre, detalle, duracion, costo, estado);
-        tratamientoData.insertarTratamiento(t);
-        txtCodigo.setText(String.valueOf(t.getCodTratam()));
+        int codigo;
+        try {
+            codigo = Integer.parseInt(codigoStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un código válido");
+            return;
+        }
 
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Duración o costo inválido.");
-    }
-}
-    private void buscarTratamiento() {
-    String nombre = txtNombre.getText();
-    if (nombre.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Ingrese un nombre para buscar.");
-        return;
+        Tratamiento t = tratamientoData.buscarTratamiento(codigo);
+
+        if (t != null) {
+            txtNombre.setText(t.getNombre());
+            txtDetalle.setText(t.getDetalle());
+            txtDuracion.setText(String.valueOf(t.getDuracion()));
+            txtCosto.setText(String.valueOf(t.getCosto()));
+            chkActivo.setSelected(t.isEstado());
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró tratamiento con ese código.");
+        }
     }
 
-    Tratamiento t = tratamientoData.buscarTratamiento(nombre);
-    if (t != null) {
-        txtCodigo.setText(String.valueOf(t.getCodTratam()));
-        txtDetalle.setText(t.getDetalle());
-        txtDuracion.setText(String.valueOf(t.getDuracion()));
-        txtCosto.setText(String.valueOf(t.getCosto()));
-        chkActivo.setSelected(t.isEstado());
-    }
-}
     private void modificarTratamiento() {
-    try {
-        int codigo = Integer.parseInt(txtCodigo.getText());
-        String nombre = txtNombre.getText();
-        String detalle = txtDetalle.getText();
-        int duracion = Integer.parseInt(txtDuracion.getText());
-        double costo = Double.parseDouble(txtCosto.getText());
-        boolean estado = chkActivo.isSelected();
+        try {
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            String nombre = txtNombre.getText();
+            String detalle = txtDetalle.getText();
+            int duracion = Integer.parseInt(txtDuracion.getText());
+            double costo = Double.parseDouble(txtCosto.getText());
+            boolean estado = chkActivo.isSelected();
 
-        Tratamiento t = new Tratamiento(codigo, nombre, detalle, duracion, costo, estado);
-        tratamientoData.actualizarTratamiento(t);
+            Tratamiento t = new Tratamiento(codigo, nombre, detalle, duracion, costo, estado);
+            tratamientoData.actualizarTratamiento(t);
 
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Verifique los datos ingresados.");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Verifique los datos ingresados.");
+        }
     }
-}
-   
-private void eliminarTratamiento() {
-    try {
-        int codigo = Integer.parseInt(txtCodigo.getText());
-        tratamientoData.eliminarTratamiento(codigo);
-        limpiarCampos();
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Ingrese un código válido para eliminar.");
+
+    private void eliminarTratamiento() {
+        try {
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            tratamientoData.eliminarTratamiento(codigo);
+            limpiarCampos();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un código válido para eliminar.");
+        }
     }
-}
+
     private void listarTratamientos() {
-    modeloTabla.setRowCount(0);
-    List<Tratamiento> lista = tratamientoData.listarTratamientos();
-    for (Tratamiento t : lista) {
-        modeloTabla.addRow(new Object[]{
-            t.getCodTratam(),
-            t.getNombre(),
-            t.getDetalle(),
-            t.getDuracion(),
-            t.getCosto(),
-            t.isEstado()
-        });
+        modeloTabla.setRowCount(0);
+        List<Tratamiento> lista = tratamientoData.listarTratamientos();
+        for (Tratamiento t : lista) {
+            modeloTabla.addRow(new Object[]{
+                t.getCodTratam(),
+                t.getNombre(),
+                t.getDetalle(),
+                t.getDuracion(),
+                t.getCosto(),
+                t.isEstado()
+            });
+        }
     }
-}
- 
+
     private void armarTabla() {
-    modeloTabla.addColumn("Código");
-    modeloTabla.addColumn("Nombre");
-    modeloTabla.addColumn("Detalle");
-    modeloTabla.addColumn("Duración");
-    modeloTabla.addColumn("Costo");
-    modeloTabla.addColumn("Activo");
-    tablaTratamientos.setModel(modeloTabla);
-}
-  
+        modeloTabla.addColumn("Código");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Detalle");
+        modeloTabla.addColumn("Duración");
+        modeloTabla.addColumn("Costo");
+        modeloTabla.addColumn("Activo");
+        tablaTratamientos.setModel(modeloTabla);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -382,8 +396,8 @@ private void eliminarTratamiento() {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        modificarTratamiento ();
-        
+        modificarTratamiento();
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -393,27 +407,27 @@ private void eliminarTratamiento() {
 
     private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
         // TODO add your handling code here:
-       
-              try {
+
+        try {
             int codigo = Integer.parseInt(txtCodigo.getText());
             tratamientoData.bajaLogica(codigo);
             listarTratamientos();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un código válido para dar de baja.");
         }
-    
+
     }//GEN-LAST:event_btnBajaActionPerformed
 
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
         // TODO add your handling code here:
-       try {
+        try {
             int codigo = Integer.parseInt(txtCodigo.getText());
             tratamientoData.altaLogica(codigo);
             listarTratamientos();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un código válido para dar de alta.");
         }
-    
+
     }//GEN-LAST:event_btnAltaActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -423,12 +437,12 @@ private void eliminarTratamiento() {
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // TODO add your handling code here:
-        listarTratamientos ();
+        listarTratamientos();
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        buscarTratamiento ();
+        buscarTratamiento();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
 

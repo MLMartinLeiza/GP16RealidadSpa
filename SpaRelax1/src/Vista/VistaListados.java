@@ -1,5 +1,8 @@
 package Vista;
 
+import Persistencia.DiadeSpaData;
+import Persistencia.MasajistaData;
+import Persistencia.SesionData;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -7,6 +10,9 @@ import javax.swing.table.DefaultTableModel;
 public class VistaListados extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo;
+    private MasajistaData masajistaData;
+    private DiadeSpaData diaSpaData;
+    private SesionData sesionData;
 
     public VistaListados() {
         initComponents();
@@ -16,27 +22,29 @@ public class VistaListados extends javax.swing.JInternalFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         modelo = new DefaultTableModel();
 
+        modelo = new DefaultTableModel();
+        tblListas.setModel(modelo);
+
+        masajistaData = new MasajistaData();
+        diaSpaData = new DiadeSpaData();
+        sesionData = new SesionData();
+
         cargarComboTipoListado();
         cargarComboHoras();
         cargarComboEspecialidad();
         cargarComboTipoTratamiento();
+
     }
 
     private void cargarComboTipoListado() {
         cmbTipoListado.removeAllItems();
         cmbTipoListado.addItem("Día de Spa completo");
-        cmbTipoListado.addItem("Masajistas libres en franja horaria");
         cmbTipoListado.addItem("Masajistas por especialidad");
-        cmbTipoListado.addItem("Tratamientos por tipo");
-        cmbTipoListado.addItem("Instalaciones libres en franja horaria");
-        cmbTipoListado.addItem("Instalaciones más solicitadas");
-        cmbTipoListado.addItem("Tratamientos más sesionados");
         cmbTipoListado.addItem("Días de Spa por fecha");
     }
 
-    
     private void cargarComboHoras() {
-    List<String> horarios = new ArrayList<>();
+        List<String> horarios = new ArrayList<>();
 
         horarios.add("08:00");
         horarios.add("08:30");
@@ -63,30 +71,54 @@ public class VistaListados extends javax.swing.JInternalFrame {
         horarios.add("19:00");
         horarios.add("19:30");
 
-    cmbHoraDesde.removeAllItems();
-    cmbHoraHasta.removeAllItems();
+        cmbHoraDesde.removeAllItems();
+        cmbHoraHasta.removeAllItems();
 
-    for (String h : horarios) {
-        cmbHoraDesde.addItem(h);
-        cmbHoraHasta.addItem(h);
+        for (String h : horarios) {
+            cmbHoraDesde.addItem(h);
+            cmbHoraHasta.addItem(h);
+        }
     }
-}
 
-private void cargarComboEspecialidad() {
-    cmbTipoEspecialidad.removeAllItems();
-    cmbTipoEspecialidad.addItem("facial");
-    cmbTipoEspecialidad.addItem("corporal");
-    cmbTipoEspecialidad.addItem("relajación");
-    cmbTipoEspecialidad.addItem("estético");
-}
+    private void cargarComboEspecialidad() {
+        cmbTipoEspecialidad.removeAllItems();
+        cmbTipoEspecialidad.addItem("facial");
+        cmbTipoEspecialidad.addItem("corporal");
+        cmbTipoEspecialidad.addItem("relajación");
+        cmbTipoEspecialidad.addItem("estético");
+    }
 
-private void cargarComboTipoTratamiento() {
-    cmbTipoTratamiento.removeAllItems();
-    cmbTipoTratamiento.addItem("facial");
-    cmbTipoTratamiento.addItem("corporal");
-    cmbTipoTratamiento.addItem("relajación");
-    cmbTipoTratamiento.addItem("estético");
-}
+    private void cargarComboTipoTratamiento() {
+        cmbTipoTratamiento.removeAllItems();
+        cmbTipoTratamiento.addItem("facial");
+        cmbTipoTratamiento.addItem("corporal");
+        cmbTipoTratamiento.addItem("relajación");
+        cmbTipoTratamiento.addItem("estético");
+    }
+
+    private void limpiarTabla() {
+        int filas = modelo.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
+
+    private void limpiarCampos() {
+        dateDesde.setDate(null);
+        dateHasta.setDate(null);
+        if (cmbHoraDesde.getItemCount() > 0) {
+            cmbHoraDesde.setSelectedIndex(0);
+        }
+        if (cmbHoraHasta.getItemCount() > 0) {
+            cmbHoraHasta.setSelectedIndex(0);
+        }
+        if (cmbTipoEspecialidad.getItemCount() > 0) {
+            cmbTipoEspecialidad.setSelectedIndex(0);
+        }
+        if (cmbTipoTratamiento.getItemCount() > 0) {
+            cmbTipoTratamiento.setSelectedIndex(0);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -116,6 +148,11 @@ private void cargarComboTipoTratamiento() {
         jLabel2.setText("Tipo de listado:");
 
         cmbTipoListado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbTipoListado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoListadoActionPerformed(evt);
+            }
+        });
 
         btnListar.setText("Listar");
 
@@ -230,6 +267,10 @@ private void cargarComboTipoTratamiento() {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbTipoListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoListadoActionPerformed
+
+    }//GEN-LAST:event_cmbTipoListadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

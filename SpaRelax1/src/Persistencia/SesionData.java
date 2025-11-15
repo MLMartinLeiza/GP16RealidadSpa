@@ -241,7 +241,8 @@ public class SesionData {
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla sesion");
-        } return ok;
+        }
+        return ok;
     }
 
     public boolean altaLogica(int codSesion) {
@@ -263,10 +264,12 @@ public class SesionData {
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla sesion");
-        } return ok;
+        }
+        return ok;
     }
 
-    public void eliminarSesion(int codSesion) {
+    public boolean eliminarSesion(int codSesion) {
+        boolean ok = false;
         String query = "DELETE FROM sesion WHERE codSesion=?";
 
         try {
@@ -276,6 +279,7 @@ public class SesionData {
 
             if (eliminado == 1) {
                 JOptionPane.showMessageDialog(null, "Sesión eliminada");
+                ok = true;
             } else {
                 JOptionPane.showMessageDialog(null, "Error al eliminar sesión");
             }
@@ -284,6 +288,7 @@ public class SesionData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla sesion");
         }
+        return ok;
     }
 
     public List<Sesion> listarSesiones() {

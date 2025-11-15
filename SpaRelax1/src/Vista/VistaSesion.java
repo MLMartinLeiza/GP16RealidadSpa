@@ -193,6 +193,11 @@ public class VistaSesion extends javax.swing.JInternalFrame {
 
         btnEliminar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         btnLimpiar.setText("Limpiar");
@@ -616,6 +621,30 @@ public class VistaSesion extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No se pudo actualizar el estado");
         }
     }//GEN-LAST:event_btnBajaActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int codigo = 0;
+
+        try {
+            codigo = Integer.parseInt(txtBuscar.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese solo numeros");
+            return;
+        }
+
+        if (codigo <= 0) {
+            JOptionPane.showMessageDialog(this, "Código inválido");
+            return;
+        }
+
+        boolean eliminado = sesionData.eliminarSesion(codigo);
+        if (eliminado) {
+            borrarFilaTabla();
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró sesión con ese código");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void cargarComboPacks() {
         List<DiaDeSpa> diasSpa = diaSpaData.listarDiadeSpa();

@@ -120,6 +120,39 @@ public class VistaListados extends javax.swing.JInternalFrame {
         }
     }
 
+    private void armarCabeceraMasajistas() {
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Matrícula");
+        modelo.addColumn("Nombre y Apellido");
+        modelo.addColumn("Teléfono");
+        modelo.addColumn("Especialidad");
+        modelo.addColumn("Estado");
+        tblListas.setModel(modelo);
+    }
+
+    private void armarCabeceraDiasSpaPorFecha() {
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Código Pack");
+        modelo.addColumn("Fecha y Hora");
+        modelo.addColumn("Cliente");
+        modelo.addColumn("Preferencias");
+        modelo.addColumn("Monto");
+        modelo.addColumn("Estado");
+        tblListas.setModel(modelo);
+    }
+
+    private void armarCabeceraDiaSpaCompleto() {
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Código Sesión");
+        modelo.addColumn("Inicio");
+        modelo.addColumn("Fin");
+        modelo.addColumn("Masajista");
+        modelo.addColumn("Tratamiento");
+        modelo.addColumn("Instalación");
+        modelo.addColumn("Consultorio");
+        tblListas.setModel(modelo);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

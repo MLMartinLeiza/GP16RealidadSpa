@@ -1,10 +1,12 @@
 package Vista;
 
+import Modelo.Masajista;
 import Persistencia.DiadeSpaData;
 import Persistencia.MasajistaData;
 import Persistencia.SesionData;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VistaListados extends javax.swing.JInternalFrame {
@@ -34,123 +36,6 @@ public class VistaListados extends javax.swing.JInternalFrame {
         cargarComboEspecialidad();
         cargarComboTipoTratamiento();
 
-    }
-
-    private void cargarComboTipoListado() {
-        cmbTipoListado.removeAllItems();
-        cmbTipoListado.addItem("Día de Spa completo");
-        cmbTipoListado.addItem("Masajistas por especialidad");
-        cmbTipoListado.addItem("Días de Spa por fecha");
-    }
-
-    private void cargarComboHoras() {
-        List<String> horarios = new ArrayList<>();
-
-        horarios.add("08:00");
-        horarios.add("08:30");
-        horarios.add("09:00");
-        horarios.add("09:30");
-        horarios.add("10:00");
-        horarios.add("10:30");
-        horarios.add("11:00");
-        horarios.add("11:30");
-        horarios.add("12:00");
-        horarios.add("12:30");
-        horarios.add("13:00");
-        horarios.add("13:30");
-        horarios.add("14:00");
-        horarios.add("14:30");
-        horarios.add("15:00");
-        horarios.add("15:30");
-        horarios.add("16:00");
-        horarios.add("16:30");
-        horarios.add("17:00");
-        horarios.add("17:30");
-        horarios.add("18:00");
-        horarios.add("18:30");
-        horarios.add("19:00");
-        horarios.add("19:30");
-
-        cmbHoraDesde.removeAllItems();
-        cmbHoraHasta.removeAllItems();
-
-        for (String h : horarios) {
-            cmbHoraDesde.addItem(h);
-            cmbHoraHasta.addItem(h);
-        }
-    }
-
-    private void cargarComboEspecialidad() {
-        cmbTipoEspecialidad.removeAllItems();
-        cmbTipoEspecialidad.addItem("facial");
-        cmbTipoEspecialidad.addItem("corporal");
-        cmbTipoEspecialidad.addItem("relajación");
-        cmbTipoEspecialidad.addItem("estético");
-    }
-
-    private void cargarComboTipoTratamiento() {
-        cmbTipoTratamiento.removeAllItems();
-        cmbTipoTratamiento.addItem("facial");
-        cmbTipoTratamiento.addItem("corporal");
-        cmbTipoTratamiento.addItem("relajación");
-        cmbTipoTratamiento.addItem("estético");
-    }
-
-    private void limpiarTabla() {
-        int filas = modelo.getRowCount() - 1;
-        for (int i = filas; i >= 0; i--) {
-            modelo.removeRow(i);
-        }
-    }
-
-    private void limpiarCampos() {
-        dateDesde.setDate(null);
-        dateHasta.setDate(null);
-        if (cmbHoraDesde.getItemCount() > 0) {
-            cmbHoraDesde.setSelectedIndex(0);
-        }
-        if (cmbHoraHasta.getItemCount() > 0) {
-            cmbHoraHasta.setSelectedIndex(0);
-        }
-        if (cmbTipoEspecialidad.getItemCount() > 0) {
-            cmbTipoEspecialidad.setSelectedIndex(0);
-        }
-        if (cmbTipoTratamiento.getItemCount() > 0) {
-            cmbTipoTratamiento.setSelectedIndex(0);
-        }
-    }
-
-    private void armarCabeceraMasajistas() {
-        modelo = new DefaultTableModel();
-        modelo.addColumn("Matrícula");
-        modelo.addColumn("Nombre y Apellido");
-        modelo.addColumn("Teléfono");
-        modelo.addColumn("Especialidad");
-        modelo.addColumn("Estado");
-        tblListas.setModel(modelo);
-    }
-
-    private void armarCabeceraDiasSpaPorFecha() {
-        modelo = new DefaultTableModel();
-        modelo.addColumn("Código Pack");
-        modelo.addColumn("Fecha y Hora");
-        modelo.addColumn("Cliente");
-        modelo.addColumn("Preferencias");
-        modelo.addColumn("Monto");
-        modelo.addColumn("Estado");
-        tblListas.setModel(modelo);
-    }
-
-    private void armarCabeceraDiaSpaCompleto() {
-        modelo = new DefaultTableModel();
-        modelo.addColumn("Código Sesión");
-        modelo.addColumn("Inicio");
-        modelo.addColumn("Fin");
-        modelo.addColumn("Masajista");
-        modelo.addColumn("Tratamiento");
-        modelo.addColumn("Instalación");
-        modelo.addColumn("Consultorio");
-        tblListas.setModel(modelo);
     }
 
     @SuppressWarnings("unchecked")
@@ -188,6 +73,11 @@ public class VistaListados extends javax.swing.JInternalFrame {
         });
 
         btnListar.setText("Listar");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Fecha desde:");
 
@@ -304,6 +194,169 @@ public class VistaListados extends javax.swing.JInternalFrame {
     private void cmbTipoListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoListadoActionPerformed
 
     }//GEN-LAST:event_cmbTipoListadoActionPerformed
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        String opcion = (String) cmbTipoListado.getSelectedItem();
+        if (opcion == null) {
+            return;
+        }
+
+        switch (opcion) {
+
+            case "Masajistas por especialidad":
+                listarMasajistasPorEspecialidad();
+                break;
+
+            case "Día de Spa completo":
+                //  listarDiaSpaCompleto();
+                break;
+
+            case "Días de Spa por fecha":
+                // listarDiasSpaPorFecha();
+                break;
+        }
+    }//GEN-LAST:event_btnListarActionPerformed
+
+    private void cargarComboTipoListado() {
+        cmbTipoListado.removeAllItems();
+        cmbTipoListado.addItem("Día de Spa completo");
+        cmbTipoListado.addItem("Masajistas por especialidad");
+        cmbTipoListado.addItem("Días de Spa por fecha");
+    }
+
+    private void cargarComboHoras() {
+        List<String> horarios = new ArrayList<>();
+
+        horarios.add("08:00");
+        horarios.add("08:30");
+        horarios.add("09:00");
+        horarios.add("09:30");
+        horarios.add("10:00");
+        horarios.add("10:30");
+        horarios.add("11:00");
+        horarios.add("11:30");
+        horarios.add("12:00");
+        horarios.add("12:30");
+        horarios.add("13:00");
+        horarios.add("13:30");
+        horarios.add("14:00");
+        horarios.add("14:30");
+        horarios.add("15:00");
+        horarios.add("15:30");
+        horarios.add("16:00");
+        horarios.add("16:30");
+        horarios.add("17:00");
+        horarios.add("17:30");
+        horarios.add("18:00");
+        horarios.add("18:30");
+        horarios.add("19:00");
+        horarios.add("19:30");
+
+        cmbHoraDesde.removeAllItems();
+        cmbHoraHasta.removeAllItems();
+
+        for (String h : horarios) {
+            cmbHoraDesde.addItem(h);
+            cmbHoraHasta.addItem(h);
+        }
+    }
+
+    private void cargarComboEspecialidad() {
+        cmbTipoEspecialidad.removeAllItems();
+        cmbTipoEspecialidad.addItem("Facial");
+        cmbTipoEspecialidad.addItem("Corporal");
+        cmbTipoEspecialidad.addItem("Relajacion");
+        cmbTipoEspecialidad.addItem("Estetico");
+    }
+
+    private void cargarComboTipoTratamiento() {
+        cmbTipoTratamiento.removeAllItems();
+        cmbTipoTratamiento.addItem("Facial");
+        cmbTipoTratamiento.addItem("Corporal");
+        cmbTipoTratamiento.addItem("Relajacion");
+        cmbTipoTratamiento.addItem("Estetico");
+    }
+
+    private void limpiarTabla() {
+        int filas = modelo.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
+
+    private void limpiarCampos() {
+        dateDesde.setDate(null);
+        dateHasta.setDate(null);
+        if (cmbHoraDesde.getItemCount() > 0) {
+            cmbHoraDesde.setSelectedIndex(0);
+        }
+        if (cmbHoraHasta.getItemCount() > 0) {
+            cmbHoraHasta.setSelectedIndex(0);
+        }
+        if (cmbTipoEspecialidad.getItemCount() > 0) {
+            cmbTipoEspecialidad.setSelectedIndex(0);
+        }
+        if (cmbTipoTratamiento.getItemCount() > 0) {
+            cmbTipoTratamiento.setSelectedIndex(0);
+        }
+    }
+
+    private void armarCabeceraMasajistas() {
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Matrícula");
+        modelo.addColumn("Nombre y Apellido");
+        modelo.addColumn("Teléfono");
+        modelo.addColumn("Especialidad");
+        modelo.addColumn("Estado");
+        tblListas.setModel(modelo);
+    }
+
+    private void armarCabeceraDiasSpaPorFecha() {
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Código Pack");
+        modelo.addColumn("Fecha y Hora");
+        modelo.addColumn("Cliente");
+        modelo.addColumn("Preferencias");
+        modelo.addColumn("Monto");
+        modelo.addColumn("Estado");
+        tblListas.setModel(modelo);
+    }
+
+    private void armarCabeceraDiaSpaCompleto() {
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Código Sesión");
+        modelo.addColumn("Inicio");
+        modelo.addColumn("Fin");
+        modelo.addColumn("Masajista");
+        modelo.addColumn("Tratamiento");
+        modelo.addColumn("Instalación");
+        modelo.addColumn("Consultorio");
+        tblListas.setModel(modelo);
+    }
+
+    private void listarMasajistasPorEspecialidad() {
+        String especialidad = (String) cmbTipoEspecialidad.getSelectedItem();
+        if (especialidad == null || especialidad.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione una especialidad");
+            return;
+        }
+
+        List<Masajista> masajistas = masajistaData.listarMasajistasPorEspecialidad(especialidad);
+
+        armarCabeceraMasajistas();
+        limpiarTabla();
+
+        for (Masajista m : masajistas) {
+            boolean estado = m.isEstado();
+            modelo.addRow(new Object[]{
+                m.getMatricula(),
+                m.getNombre_apellido(),
+                m.getTelefono(),
+                m.getEspecialidad(),
+                estado
+            });
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

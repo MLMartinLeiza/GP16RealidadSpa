@@ -160,4 +160,35 @@ public class MasajistaData {
         }
         return lista;
     }
+
+    public List<Masajista> listarMasajistasPorEspecialidad(String especialidad) {
+        List<Masajista> masajistas = new ArrayList<>();
+
+        String query = "SELECT * FROM masajista WHERE especialidad = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, especialidad);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Masajista m = new Masajista();
+
+                m.setMatricula(rs.getInt("matricula"));
+                m.setNombre_apellido(rs.getString("nombre_apellido"));
+                m.setTelefono(rs.getString("telefono"));
+                m.setEspecialidad(rs.getString("especialidad"));
+                m.setEstado(rs.getBoolean("estado"));
+
+                masajistas.add(m);
+            }
+
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al listar masajistas por especialidad");
+        }
+
+        return masajistas;
+    }
+
 }

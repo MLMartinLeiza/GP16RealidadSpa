@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -207,6 +208,53 @@ public class DiadeSpaData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla dia_de_spa");
         }
+        return lista;
+    }
+
+    public List<DiaDeSpa> listarDiasDeSpaPorFecha(LocalDate fecha) {
+        List<DiaDeSpa> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM dia_de_spa "
+                + "WHERE fecha_hora >= ? AND fecha_hora < ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            Timestamp desde = Timestamp.valueOf(fecha.atStartOfDay());
+            Timestamp hasta = Timestamp.valueOf(fecha.plusDays(1).atStartOfDay());
+
+            ps.setTimestamp(1, desde);
+            ps.setTimestamp(2, hasta);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                DiaDeSpa d = new DiaDeSpa();
+
+                d.setCodPack(rs.getInt("codPack"));
+
+                Timestamp fh = rs.getTimestamp("fecha_hora");
+                if (fh != null) {
+                    d.setFechaHora(fh.toLocalDateTime());
+                }
+
+                d.setPreferencias(rs.getString("preferencias"));
+                d.setMonto(rs.getDouble("monto"));
+                d.setEstado(rs.getBoolean("estado"));
+
+                int codCli = rs.getInt("codCli");
+                String strCodCli = rs.getString("codCli");
+                if (strCodCli != null) {
+                    d.setCodCli(codCli);
+                }
+
+                lista.add(d);
+            }
+
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al listar días de spa por fecha");
+        }
+
         return lista;
     }
 }

@@ -202,11 +202,11 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(86, 86, 86)
                 .addComponent(btnActualizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBaja)
-                .addGap(38, 38, 38)
+                .addGap(75, 75, 75)
                 .addComponent(btnAlta)
                 .addGap(54, 54, 54)
                 .addComponent(btnEliminar)

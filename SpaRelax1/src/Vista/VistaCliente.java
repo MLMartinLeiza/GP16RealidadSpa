@@ -320,7 +320,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         String afecciones = txtAfecciones.getText();
         boolean estado = chkActivo.isSelected();
 
-        // Crear cliente con código (clave primaria)
+        
         Cliente c = new Cliente( dni, nombreCompleto, telefono, edad, afecciones, estado);
 
         cliente.insertarCliente(c);  
@@ -370,7 +370,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:  
         
       try {
-        //int codigo = Integer.parseInt(txtCodigo.getText());
+       
         int dni = Integer.parseInt(txtDni.getText());
         String nombreCompleto = txtNombreCompleto.getText();
         String telefono = txtTelefono.getText();
@@ -378,7 +378,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         String afecciones = txtAfecciones.getText();
         boolean estado = chkActivo.isSelected();
 
-        // Crear cliente con código
+        
         Cliente c = new Cliente( dni, nombreCompleto, telefono, edad, afecciones, estado);
         
         cliente.actualizarCliente(c);

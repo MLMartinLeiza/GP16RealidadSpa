@@ -320,4 +320,86 @@ public class SesionData {
         }
         return sesiones;
     }
+
+    public List<Sesion> listarSesionesPorPack(int codPack) {
+        List<Sesion> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM sesion WHERE codPack = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, codPack);
+
+            ResultSet rs = ps.executeQuery();
+
+            DiaDeSpa diaSpa = null;
+            if (diaSpaData != null) {
+                diaSpa = diaSpaData.buscarDiadeSpaPorCodigo(codPack);
+            }
+
+            while (rs.next()) {
+                Sesion s = new Sesion();
+
+                s.setCodSesion(rs.getInt("codSesion"));
+
+                Timestamp ini = rs.getTimestamp("fecha_hora_inicio");
+                if (ini != null) {
+                    s.setFechaHoraInicio(ini.toLocalDateTime());
+                }
+
+                Timestamp fin = rs.getTimestamp("fecha_hora_fin");
+                if (fin != null) {
+                    s.setFechaHoraFin(fin.toLocalDateTime());
+                }
+
+                s.setEstado(rs.getBoolean("estado"));
+
+                if (diaSpa != null) {
+                    s.setDiaDeSpa(diaSpa);
+                } else {
+                    DiaDeSpa d = new DiaDeSpa();
+                    d.setCodPack(codPack);
+                    s.setDiaDeSpa(d);
+                }
+
+                int codTrat = rs.getInt("codTratamiento");
+                String strTrat = rs.getString("codTratamiento");
+                if (strTrat != null && tratamientoData != null) {
+                    Tratamiento t = tratamientoData.buscarTratamiento(codTrat);
+                    s.setTratamiento(t);
+                }
+
+                int matricula = rs.getInt("matricula");
+                String strMat = rs.getString("matricula");
+                if (strMat != null && masajistaData != null) {
+                    Masajista m = masajistaData.buscarMasajistaPorMatricula(matricula);
+                    s.setMasajista(m);
+                }
+
+                int nroCons = rs.getInt("nroConsultorio");
+                String strCons = rs.getString("nroConsultorio");
+                if (strCons != null && consultorioData != null) {
+                    Consultorio c = consultorioData.buscarConsultorio(nroCons);
+                    s.setConsultorio(c);
+                }
+
+                int codInstal = rs.getInt("codInstal");
+                String strInst = rs.getString("codInstal");
+                if (strInst != null && instalacionData != null) {
+                    Instalacion i = instalacionData.buscarInstalacionPorCodigo(codInstal);
+                    s.setInstalacion(i);
+                }
+
+                lista.add(s);
+            }
+
+            rs.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al listar sesiones por pack ");
+        }
+
+        return lista;
+    }
+
 }

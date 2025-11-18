@@ -2,6 +2,7 @@ package Vista;
 
 import Modelo.DiaDeSpa;
 import Modelo.Masajista;
+import Modelo.Sesion;
 import Persistencia.DiadeSpaData;
 import Persistencia.MasajistaData;
 import Persistencia.SesionData;
@@ -65,6 +66,8 @@ public class VistaListados extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListas = new javax.swing.JTable();
         btnLimpiar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtCodPack = new javax.swing.JTextField();
 
         jLabel1.setText("Listados");
 
@@ -116,6 +119,8 @@ public class VistaListados extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel9.setText("Cod. Pack:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,16 +151,23 @@ public class VistaListados extends javax.swing.JInternalFrame {
                                     .addComponent(dateHasta, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                                     .addComponent(cmbHoraHasta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(cmbTipoListado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnListar)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cmbTipoEspecialidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbTipoTratamiento, 0, 250, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtCodPack, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                                .addComponent(btnListar))
+                            .addComponent(cmbTipoEspecialidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbTipoTratamiento, 0, 250, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(420, 420, 420)
                         .addComponent(jLabel1)
@@ -198,7 +210,9 @@ public class VistaListados extends javax.swing.JInternalFrame {
                     .addComponent(cmbHoraDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(cmbHoraHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnListar))
+                    .addComponent(btnListar)
+                    .addComponent(jLabel9)
+                    .addComponent(txtCodPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -226,7 +240,7 @@ public class VistaListados extends javax.swing.JInternalFrame {
                 break;
 
             case "Día de Spa completo":
-                //  listarDiaSpaCompleto();
+                listarDiaSpaCompleto();
                 break;
 
             case "Días de Spa por fecha":
@@ -415,6 +429,70 @@ public class VistaListados extends javax.swing.JInternalFrame {
             
         }
     }
+    
+    private void listarDiaSpaCompleto() {
+
+    String codPackTxt = txtCodPack.getText().trim();
+
+    if (codPackTxt.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese un código de Día de Spa");
+        return;
+    }
+
+    int codPack = 0;
+    try {
+        codPack = Integer.parseInt(codPackTxt);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El código debe ser un número");
+        return;
+    }
+
+    List<Sesion> sesiones = sesionData.listarSesionesPorPack(codPack);
+
+    if (sesiones == null || sesiones.isEmpty()) {
+        armarCabeceraDiaSpaCompleto();
+        limpiarTabla();
+        JOptionPane.showMessageDialog(this, "No hay sesiones para el Día de Spa: " + codPack);
+        return;
+    }
+
+    armarCabeceraDiaSpaCompleto();
+    limpiarTabla();
+
+    for (Sesion s : sesiones) {
+
+        String masajista = "-";
+        if (s.getMasajista() != null) {
+            masajista = s.getMasajista().getNombreApellido();
+        }
+
+        String tratamiento = "-";
+        if (s.getTratamiento() != null) {
+            tratamiento = s.getTratamiento().getNombre();
+        }
+
+        String instalacion = "-";
+        if (s.getInstalacion() != null) {
+            instalacion = s.getInstalacion().getNombre();
+        }
+
+        String consultorio = "-";
+        if (s.getConsultorio() != null) {
+            consultorio = String.valueOf(s.getConsultorio().getNroConsultorio());
+        }
+
+        modelo.addRow(new Object[]{
+            s.getCodSesion(),
+            s.getFechaHoraInicio(),
+            s.getFechaHoraFin(),
+            masajista,
+            tratamiento,
+            instalacion,
+            consultorio
+        });
+    }
+}
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLimpiar;
@@ -434,7 +512,9 @@ public class VistaListados extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblListas;
+    private javax.swing.JTextField txtCodPack;
     // End of variables declaration//GEN-END:variables
 }

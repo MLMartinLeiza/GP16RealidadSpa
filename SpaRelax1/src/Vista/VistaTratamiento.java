@@ -18,20 +18,17 @@ public class VistaTratamiento extends javax.swing.JInternalFrame {
 
     public VistaTratamiento() {
         initComponents();
-        setClosable(true);
+       
+        tratamientoData = new TratamientoData();
+        modeloTabla = new DefaultTableModel();  
+        armarTabla()
+                ;
+        setClosable(true); 
         setIconifiable(true);
         setResizable(true);
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        tratamientoData = new TratamientoData();
-        modeloTabla = new DefaultTableModel();
-        armarTabla();
-        btnNuevo.addActionListener(e -> limpiarCampos());
-        btnGuardar.addActionListener(e -> guardarTratamiento());
-        btnBuscar.addActionListener(e -> buscarTratamiento());
-        btnModificar.addActionListener(e -> modificarTratamiento());
-        btnEliminar.addActionListener(e -> eliminarTratamiento());
-        btnListar.addActionListener(e -> listarTratamientos());
-
+       
     }
 
     private void limpiarCampos() {
@@ -208,6 +205,11 @@ public class VistaTratamiento extends javax.swing.JInternalFrame {
 
         btnNuevo.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
         btnGuardar.setText("Guardar");
@@ -444,6 +446,11 @@ public class VistaTratamiento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarTratamiento();
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        limpiarCampos ();
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

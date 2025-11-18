@@ -388,7 +388,7 @@ public class VistaListados extends javax.swing.JInternalFrame {
         List<DiaDeSpa> dias = diaSpaData.listarDiasDeSpaPorFecha(fecha);
 
         armarCabeceraDiasSpaPorFecha();
-        
+        limpiarTabla();
 
         for (DiaDeSpa d : dias) {
             String estado;
@@ -411,6 +411,8 @@ public class VistaListados extends javax.swing.JInternalFrame {
                 d.getMonto(),
                 estado
             });
+            
+            
         }
     }
 

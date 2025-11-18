@@ -2,6 +2,7 @@ package Persistencia;
 
 import Modelo.DiaDeSpa;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -214,16 +215,11 @@ public class DiadeSpaData {
     public List<DiaDeSpa> listarDiasDeSpaPorFecha(LocalDate fecha) {
         List<DiaDeSpa> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM dia_de_spa "
-                + "WHERE fecha_hora >= ? AND fecha_hora < ?";
+        String query = "SELECT * FROM dia_de_spa WHERE DATE(fecha_hora) = ?";
 
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
+        try (PreparedStatement ps = con.prepareStatement(query)) {
 
-            Timestamp desde = Timestamp.valueOf(fecha.atStartOfDay());
-            Timestamp hasta = Timestamp.valueOf(fecha.plusDays(1).atStartOfDay());
-
-            ps.setTimestamp(1, desde);
-            ps.setTimestamp(2, hasta);
+            ps.setDate(1, Date.valueOf(fecha));
 
             ResultSet rs = ps.executeQuery();
 
@@ -232,9 +228,9 @@ public class DiadeSpaData {
 
                 d.setCodPack(rs.getInt("codPack"));
 
-                Timestamp fh = rs.getTimestamp("fecha_hora");
-                if (fh != null) {
-                    d.setFechaHora(fh.toLocalDateTime());
+                Timestamp fechaHora = rs.getTimestamp("fecha_hora");
+                if (fechaHora != null) {
+                    d.setFechaHora(fechaHora.toLocalDateTime());
                 }
 
                 d.setPreferencias(rs.getString("preferencias"));
@@ -257,4 +253,5 @@ public class DiadeSpaData {
 
         return lista;
     }
+
 }

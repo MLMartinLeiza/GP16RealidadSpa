@@ -79,7 +79,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
          txtNombreCompleto.setText("");
         txtTelefono.setText("");
         txtEdad.setText("");
-        txtAficciones.setText("");
+        txtAfecciones.setText("");
         chkActivo.setSelected(false);
     }
                                      
@@ -109,7 +109,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         txtNombreCompleto = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
-        txtAficciones = new javax.swing.JTextField();
+        txtAfecciones = new javax.swing.JTextField();
         txtDni = new javax.swing.JTextField();
         txtEdad = new javax.swing.JTextField();
         chkActivo = new javax.swing.JCheckBox();
@@ -125,7 +125,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Edad");
 
-        jLabel5.setText("Aficciones");
+        jLabel5.setText("Afecciones");
 
         jLabel6.setText("Estado");
 
@@ -222,14 +222,11 @@ public class VistaCliente extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel1)
+                            .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAficciones, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAfecciones, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
@@ -271,7 +268,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAficciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtAfecciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -282,10 +279,11 @@ public class VistaCliente extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel3))
                                 .addGap(11, 11, 11)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -313,22 +311,26 @@ public class VistaCliente extends javax.swing.JInternalFrame {
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         // TODO add your handling code here
          try {
-            int codigo = Integer.parseInt(txtCodigo.getText());
-            int dni = Integer.parseInt(txtDni.getText());
-            String nombreCompleto = txtNombreCompleto.getText();
-            String telefono = txtTelefono.getText();
-            int edad = Integer.parseInt(txtEdad.getText());
-            String afecciones = txtAficciones.getText();
-            boolean estado = chkActivo.isSelected();
-            
-            Cliente c = new Cliente(dni, nombreCompleto, telefono, edad, afecciones, estado);
-            cliente.insertarCliente(c);  
-            cargarTabla();
-            limpiarCampos();
+     
+        int dni = Integer.parseInt(txtDni.getText());
+        String nombreCompleto = txtNombreCompleto.getText();
+        String telefono = txtTelefono.getText();
+        int edad = Integer.parseInt(txtEdad.getText());
+        String afecciones = txtAfecciones.getText();
+        boolean estado = chkActivo.isSelected();
 
-           
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error al actualizar Cliente: " + e.getMessage());
+        // Crear cliente con código (clave primaria)
+        Cliente c = new Cliente( dni, nombreCompleto, telefono, edad, afecciones, estado);
+
+        cliente.insertarCliente(c);  
+
+        cargarTabla();
+        limpiarCampos();
+
+        JOptionPane.showMessageDialog(this, "Cliente insertado correctamente.");
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al insertar Cliente: " + e.getMessage());
     }   
       
         
@@ -367,22 +369,27 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:  
         
       try {
-            int codigo = Integer.parseInt(txtCodigo.getText());
-            int dni = Integer.parseInt(txtDni.getText());
-            String nombreCompleto = txtNombreCompleto.getText();
-            String telefono = txtTelefono.getText();
-            int edad = Integer.parseInt(txtEdad.getText());
-            String afecciones = txtAficciones.getText();
-            boolean estado = chkActivo.isSelected();
-            
-            Cliente c = new Cliente(dni, nombreCompleto, telefono, edad, afecciones, estado);
-            cliente.actualizarCliente(c);    
-            cargarTabla ();
-            limpiarCampos();
-           
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error al actualizar Cliente: " + e.getMessage());
-    }   
+        //int codigo = Integer.parseInt(txtCodigo.getText());
+        int dni = Integer.parseInt(txtDni.getText());
+        String nombreCompleto = txtNombreCompleto.getText();
+        String telefono = txtTelefono.getText();
+        int edad = Integer.parseInt(txtEdad.getText());
+        String afecciones = txtAfecciones.getText();
+        boolean estado = chkActivo.isSelected();
+
+        // Crear cliente con código
+        Cliente c = new Cliente( dni, nombreCompleto, telefono, edad, afecciones, estado);
+        
+        cliente.actualizarCliente(c);
+
+        cargarTabla();
+        limpiarCampos();
+
+        JOptionPane.showMessageDialog(this, "Cliente actualizado correctamente.");
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al actualizar Cliente: " + e.getMessage());
+    }
         
                                                  
     }
@@ -428,7 +435,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtAficciones;
+    private javax.swing.JTextField txtAfecciones;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtEdad;

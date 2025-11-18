@@ -134,7 +134,7 @@ public class VistaInstalacion extends javax.swing.JInternalFrame {
                 ins.getNombre(),
                 ins.getDetalleUso(),
                 ins.getPrecio30m(),
-                ins.isEstado() ? "Activo" : "Inactivo"
+                ins.isEstado()
             });
         }
     }

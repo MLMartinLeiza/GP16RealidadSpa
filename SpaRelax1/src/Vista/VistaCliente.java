@@ -67,7 +67,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
             c.getTelefono(),        
             c.getEdad(),            
             c.getAfecciones(),      
-            c.isEstado() ? "Activo" : "Inactivo" 
+            c.isEstado()
                 
         });
         jTable1.setModel(modelo);

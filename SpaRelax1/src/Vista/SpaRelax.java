@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 
 /**
  *
- * @author Vinchucon
+ * @author SPA Grupo16
  */
 public class SpaRelax extends javax.swing.JFrame {
 
@@ -30,32 +30,27 @@ public class SpaRelax extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu1 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        Tratamiento = new javax.swing.JMenuItem();
-        Consultorios = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu9 = new javax.swing.JMenu();
-        mItemFormSesion = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
+        menCliente = new javax.swing.JMenu();
+        cliente = new javax.swing.JMenuItem();
+        menMasajista = new javax.swing.JMenu();
+        masajista = new javax.swing.JMenuItem();
+        menTratamiento = new javax.swing.JMenu();
+        tratamiento = new javax.swing.JMenuItem();
+        menConsultorios = new javax.swing.JMenu();
+        consultorios = new javax.swing.JMenuItem();
+        menInstalacion = new javax.swing.JMenu();
+        instalacion = new javax.swing.JMenuItem();
+        menSesion = new javax.swing.JMenu();
+        formSesion = new javax.swing.JMenuItem();
+        menDiaDeSpa = new javax.swing.JMenu();
         mItemDiaSpa = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        menListados = new javax.swing.JMenu();
         mnuItemListados = new javax.swing.JMenuItem();
 
-        jMenu1.setText("jMenu1");
-
-        jMenu7.setText("jMenu7");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SPA Relax \"Entre Dedos\"");
 
         javax.swing.GroupLayout jDesktopLayout = new javax.swing.GroupLayout(jDesktop);
         jDesktop.setLayout(jDesktopLayout);
@@ -78,84 +73,84 @@ public class SpaRelax extends javax.swing.JFrame {
             }
         });
 
-        jMenu2.setText("Cliente");
+        menCliente.setText("Cliente");
 
-        jMenuItem1.setText("Clientes");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        cliente.setText("Clientes");
+        cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                clienteActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        menCliente.add(cliente);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(menCliente);
 
-        jMenu3.setText("Masajista");
+        menMasajista.setText("Masajista");
 
-        jMenuItem2.setText("Masajistas");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        masajista.setText("Masajistas");
+        masajista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                masajistaActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
+        menMasajista.add(masajista);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menMasajista);
 
-        jMenu4.setText("Tratamiento");
-        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+        menTratamiento.setText("Tratamiento");
+        menTratamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu4ActionPerformed(evt);
+                menTratamientoActionPerformed(evt);
             }
         });
 
-        Tratamiento.setText("Tratamientos");
-        Tratamiento.addActionListener(new java.awt.event.ActionListener() {
+        tratamiento.setText("Tratamientos");
+        tratamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TratamientoActionPerformed(evt);
+                tratamientoActionPerformed(evt);
             }
         });
-        jMenu4.add(Tratamiento);
+        menTratamiento.add(tratamiento);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(menTratamiento);
 
-        Consultorios.setText("Consultorio");
+        menConsultorios.setText("Consultorio");
 
-        jMenuItem4.setText("Consultorios");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        consultorios.setText("Consultorios");
+        consultorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                consultoriosActionPerformed(evt);
             }
         });
-        Consultorios.add(jMenuItem4);
+        menConsultorios.add(consultorios);
 
-        jMenuBar1.add(Consultorios);
+        jMenuBar1.add(menConsultorios);
 
-        jMenu6.setText("Instalacion");
+        menInstalacion.setText("Instalacion");
 
-        jMenuItem5.setText("Instalaciones");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        instalacion.setText("Instalaciones");
+        instalacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                instalacionActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem5);
+        menInstalacion.add(instalacion);
 
-        jMenuBar1.add(jMenu6);
+        jMenuBar1.add(menInstalacion);
 
-        jMenu9.setText("Sesión");
+        menSesion.setText("Sesión");
 
-        mItemFormSesion.setText("Form. Sesión");
-        mItemFormSesion.addActionListener(new java.awt.event.ActionListener() {
+        formSesion.setText("Form. Sesión");
+        formSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mItemFormSesionActionPerformed(evt);
+                formSesionActionPerformed(evt);
             }
         });
-        jMenu9.add(mItemFormSesion);
+        menSesion.add(formSesion);
 
-        jMenuBar1.add(jMenu9);
+        jMenuBar1.add(menSesion);
 
-        jMenu8.setText("Dia de Spa");
+        menDiaDeSpa.setText("Dia de Spa");
 
         mItemDiaSpa.setText("Form. Dia de Spa");
         mItemDiaSpa.addActionListener(new java.awt.event.ActionListener() {
@@ -163,11 +158,11 @@ public class SpaRelax extends javax.swing.JFrame {
                 mItemDiaSpaActionPerformed(evt);
             }
         });
-        jMenu8.add(mItemDiaSpa);
+        menDiaDeSpa.add(mItemDiaSpa);
 
-        jMenuBar1.add(jMenu8);
+        jMenuBar1.add(menDiaDeSpa);
 
-        jMenu5.setText("Listados");
+        menListados.setText("Listados");
 
         mnuItemListados.setText("Ver listados");
         mnuItemListados.addActionListener(new java.awt.event.ActionListener() {
@@ -175,9 +170,9 @@ public class SpaRelax extends javax.swing.JFrame {
                 mnuItemListadosActionPerformed(evt);
             }
         });
-        jMenu5.add(mnuItemListados);
+        menListados.add(mnuItemListados);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(menListados);
 
         setJMenuBar(jMenuBar1);
 
@@ -202,48 +197,48 @@ public class SpaRelax extends javax.swing.JFrame {
         centrarVentana(diaDeSpa);
     }//GEN-LAST:event_mItemDiaSpaActionPerformed
 
-    private void mItemFormSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemFormSesionActionPerformed
+    private void formSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formSesionActionPerformed
         VistaSesion sesion = new VistaSesion();
         jDesktop.add(sesion);
         sesion.setVisible(true);
         centrarVentana(sesion);
-    }//GEN-LAST:event_mItemFormSesionActionPerformed
+    }//GEN-LAST:event_formSesionActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void instalacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instalacionActionPerformed
         VistaInstalacion instalacion = new VistaInstalacion();
         jDesktop.add(instalacion);
         instalacion.setVisible(true);
         centrarVentana(instalacion);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_instalacionActionPerformed
 
-    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+    private void menTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menTratamientoActionPerformed
 
 
-    }//GEN-LAST:event_jMenu4ActionPerformed
+    }//GEN-LAST:event_menTratamientoActionPerformed
 
-    private void TratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TratamientoActionPerformed
+    private void tratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tratamientoActionPerformed
         // TODO add your handling code here:
 
         VistaTratamiento vistaT = new VistaTratamiento();
         jDesktop.add(vistaT);
         vistaT.setVisible(true);
         centrarVentana(vistaT);
-    }//GEN-LAST:event_TratamientoActionPerformed
+    }//GEN-LAST:event_tratamientoActionPerformed
 
     private void jMenuBar1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jMenuBar1AncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuBar1AncestorAdded
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void consultoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultoriosActionPerformed
         VistaConsultorio vistaC = new VistaConsultorio();
 
         jDesktop.add(vistaC);
         vistaC.setVisible(true);
         centrarVentana(vistaC);
         vistaC.toFront();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_consultoriosActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteActionPerformed
         // TODO add your handling code here:
         VistaCliente vistac = new VistaCliente();
         jDesktop.add(vistac);
@@ -252,7 +247,7 @@ public class SpaRelax extends javax.swing.JFrame {
         vistac.toFront();
 
 
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_clienteActionPerformed
 
     private void mnuItemListadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemListadosActionPerformed
         VistaListados vistaListas = new VistaListados();
@@ -261,11 +256,11 @@ public class SpaRelax extends javax.swing.JFrame {
         centrarVentana(vistaListas);
     }//GEN-LAST:event_mnuItemListadosActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void masajistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masajistaActionPerformed
         VistaMasajista vistaMasajista = new VistaMasajista();
         jDesktop.add(vistaMasajista);
         vistaMasajista.setVisible(true);
-        centrarVentana(vistaMasajista);    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        centrarVentana(vistaMasajista);    }//GEN-LAST:event_masajistaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,25 +305,23 @@ public class SpaRelax extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu Consultorios;
-    private javax.swing.JMenuItem Tratamiento;
+    private javax.swing.JMenuItem cliente;
+    private javax.swing.JMenuItem consultorios;
+    private javax.swing.JMenuItem formSesion;
+    private javax.swing.JMenuItem instalacion;
     private javax.swing.JDesktopPane jDesktop;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem mItemDiaSpa;
-    private javax.swing.JMenuItem mItemFormSesion;
+    private javax.swing.JMenuItem masajista;
+    private javax.swing.JMenu menCliente;
+    private javax.swing.JMenu menConsultorios;
+    private javax.swing.JMenu menDiaDeSpa;
+    private javax.swing.JMenu menInstalacion;
+    private javax.swing.JMenu menListados;
+    private javax.swing.JMenu menMasajista;
+    private javax.swing.JMenu menSesion;
+    private javax.swing.JMenu menTratamiento;
     private javax.swing.JMenuItem mnuItemListados;
+    private javax.swing.JMenuItem tratamiento;
     // End of variables declaration//GEN-END:variables
 }

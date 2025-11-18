@@ -46,7 +46,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
     }
     
      
-      private void cargarTabla() {
+    private void cargarTabla() {
           modelo.setRowCount(0);
 
     List<Cliente> listarClientes = cliente.listarClientes();
@@ -73,7 +73,8 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         jTable1.setModel(modelo);
       }
     }
-     private void limpiarCampos() {
+    
+    private void limpiarCampos() {
          txtCodigo.setText(""); 
          txtDni.setText("");
          txtNombreCompleto.setText("");
@@ -393,6 +394,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
         
                                                  
     }
+    
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
 
     }//GEN-LAST:event_btnActualizarActionPerformed

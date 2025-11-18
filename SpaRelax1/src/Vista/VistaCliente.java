@@ -405,6 +405,7 @@ public class VistaCliente extends javax.swing.JInternalFrame {
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
         // TODO add your handling code here:
+        cargarTabla ();
        
     }//GEN-LAST:event_btnMostrarActionPerformed
 

@@ -366,7 +366,7 @@ public class VistaListados extends javax.swing.JInternalFrame {
             boolean estado = m.isEstado();
             modelo.addRow(new Object[]{
                 m.getMatricula(),
-                m.getNombre_apellido(),
+                m.getNombreApellido(),
                 m.getTelefono(),
                 m.getEspecialidad(),
                 estado

@@ -12,7 +12,7 @@ package Modelo;
 public class Masajista {
 
     private int matricula;
-    private String nombre_apellido;
+    private String nombreApellido;
     private String telefono;
     private String especialidad;
     private boolean estado;
@@ -21,8 +21,16 @@ public class Masajista {
 
     }
 
-    public Masajista(String nombre_apellido, String telefono, String especialidad, boolean estado) {
-        this.nombre_apellido = nombre_apellido;
+    public Masajista(String nombreApellido, String telefono, String especialidad, boolean estado) {
+        this.nombreApellido = nombreApellido;
+        this.telefono = telefono;
+        this.especialidad = especialidad;
+        this.estado = estado;
+    }
+    
+    public Masajista(int matricula, String nombreApellido, String telefono, String especialidad, boolean estado) {
+        this.matricula = matricula;
+        this.nombreApellido = nombreApellido;
         this.telefono = telefono;
         this.especialidad = especialidad;
         this.estado = estado;
@@ -36,12 +44,12 @@ public class Masajista {
         this.matricula = matricula;
     }
 
-    public String getNombre_apellido() {
-        return nombre_apellido;
+    public String getNombreApellido() {
+        return nombreApellido;
     }
 
-    public void setNombre_apellido(String nombre_apellido) {
-        this.nombre_apellido = nombre_apellido;
+    public void setNombreApellido(String nombreApellido) {
+        this.nombreApellido = nombreApellido;
     }
 
     public String getTelefono() {
@@ -70,7 +78,7 @@ public class Masajista {
 
     @Override
     public String toString() {
-        return "Matrícula: " + matricula + " " + nombre_apellido;
+        return "Matrícula: " + matricula + " " + nombreApellido;
     }
 
 }

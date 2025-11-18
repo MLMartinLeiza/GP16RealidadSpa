@@ -69,10 +69,10 @@ public class SpaRelax extends javax.swing.JFrame {
         );
 
         jMenuBar1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jMenuBar1AncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -93,6 +93,11 @@ public class SpaRelax extends javax.swing.JFrame {
         jMenu3.setText("Masajista");
 
         jMenuItem2.setText("Masajistas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
@@ -255,6 +260,12 @@ public class SpaRelax extends javax.swing.JFrame {
         vistaListas.setVisible(true);
         centrarVentana(vistaListas);
     }//GEN-LAST:event_mnuItemListadosActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        VistaMasajista vistaMasajista = new VistaMasajista();
+        jDesktop.add(vistaMasajista);
+        vistaMasajista.setVisible(true);
+        centrarVentana(vistaMasajista);    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

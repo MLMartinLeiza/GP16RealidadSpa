@@ -18,7 +18,7 @@ public class MasajistaData {
         String query = "INSERT INTO masajista(nombre_apellido, telefono, especialidad, estado) VALUES(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, m.getNombre_apellido());
+            ps.setString(1, m.getNombreApellido());
             ps.setString(2, m.getTelefono());
             ps.setString(3, m.getEspecialidad());
             ps.setBoolean(4, m.isEstado());
@@ -33,15 +33,14 @@ public class MasajistaData {
             }
             ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla masajista");
-        }
+          JOptionPane.showMessageDialog(null, "Error SQL completo: " + e.getMessage());        }
     }
 
     public void actualizarMasajista(Masajista m) {
         String query = "UPDATE masajista SET nombre_apellido=?, telefono=?, especialidad=?, estado=? WHERE matricula=?";
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, m.getNombre_apellido());
+            ps.setString(1, m.getNombreApellido());
             ps.setString(2, m.getTelefono());
             ps.setString(3, m.getEspecialidad());
             ps.setBoolean(4, m.isEstado());
@@ -70,7 +69,7 @@ public class MasajistaData {
             if (rs.next()) {
                 m = new Masajista();
                 m.setMatricula(rs.getInt("matricula"));
-                m.setNombre_apellido(rs.getString("nombre_apellido"));
+                m.setNombreApellido(rs.getString("nombre_apellido"));
                 m.setTelefono(rs.getString("telefono"));
                 m.setEspecialidad(rs.getString("especialidad"));
                 m.setEstado(rs.getBoolean("estado"));
@@ -140,7 +139,7 @@ public class MasajistaData {
 
     public List<Masajista> listarMasajistas() {
         List<Masajista> lista = new ArrayList<>();
-        String query = "SELECT * FROM masajista WHERE estado=1";
+        String query = "SELECT * FROM masajista";
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -148,7 +147,7 @@ public class MasajistaData {
             while (rs.next()) {
                 Masajista m = new Masajista();
                 m.setMatricula(rs.getInt("matricula"));
-                m.setNombre_apellido(rs.getString("nombre_apellido"));
+                m.setNombreApellido(rs.getString("nombre_apellido"));
                 m.setTelefono(rs.getString("telefono"));
                 m.setEspecialidad(rs.getString("especialidad"));
                 m.setEstado(rs.getBoolean("estado"));
@@ -175,7 +174,7 @@ public class MasajistaData {
                 Masajista m = new Masajista();
 
                 m.setMatricula(rs.getInt("matricula"));
-                m.setNombre_apellido(rs.getString("nombre_apellido"));
+                m.setNombreApellido(rs.getString("nombre_apellido"));
                 m.setTelefono(rs.getString("telefono"));
                 m.setEspecialidad(rs.getString("especialidad"));
                 m.setEstado(rs.getBoolean("estado"));

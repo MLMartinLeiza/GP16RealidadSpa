@@ -803,7 +803,7 @@ public class VistaSesion extends javax.swing.JInternalFrame {
 
         Object masajista;
         if (sesion.getMasajista() != null) {
-            masajista = sesion.getMasajista().getNombre_apellido();
+            masajista = sesion.getMasajista().getNombreApellido();
         } else {
             masajista = "-";
         }
